@@ -1,0 +1,71 @@
+Burgers：动态案例
+==============================
+
+Burgers 方程同时包含空间和时间，是检查初始条件、边界条件、时空采样和动态训练方法的基础案例。
+
+可信参考解
+----------
+
+本案例现在使用独立实现的 Cole–Hopf 参考解做训练后评价。大白话说，程序先把非线性的
+Burgers 方程变换成热方程，再用带反射项的热核和 Gauss–Legendre 积分算出参考曲线。
+参考解不会进入训练损失、采样或参数更新，因此不会把答案泄漏给 PINN。
+
+数学依据是 `Cole (1951) <https://doi.org/10.1090/qam/42889>`_ 和
+`Hopf (1950) <https://doi.org/10.1002/cpa.3160030302>`_。这两项是数学论文，
+不是供复制的代码仓库；本项目没有使用或复制任何外部实现，也没有引入新的依赖。
+
+为避免把数值积分误当成绝对真值，参考解带有三项自动检查：初边值一致性、积分点数
+从 512 加倍到 1024 后的收敛性，以及有限差分 PDE 残差。默认使用 float64、1024 个
+积分点和两层反射镜像。对于 ``0 < t < 0.002`` 的请求会明确报错；正式四个时间片
+``[0.00, 0.33, 0.67, 1.00]`` 均在验证范围内。
+
+快速检查
+--------
+
+.. code-block:: powershell
+
+   $run = Get-Date -Format "yyyyMMdd_HHmmss"
+   .\.venv\Scripts\python -m examples.burgers --smoke --output-dir "runs/burgers_smoke_$run"
+
+较长的默认训练
+--------------
+
+.. code-block:: powershell
+
+   $run = Get-Date -Format "yyyyMMdd_HHmmss"
+   .\.venv\Scripts\python -m examples.burgers --output-dir "runs/burgers_baseline_$run"
+
+相应设置位于 ``configs/reference_runs/burgers_smoke.yaml`` 和 ``configs/reference_runs/burgers_baseline.yaml``。
+短案例训练 3 步，只验证全流程；默认基线训练 10,000 步，用于保存正式的单次定种子结果。
+
+查看结果
+--------
+
+除了总误差，还应查看：
+
+* 初始条件误差；
+* 边界条件误差；
+* 方程残差；
+* 不同时间位置的预测；
+* 运行时间以及是否出现 NaN 或无穷大。
+
+每次运行至少保存 ``metrics.json``、``compute_ledger.json``、``history.csv``、
+``predictions.npz``、``reference_comparison.svg``、``failure_notes.md`` 和
+``reference_validation.json``、``manifest.json``。其中 ``metrics.json`` 包含相对 L2、最大绝对误差和 RMSE；
+``compute_ledger.json`` 记录训练步数与墙钟时间；图中同时显示四个时间片的参考曲线、
+普通 PINN、绝对误差和损失曲线。
+
+正式基线结果
+----------------
+
+2026-08-26 在 CPU 上使用默认基线配置完成 10,000 步固定种子运行。相对 L2 为 ``0.072217``，
+最大绝对误差为 ``0.873705``，PDE 残差 RMSE 为 ``0.034399``，边界 RMSE 为 ``0.003126``，
+初值 RMSE 为 ``0.021483``，训练用时 ``78.374 s``。完整产物位于
+``results/baselines/burgers_baseline_reference_20260826/``。
+
+.. image:: /_static/methods/burgers_baseline.svg
+   :alt: Burgers 10,000 步普通 PINN 基线与 Cole--Hopf 参考解对照
+   :width: 100%
+
+这些结果仍然只代表一个固定配置和一个随机种子。参考解使误差可计算，但不会自动把
+短跑或单次基线升级为论文精度、统计显著性或方法优越性结论。

@@ -1,0 +1,160 @@
+/* Decorative document frame around the Sphinx Read the Docs shell. */
+
+:root {
+  --doc-ink: #1c2430;
+  --doc-cinnabar: #8d3b32;
+  --doc-gold: #a67c45;
+  --doc-paper: #f7f1e6;
+  --doc-rule: #e4d5bf;
+  --doc-side: #1a2431;
+}
+
+body {
+  background:
+    radial-gradient(circle at 8% 0%, rgba(166, 124, 69, 0.2), transparent 26%),
+    radial-gradient(circle at 100% 12%, rgba(141, 59, 50, 0.16), transparent 22%),
+    linear-gradient(165deg, #2a384c 0%, #17202c 55%, #121820 100%);
+  color: var(--doc-ink);
+}
+
+.wy-nav-side {
+  background: var(--doc-side);
+  border-right: 3px solid var(--doc-gold);
+  box-shadow: inset -12px 0 24px rgba(0, 0, 0, 0.18);
+}
+
+.wy-side-nav-search {
+  background: #141c27;
+  border-bottom: 1px solid rgba(166, 124, 69, 0.5);
+}
+
+.wy-side-nav-search > a,
+.wy-side-nav-search .icon {
+  color: #f6efe4;
+}
+
+.wy-side-nav-search input[type="text"] {
+  border: 1px solid rgba(166, 124, 69, 0.7);
+  border-radius: 999px;
+  background: #f7f1e6;
+}
+
+.wy-menu-vertical a {
+  color: #f4ebdf;
+}
+
+.wy-menu-vertical li.current > a,
+.wy-menu-vertical li.on a {
+  background: rgba(166, 124, 69, 0.22);
+  border-right: 3px solid var(--doc-gold);
+}
+
+.wy-menu-vertical a:hover {
+  background: rgba(247, 241, 230, 0.08);
+}
+
+.wy-nav-content-wrap {
+  background: transparent;
+}
+
+.wy-nav-content {
+  background:
+    linear-gradient(var(--doc-paper), var(--doc-paper)) padding-box;
+  margin: 1.35rem 1.1rem 2rem;
+  padding-top: 1.4rem;
+  border: 1px solid var(--doc-gold);
+  border-radius: 2px;
+  box-shadow:
+    0 0 0 7px rgba(247, 241, 230, 0.94),
+    0 0 0 8px rgba(166, 124, 69, 0.85),
+    0 22px 48px rgba(0, 0, 0, 0.32);
+}
+
+.doc-masthead {
+  margin: 0 0 1.25rem;
+  text-align: center;
+  color: var(--doc-cinnabar);
+}
+
+.doc-kicker {
+  margin: 0;
+  font-family: "Palatino Linotype", Palatino, "Songti SC", "STSong", serif;
+  font-size: 0.78rem;
+  letter-spacing: 0.22em;
+}
+
+.doc-rule {
+  width: min(16rem, 70%);
+  height: 0;
+  margin: 0.55rem auto 0;
+  border: 0;
+  border-top: 1px solid var(--doc-gold);
+  box-shadow: 0 4px 0 0 var(--doc-cinnabar);
+}
+
+.rst-content {
+  font-family: "Palatino Linotype", Palatino, "Songti SC", "STSong", "Noto Serif SC", serif;
+  color: var(--doc-ink);
+}
+
+.rst-content h1,
+.rst-content h2,
+.rst-content h3 {
+  font-family: "Palatino Linotype", Palatino, "Songti SC", "STSong", serif;
+  color: var(--doc-ink);
+}
+
+.rst-content h1 {
+  text-align: center;
+  border-bottom: 0;
+}
+
+.rst-content h1::after {
+  content: "";
+  display: block;
+  width: 7.5rem;
+  height: 2px;
+  margin: 0.7rem auto 0;
+  background: linear-gradient(90deg, transparent, var(--doc-cinnabar), var(--doc-gold), transparent);
+}
+
+.rst-content h2 {
+  border-bottom: 1px solid var(--doc-rule);
+}
+
+.rst-content a {
+  color: #7a342d;
+}
+
+.rst-content a:hover {
+  color: #5d241f;
+}
+
+.rst-content div[class^="highlight"],
+.rst-content pre {
+  border: 1px solid #e7d8c2;
+  border-left: 3px solid var(--doc-gold);
+  background: #fffaf3;
+}
+
+.rst-content code,
+.rst-content pre,
+.rst-content tt {
+  font-family: Consolas, "Cascadia Mono", "Sarasa Mono SC", monospace;
+}
+
+.wy-nav-content footer,
+footer {
+  color: #6d6256;
+}
+
+@media screen and (max-width: 768px) {
+  .wy-nav-content {
+    margin: 0.4rem;
+    box-shadow: 0 0 0 4px rgba(247, 241, 230, 0.94), 0 0 0 5px var(--doc-gold);
+  }
+
+  .doc-kicker {
+    letter-spacing: 0.08em;
+  }
+}

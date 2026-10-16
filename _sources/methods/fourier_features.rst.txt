@@ -1,0 +1,121 @@
+Fourier 特征：先把坐标展开再交给网络
+=========================================
+
+.. openpinn-method-summary:: fourier random_fourier
+
+一句话说明
+------------
+
+普通 PINN 直接把 ``x`` 交给 MLP。Fourier 版本先计算一组正弦和余弦，再把展开后的坐标交给同一种 MLP。这样做的目的是让网络更容易表示高频和多尺度变化，但不保证每个问题都会更准。
+
+放在哪里
+----------
+
+方法本身位于 ``src/openpinn/features.py`` 的 ``FourierFeatures``。它只负责把坐标变成特征；网络、PDE、采样、训练和评价仍使用 OpenPINN 的公共流程。
+
+统一调用方式
+------------
+
+配置文件 ``configs/reference_runs/poisson_fourier.yaml`` 中只需选择特征：
+
+.. code-block:: yaml
+
+   model:
+     feature:
+       name: fourier
+       num_frequencies: 16
+       scale: 1.0
+       seed: 29
+       include_input: true
+       trainable: false
+
+比较脚本会复制这份配置，普通版只把 ``model.feature`` 换成 ``identity``，Fourier 版保留上述设置。方程、采样点、隐藏层宽度、优化器、步数和实验随机种子保持不变。
+
+最短调用
+--------
+
+.. code-block:: python
+
+   import openpinn as op
+   result = op.solve(
+       "poisson", method="fourier", variant="random_fourier", steps=5000
+   )
+
+怎样运行对比
+------------
+
+在项目根目录执行：
+
+.. code-block:: powershell
+
+   $run = Get-Date -Format "yyyyMMdd_HHmmss"
+   .\.venv\Scripts\python -m examples.poisson_fourier `
+     --output-dir "runs/poisson_fourier_$run"
+
+macOS 或 Linux 可以使用：
+
+.. code-block:: bash
+
+   run=$(date +%Y%m%d_%H%M%S)
+   python -m examples.poisson_fourier \
+     --output-dir "runs/poisson_fourier_${run}"
+
+会保存什么
+------------
+
+输出根目录中包含：
+
+* ``plain_pinn/``：普通 PINN 的配置、指标、历史、预测、时间和 checkpoint；
+* ``fourier_pinn/``：Fourier PINN 的同类输出；
+* ``comparison.json`` 和 ``comparison.csv``：两种方法的误差、残差、时间和参数量；
+* ``comparison.svg``：预测曲线、绝对误差和训练曲线；
+* ``failure_notes.md``：失败原因和结果解读边界。
+
+怎样读结果
+------------
+
+``relative_l2_error`` 越小表示预测曲线整体越接近解析解；``pde_residual_rmse`` 越小表示方程残差越小。还要同时查看运行时间和参数量。Fourier 展开会增加 MLP 第一层的输入宽度，因此参数量不会与普通版完全相同，比较表会明确记录这一点。
+
+参考实验结果
+----------------
+
+2026-08-25 在 CPU 上使用一个固定随机种子完成了一次 1500 步对比。两个运行都完成，没有 NaN/Inf 或安装失败。
+
+.. list-table::
+   :header-rows: 1
+
+   * - 方法
+     - 相对 L2 误差
+     - PDE 残差 RMSE
+     - 训练时间
+     - 参数量
+   * - 普通 PINN
+     - 9.9356
+     - 9.4935
+     - 1.571 s
+     - 8513
+   * - Fourier PINN
+     - 0.041115
+     - 0.17815
+     - 2.408 s
+     - 10561
+
+完整记录位于 ``results/methods/poisson_fourier_20260825_014553/``。这个结果说明在该高频 Poisson 设置中 Fourier 版更接近解析解，但不能从一次运行推导出对其他问题或其他随机种子也一定更好。
+
+.. image:: /_static/methods/fourier_features.svg
+   :alt: 高频 Poisson 普通 PINN 与 Fourier 特征对照
+   :width: 100%
+
+已知限制
+--------
+
+* 当前配置只跑一个固定随机种子，不能当作统计优越性结论；
+* Fourier 频率和 ``scale`` 会影响结果，本页不进行大范围调参；
+* 如果误差没有下降，依然应保留运行目录和 ``failure_notes.md``，不删除“不好看”的结果。
+
+论文和代码来源说明
+------------------
+
+Fourier 特征用于多尺度 PDE 的理论背景可参考 Wang 等人的论文 `On the eigenvector bias of Fourier feature networks: From regression to solving multi-scale PDEs with physics-informed neural networks <https://doi.org/10.1016/j.cma.2021.113938>`_。
+
+OpenPINN 的 Fourier 实现没有复制、改写或翻译任何外部仓库代码，也没有引入许可不清楚或限制商业使用的实现。比较脚本仅调用 OpenPINN 的 ``FourierFeatures`` 和公共实验入口。

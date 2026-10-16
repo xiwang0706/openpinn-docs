@@ -1,0 +1,114 @@
+硬边界约束：让网络天生满足 Dirichlet 边界
+================================================
+
+.. openpinn-method-summary:: hard_boundary exact_output_transform
+
+这是什么
+----------
+
+软约束把边界误差放进损失函数，训练后只能“尽量”满足。硬约束改写网络输出：
+
+``u(x) = g(x) + d(x) N(x)``
+
+其中 ``g`` 延伸已知边界值，``d`` 在边界上等于零。所以无论 MLP 参数如何，
+输出在边界上都精确等于目标值。
+
+放在哪里
+----------
+
+* 约束容器：``src/openpinn/constraints.py`` 的 ``HardConstraint``；
+* 1D 区间构造：``src/openpinn/experiment.py`` 的 ``_hard_transform``；
+* 统一调用：配置 ``model.output_transform.name: hard``；
+* 对比入口：``examples/poisson_hard_boundary.py``。
+
+依据与许可
+----------
+
+* 历史核心论文：Lagaris et al., *Artificial Neural Networks for Solving
+  Ordinary and Partial Differential Equations*, IEEE Transactions on Neural
+  Networks 9 (1998) 987–1000，DOI ``10.1109/72.712178``。其试探解思想可写成
+  ``A(x) + F(x, N(x))``，其中第二项在边界为零。
+* 核心论文：Sukumar and Srivastava, *Exact imposition of boundary
+  conditions with distance functions in physics-informed deep neural
+  networks*, Computer Methods in Applied Mechanics and Engineering 389
+  (2022) 114333，DOI ``10.1016/j.cma.2021.114333``。
+* `公开参考实现 <https://github.com/lululxvi/deepxde>`_ 采用 LGPL-2.1 许可。
+* OpenPINN 中的实现是按论文公式独立编写的简化 PyTorch 版本，没有复制或改写
+  该仓库代码。
+* 本次核对确认现有 ``exact_output_transform`` 已覆盖 Lagaris 的核心构造思想，
+  因此只补论文依据，不重复建立一个同功能方法。
+
+最短调用
+--------
+
+.. code-block:: python
+
+   import openpinn as op
+   result = op.solve(
+       "poisson",
+       method="hard_boundary",
+       variant="exact_output_transform",
+       steps=5000,
+   )
+
+怎么跑
+------
+
+.. code-block:: bash
+
+   PYTHONPATH=src python -m examples.poisson_hard_boundary \
+     --output-dir runs/poisson_hard_boundary_<timestamp>
+
+公平对比
+--------
+
+两组使用相同的高频 Poisson 方程、随机种子、采样、64×3 MLP、损失权重、Adam
+和 1500 步。唯一主动变更是输出变换从 ``soft`` 换为 ``hard``。两组参数量相同；
+硬约束组仍计算边界损失，用来验证其应接近机器精度的零。
+
+参考实验结果
+------------
+
+2026-08-26 在 CPU 上使用固定随机种子完成 1500 步对比。两组训练都完成，
+保存数值和 SVG 结构检查通过。
+
+.. list-table::
+   :header-rows: 1
+
+   * - 方法
+     - 相对 L2 误差
+     - PDE 残差 RMSE
+     - 边界 RMSE
+     - 最大绝对误差
+     - 训练时间
+     - 参数量
+   * - 软边界
+     - 1.95100
+     - 4.92968
+     - 1.38511
+     - 1.92371
+     - 1.472 s
+     - 8513
+   * - 硬边界
+     - 1.74668
+     - 105.95209
+     - 0.00000
+     - 2.87409
+     - 1.881 s
+     - 8513
+
+完整结果位于 ``results/methods/poisson_hard_boundary_20260826_005256/``。硬约束将边界误差精确降为
+零，相对 L2 也略低；但 PDE 残差从 4.93 升到 105.95，最大误差更高。
+因此该参考实验只能确认“硬边界在端点精确生效”，不能声称它在该高频设置中整体更优。
+
+.. image:: /_static/methods/hard_boundary.svg
+   :alt: 高频 Poisson 软边界与硬边界约束对照
+   :width: 100%
+
+限制和失败记录
+--------------
+
+* 当前自动构造只支持 1D 区间上的兼容 Dirichlet 数据，不是复杂几何通用距离函数库。
+* 精确满足边界不等于内部 PDE 一定更准，必须同时查看解误差和残差。
+* 比较只使用一个随机种子，不作统计优越声明。
+* 失败会保存在 ``failure.json`` 和 ``failure_notes.md``。

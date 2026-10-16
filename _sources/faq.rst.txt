@@ -1,0 +1,48 @@
+常见错误
+========
+
+找不到 python
+-------------
+
+先尝试 ``py -3.11``。如果仍然失败，需要安装 Python 3.10 或更高版本，并在安装时允许把 Python 加入 PATH。
+
+提示 No module named openpinn
+----------------------------------------
+
+确认当前终端位于项目根目录，并重新执行：
+
+.. code-block:: powershell
+
+   .\.venv\Scripts\python -m pip install -e ".[test,docs]"
+
+PyTorch 或 CUDA 安装冲突
+------------------------
+
+不要直接覆盖原有 GPU 环境。先记录 ``python -c "import torch; print(torch.__version__, torch.version.cuda)"`` 的输出，再根据服务器或显卡环境选择 PyTorch。
+
+结果目录不是空的
+----------------
+
+为每次运行换一个新的 ``--output-dir`` 名称，例如在目录名后加入日期或实验编号。不要把两次实验写入同一个目录。
+
+出现 NaN 或无穷大
+------------------
+
+先减小学习率并使用短案例；再检查输入范围、材料参数、损失项和导数是否合理。保留失败配置和错误信息，不要只删除失败结果。
+
+短案例运行成功，但误差较大
+----------------------------
+
+这是可能的。短案例训练步数很少，只检查程序流程。正式比较需要更长训练、可靠参考解和多个随机种子。
+
+网站文档构建失败
+----------------
+
+先安装文档依赖，再重新构建：
+
+.. code-block:: powershell
+
+   .\.venv\Scripts\python -m pip install -e ".[docs]"
+   .\.venv\Scripts\python -m sphinx -W --keep-going -b html docs docs/_build/html
+
+如果仍然失败，保留完整错误信息，优先修复第一个 warning 或 error。

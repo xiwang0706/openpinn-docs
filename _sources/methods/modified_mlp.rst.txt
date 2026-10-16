@@ -1,0 +1,92 @@
+Modified MLP：用门控融合缓解梯度传递困难
+============================================
+
+.. openpinn-method-summary:: modified_mlp gated_mlp
+
+一句话说明
+------------
+
+普通 MLP 逐层传递一个隐藏状态。Modified MLP 先从输入计算两组编码，再用每层的门控值混合它们，希望让输入信息更容易到达深层。
+
+放在哪里
+----------
+
+网络实现位于 ``src/openpinn/models.py`` 的 ``ModifiedMLP``。统一工厂位于 ``src/openpinn/experiment.py``。
+
+统一调用
+----------
+
+.. code-block:: yaml
+
+   model:
+     name: modified_mlp
+     hidden_layers: [64, 64, 64]
+     activation: tanh
+
+其他问题、采样、损失、优化器和训练步数继续使用公共实验入口。Modified MLP 的各隐藏层必须同宽，因为门控融合是逐元素计算。
+
+最短调用
+--------
+
+.. code-block:: python
+
+   import openpinn as op
+   result = op.solve(
+       "poisson", method="modified_mlp", variant="gated_mlp", steps=5000
+   )
+
+运行对比
+--------
+
+.. code-block:: bash
+
+   run=$(date +%Y%m%d_%H%M%S)
+   python -m examples.poisson_modified_mlp \
+     --output-dir "runs/poisson_modified_mlp_${run}"
+
+对比只把 ``model.name`` 从 ``mlp`` 换成 ``modified_mlp``。两者的隐藏层宽度、深度、Poisson 方程、采样点、Adam、步数和随机种子相同。
+
+保存内容
+----------
+
+运行目录保存两种网络的设置、指标、历史、预测、时间、checkpoint，以及 ``comparison.json``、``comparison.csv``、``comparison.svg`` 和 ``failure_notes.md``。
+
+实际结果与局限
+----------------
+
+2026-08-26 在 CPU 上使用一个固定随机种子完成 1500 步对比。两个训练都完成，数值输出均为有限值。
+
+.. list-table::
+   :header-rows: 1
+
+   * - 方法
+     - 相对 L2 误差
+     - PDE 残差 RMSE
+     - 边界 RMSE
+     - 训练时间
+     - 参数量
+   * - 普通 MLP
+     - 1.95100
+     - 4.92968
+     - 1.38511
+     - 1.543 s
+     - 8513
+   * - Modified MLP
+     - 1.81557
+     - 60.39255
+     - 1.75676
+     - 2.913 s
+     - 8769
+
+完整结果位于 ``results/methods/poisson_modified_mlp_20260826_003954/``。Modified MLP 的相对 L2 误差略低，但 PDE 残差和边界误差更高、用时更长，因此不能宣称它在本设置中整体优于普通 MLP。该比较只使用一个随机种子，没有调参。
+
+.. image:: /_static/methods/modified_mlp.svg
+   :alt: 高频 Poisson 普通 MLP 与 Modified MLP 对照
+   :width: 100%
+
+论文、代码与许可
+----------------
+
+主要论文：`Understanding and Mitigating Gradient Flow Pathologies in Physics-Informed Neural Networks <https://doi.org/10.1137/20M1318043>`_。
+
+参考仓库是 `GradientPathologiesPINNs <https://github.com/PredictiveIntelligenceLab/GradientPathologiesPINNs>`_，但其顶层未见明确 LICENSE。OpenPINN 仅依据论文中的架构描述独立编写 PyTorch 实现，没有复制、改写或翻译该仓库代码。

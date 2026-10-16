@@ -1,0 +1,467 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="只说明软件怎样安装、配置、运行、查看结果与处理常见问题；不展开内部代码设计。"><title>OpenPINN · 使用者说明书</title><style>
+:root{--ink:#203044;--muted:#52657a;--accent:#17688a;--line:#d6e0e8;--paper:#fff;--bg:#f1f5f8}
+*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:1rem}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.85 system-ui,-apple-system,'PingFang SC','Microsoft YaHei',sans-serif}
+a{color:var(--accent);text-underline-offset:3px}header{background:#15344b;color:#fff;padding:42px max(5vw,24px)}header h1{font-size:clamp(28px,4vw,44px);line-height:1.3;margin:0 0 14px}header p{max-width:960px;margin:8px 0;color:#d7e7f1}.badge{font-size:13px;letter-spacing:.07em;color:#94cde4}.layout{display:grid;grid-template-columns:270px minmax(0,1fr);max-width:1560px;margin:auto}aside{position:sticky;top:0;height:100vh;overflow:auto;padding:24px 18px;border-right:1px solid var(--line)}nav a{display:block;padding:6px 8px;font-size:14px;text-decoration:none;border-radius:5px}nav a:hover,nav a:focus{background:#dceaf2}main{min-width:0;padding:30px 44px 70px;background:var(--paper)}section{margin:0 0 42px;scroll-margin-top:20px}h2{font-size:25px;border-bottom:2px solid var(--line);padding:10px 0;margin:0 0 18px}h3{font-size:20px;margin:27px 0 10px}h4{font-size:17px;margin:18px 0 8px}p{margin:10px 0}li{margin:5px 0}table{width:100%;border-collapse:collapse;margin:18px 0;display:block;overflow:auto;font-size:14px}td,th{border:1px solid var(--line);padding:9px 12px;vertical-align:top;min-width:95px}th{background:#eaf1f6;text-align:left}tbody tr:nth-child(even){background:#f8fafc}code{font: .9em/1.6 ui-monospace,SFMono-Regular,Consolas,monospace;overflow-wrap:anywhere;background:#eef3f6;padding:1px 4px;border-radius:3px}pre{padding:17px 20px;background:#142b3b;color:#e3eef5;overflow:auto;white-space:pre;font:13px/1.7 ui-monospace,SFMono-Regular,Consolas,monospace;border-radius:7px}pre code{padding:0;color:inherit;background:none;overflow-wrap:normal}.note,.warn,.check{padding:14px 18px;margin:18px 0;border-left:4px solid #2e819e;background:#edf6fa}.warn{border-color:#b77516;background:#fff7e8}.check{border-color:#398464;background:#edf7f1}.small{font-size:13px;color:var(--muted)}details{border:1px solid var(--line);border-radius:6px;margin:12px 0;padding:10px 14px}summary{cursor:pointer;font-weight:650;overflow-wrap:anywhere}.symbol{border-top:1px solid var(--line);padding-top:12px;margin-top:14px}.symbol h4{overflow-wrap:anywhere}.toolbar{display:flex;gap:8px;margin:12px 0;flex-wrap:wrap}input[type=search]{width:100%;padding:10px;border:1px solid #9fb3c2;border-radius:5px;font:inherit}button{padding:8px 10px;border:1px solid #9bb0bf;border-radius:5px;background:white;color:var(--ink);cursor:pointer}button:hover{background:#deedf5}.flow{white-space:pre-wrap;background:#edf4f8;color:#163d53;font-size:14px;border-left:4px solid var(--accent)}.toc-tip{font-size:12px;color:var(--muted)}footer{padding:24px;text-align:center;font-size:13px;color:var(--muted)}[hidden]{display:none!important}.meta{color:var(--muted);font-size:13px}.index-search{max-width:560px}.code-title{font-size:13px;color:var(--muted)}
+@media(max-width:950px){.layout{display:block}aside{position:static;height:auto;border-bottom:1px solid var(--line)}nav{columns:2}main{padding:24px 18px}header{padding:28px 20px}}@media(max-width:560px){nav{columns:1}td,th{padding:7px}body{font-size:15px}}
+@media print{body{background:white;font-size:10pt}header{background:white;color:black;padding:0 0 18px}header p,.badge{color:#333}.layout{display:block}aside,.toolbar,.index-search,.toc-tip{display:none}main{padding:0}h2,h3,h4,summary{break-after:avoid}pre{background:#f3f3f3;color:#000;white-space:pre-wrap;overflow-wrap:anywhere}table{display:table;font-size:9pt}tr{break-inside:avoid}details{border:0;padding:0}a{color:#000}section{margin-bottom:22px}header{break-after:page}h2{break-before:auto}}
+
+a,a:visited{color:#2980b9}
+body a:active{color:#9b59b6!important}
+a:focus-visible{outline:2px solid #2980b9;outline-offset:2px}
+nav a,nav a:visited{color:#2980b9}
+nav a[aria-current="location"],nav a[aria-current="location"]:visited{color:#124d73;background:#dceefb;box-shadow:inset 3px 0 #2980b9;font-weight:700}
+nav a:focus-visible{outline:2px solid #2980b9;outline-offset:2px}
+/* Shared by Sphinx and embedded offline manuals. Native links remain usable
+   without scripts; numbered badges are part of the whole clickable card. */
+.wy-nav-content:has(.manual-framework) { max-width: 1200px; }
+.manual-framework { margin: 20px 0 28px; padding: 18px; background: #f8fbfd; border: 1px solid #c2d8e5; border-radius: 12px; }
+.manual-framework figcaption { color: #173e59; font-size: 21px; font-weight: 750; }
+.manual-framework > p { font-size: 13px; color: #52657a; line-height: 1.7; margin: 8px 0; }
+.manual-framework-scroll { overflow-x: auto; }
+.manual-framework svg { display: block; width: 100%; min-width: 680px; height: auto; }
+.manual-framework .framework-group { fill: #eaf3f8; stroke: #b6ccd9; stroke-dasharray: 5 4; }
+.manual-framework .framework-group-label { font: 16px system-ui, sans-serif; fill: #476378; }
+.manual-framework .framework-edge > path { fill: none; stroke: #54768b; stroke-width: 2; }
+.manual-framework .framework-edge-label { font: 15px system-ui, sans-serif; fill: #476378; paint-order: stroke; stroke: #f8fbfd; stroke-width: 4px; }
+.manual-framework .framework-node > rect, .manual-framework .framework-node > path { fill: white; stroke: #4784a5; stroke-width: 1.8; }
+.manual-framework .framework-terminal > rect { fill: #e1f2ed; stroke: #498472; }
+.manual-framework .framework-decision > path { fill: #fff4d9; stroke: #b59042; }
+.manual-framework .framework-title { font: 600 18px system-ui, sans-serif; fill: #205571; }
+.manual-framework .framework-note { font: 14px system-ui, sans-serif; fill: #4f6878; }
+.manual-framework .framework-node:hover > rect, .manual-framework .framework-node:hover > path,
+.manual-framework .framework-node:focus-visible > rect, .manual-framework .framework-node:focus-visible > path { stroke: #176aa0; stroke-width: 3.5; }
+.manual-framework .framework-node:active .framework-title { fill: #9b59b6; }
+.manual-framework .framework-node:visited .framework-title { fill: #205571; }
+.manual-framework .framework-node:visited:active .framework-title { fill: #9b59b6; }
+.manual-framework-standalone { max-width: 1200px; margin: 24px auto; padding: 0 20px; }
+.manual-overview-links { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; margin: 12px 0; }
+.manual-overview-directory summary { cursor: pointer; }
+@media print { .manual-framework { break-inside: avoid; } .manual-framework svg { min-width: 0; } }
+.manual-map { margin: 24px 0; padding: 22px; border: 1px solid #b9d5e4; border-radius: 14px; background: #f3f8fc; min-width: 0; }
+.manual-map figcaption { font-size: 19px; font-weight: 750; color: #173e59; line-height: 1.5; margin-bottom: 8px; }
+.manual-map .manual-map-hint { font-size: 13px; color: #52657a; line-height: 1.65; margin: 0 0 18px; }
+.manual-map .manual-map-body { min-width: 0; }
+.manual-map ul, .manual-map ol { list-style: none !important; margin: 0 !important; padding: 0 !important; }
+.manual-map li { position: relative; list-style: none !important; margin: 0 !important; padding: 0; min-width: 0; }
+.manual-map a.manual-map-node, .manual-map a.manual-map-node:visited { display: flex; align-items: flex-start; gap: 12px; padding: 13px 15px; min-height: 64px; border: 1px solid #b8d3e2; border-radius: 9px; background: #fff; color: #2980b9; text-decoration: none; line-height: 1.55; overflow-wrap: anywhere; box-shadow: 0 2px 3px #163d5308; }
+.manual-map a.manual-map-node:hover { background: #eaf4fc; border-color: #2980b9; text-decoration: none; }
+.manual-map a.manual-map-node:active { color: #9b59b6 !important; background: #f4ecfa; }
+.manual-map a.manual-map-node:focus-visible { outline: 3px solid #2980b9; outline-offset: 3px; }
+.manual-map-node > span:last-child { min-width: 0; }
+.manual-map-node strong { display: block; font-size: 15px; color: inherit; }
+.manual-map-node small { display: block; font-size: 13px; color: #405a6d; margin-top: 4px; }
+.manual-map-icon { flex: 0 0 auto; min-width: 30px; padding: 3px 5px; border-radius: 8px; text-align: center; background: #e5f1f9; color: inherit; font-size: 13px; font-weight: 750; }
+.manual-map-tree .manual-map-body { display: grid; grid-template-columns: minmax(120px, .65fr) minmax(0, 2fr); align-items: center; }
+.manual-map-root { padding: 18px 14px; border: 2px solid #267597; border-radius: 12px; background: #e2f0f7; color: #194763; font-size: 17px; font-weight: 750; text-align: center; overflow-wrap: anywhere; }
+.manual-map-tree .manual-map-branches { position: relative; padding-left: 24px !important; }
+.manual-map-tree .manual-map-branches::before { content: ''; position: absolute; left: 0; top: 50%; width: 24px; border-top: 2px solid #8ab3c9; }
+.manual-map-tree li { border-left: 2px solid #8ab3c9; padding: 7px 0 7px 18px; }
+.manual-map-tree li::before { content: ''; position: absolute; left: 0; top: 38px; width: 18px; border-top: 2px solid #8ab3c9; }
+.manual-map-tree li > ul { margin: 6px 0 0 16px !important; }
+.manual-map-flow .manual-map-branches { display: flex; flex-direction: column; gap: 28px; }
+.manual-map-flow li + li::before { content: '↓'; position: absolute; top: -27px; left: 26px; color: #4c809c; font: 23px/26px system-ui, sans-serif; }
+.manual-map-flow .manual-map-node { border-left: 4px solid #4797b9; }
+@media (max-width: 650px) {
+  .manual-map { padding: 14px; }
+  .manual-map-tree .manual-map-body { grid-template-columns: minmax(0, 1fr); gap: 12px; }
+  .manual-map-tree .manual-map-branches { padding-left: 10px !important; }
+  .manual-map-tree .manual-map-branches::before { display: none; }
+  .manual-map-tree li { padding-left: 12px; }
+  .manual-map-tree li::before { width: 12px; }
+  .manual-map a.manual-map-node { padding: 11px; gap: 8px; }
+}
+@media print {
+  .manual-map { background: white; padding: 12px; }
+  .manual-map li { break-inside: avoid; }
+  .manual-map figcaption { break-after: avoid; }
+  .manual-map .manual-map-node { box-shadow: none; }
+  .manual-map a::after { content: none !important; }
+}
+</style></head><body><header><div class="badge">OPENPINN / 2026-10-16 / 源码核对版</div><h1>使用者说明书</h1><p>只说明软件怎样安装、配置、运行、查看结果与处理常见问题；不展开内部代码设计。</p><p>适用：当前本地 v0.6-dev 工作目录（包版本 0.2.0） · 离线 HTML · 可检索与打印</p></header><div class="manual-framework-standalone"><figure class="manual-framework"><figcaption>使用全流程：从问题定义到训练与验证</figcaption><p>顺着箭头看完整链路；点击图中方框可进入对应说明。窄屏可横向滚动。</p><div class="manual-framework-scroll" tabindex="0" role="region" aria-label="可滚动的整体流程图"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 960" role="group" aria-labelledby="framework-user-title framework-user-desc"><title id="framework-user-title">使用全流程：从问题定义到训练与验证</title><desc id="framework-user-desc">先准备环境，再选择内置问题或自定义几何、控制方程和边界；两条路线汇合后设置训练、生成脚本、本地运行并验证。不满足目标时返回修改。</desc><defs><marker id="framework-user-arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#54768b"/></marker></defs><rect class="framework-group" x="423" y="238" width="501" height="98" rx="12"/><g class="framework-edge" data-from="start" data-to="builtin"><path d="M480,82 V105 H235 V130" marker-end="url(#framework-user-arrow)"/></g><g class="framework-edge" data-from="start" data-to="custom"><path d="M480,82 V105 H735 V130" marker-end="url(#framework-user-arrow)"/></g><g class="framework-edge" data-from="custom" data-to="geometry"><path d="M735,192 V216 H512 V260" marker-end="url(#framework-user-arrow)"/></g><g class="framework-edge" data-from="geometry" data-to="pde"><path d="M585,291 H602" marker-end="url(#framework-user-arrow)"/></g><g class="framework-edge" data-from="pde" data-to="boundary"><path d="M747,291 H764" marker-end="url(#framework-user-arrow)"/></g><g class="framework-edge" data-from="builtin" data-to="settings"><path d="M235,192 V360 H480 V390" marker-end="url(#framework-user-arrow)"/><text x="65" y="345" class="framework-edge-label">核对内置模型参数</text></g><g class="framework-edge" data-from="boundary" data-to="settings"><path d="M836,322 V360 H480 V390" marker-end="url(#framework-user-arrow)"/></g><g class="framework-edge" data-from="settings" data-to="code"><path d="M480,452 V490" marker-end="url(#framework-user-arrow)"/></g><g class="framework-edge" data-from="code" data-to="run"><path d="M480,552 V590" marker-end="url(#framework-user-arrow)"/><text x="505" y="578" class="framework-edge-label">代码交接到 Python 环境</text></g><g class="framework-edge" data-from="run" data-to="check"><path d="M480,652 V690" marker-end="url(#framework-user-arrow)"/></g><g class="framework-edge" data-from="check" data-to="done"><path d="M595,741 H695" marker-end="url(#framework-user-arrow)"/><text x="635" y="727" class="framework-edge-label">是</text></g><g class="framework-edge" data-from="check" data-to="revise"><path d="M365,741 H295" marker-end="url(#framework-user-arrow)"/><text x="292" y="693" class="framework-edge-label">否 / 报错</text></g><g class="framework-edge" data-from="revise" data-to="custom"><path d="M170,772 V850 H940 V161 H865" marker-end="url(#framework-user-arrow)" stroke-dasharray="6 5"/><text x="345" y="837" class="framework-edge-label">返回对应设置后，重新生成、运行与验证</text></g><a class="framework-node framework-terminal" data-node="start" href="#install" tabindex="0" aria-label="安装并打开配置器：先用小预算示例确认环境"><rect x="355" y="20" width="250" height="62" rx="28"/><text x="480.0" y="46.0" text-anchor="middle" class="framework-title">安装并打开配置器</text><text x="480.0" y="69.0" text-anchor="middle" class="framework-note">先用小预算示例确认环境</text></a><a class="framework-node framework-process" data-node="builtin" href="#builtins" tabindex="0" aria-label="选择内置问题：Poisson / Burgers / 双隧道"><rect x="105" y="130" width="260" height="62" rx="8"/><text x="235.0" y="156.0" text-anchor="middle" class="framework-title">选择内置问题</text><text x="235.0" y="179.0" text-anchor="middle" class="framework-note">Poisson / Burgers / 双隧道</text></a><a class="framework-node framework-process" data-node="custom" href="#custom-equation" tabindex="0" aria-label="建立自定义问题：下面三步共同定义计算模型"><rect x="605" y="130" width="260" height="62" rx="8"/><text x="735.0" y="156.0" text-anchor="middle" class="framework-title">建立自定义问题</text><text x="735.0" y="179.0" text-anchor="middle" class="framework-note">下面三步共同定义计算模型</text></a><a class="framework-node framework-process" data-node="geometry" href="#geometry" tabindex="0" aria-label="① 几何：创建 / 图片 / DXF"><rect x="440" y="260" width="145" height="62" rx="8"/><text x="512.5" y="286.0" text-anchor="middle" class="framework-title">① 几何</text><text x="512.5" y="309.0" text-anchor="middle" class="framework-note">创建 / 图片 / DXF</text></a><a class="framework-node framework-process" data-node="pde" href="#custom-equation" tabindex="0" aria-label="② 控制方程：模板 / 公式与参数"><rect x="602" y="260" width="145" height="62" rx="8"/><text x="674.5" y="286.0" text-anchor="middle" class="framework-title">② 控制方程</text><text x="674.5" y="309.0" text-anchor="middle" class="framework-note">模板 / 公式与参数</text></a><a class="framework-node framework-process" data-node="boundary" href="#boundary" tabindex="0" aria-label="③ 边界与初值：逐边 / 孔洞设置"><rect x="764" y="260" width="145" height="62" rx="8"/><text x="836.5" y="286.0" text-anchor="middle" class="framework-title">③ 边界与初值</text><text x="836.5" y="309.0" text-anchor="middle" class="framework-note">逐边 / 孔洞设置</text></a><a class="framework-node framework-process" data-node="settings" href="#methods" tabindex="0" aria-label="选择方法与训练参数：网络、采样、步数与随机种子"><rect x="355" y="390" width="250" height="62" rx="8"/><text x="480.0" y="416.0" text-anchor="middle" class="framework-title">选择方法与训练参数</text><text x="480.0" y="439.0" text-anchor="middle" class="framework-note">网络、采样、步数与随机种子</text></a><a class="framework-node framework-process" data-node="code" href="#configurator" tabindex="0" aria-label="核对并保存 Python 代码：复制 / 下载；修改后重新保存"><rect x="355" y="490" width="250" height="62" rx="8"/><text x="480.0" y="516.0" text-anchor="middle" class="framework-title">核对并保存 Python 代码</text><text x="480.0" y="539.0" text-anchor="middle" class="framework-note">复制 / 下载；修改后重新保存</text></a><a class="framework-node framework-process" data-node="run" href="#python-yaml" tabindex="0" aria-label="在本地运行训练脚本：网页预览本身不执行训练"><rect x="355" y="590" width="250" height="62" rx="8"/><text x="480.0" y="616.0" text-anchor="middle" class="framework-title">在本地运行训练脚本</text><text x="480.0" y="639.0" text-anchor="middle" class="framework-note">网页预览本身不执行训练</text></a><a class="framework-node framework-decision" data-node="check" href="#metrics" tabindex="0" aria-label="结果符合目标？：指标与参考误差"><path d="M480.0,690 L595,741.0 L480.0,792 L365,741.0 Z"/><text x="480.0" y="736.0" text-anchor="middle" class="framework-title">结果符合目标？</text><text x="480.0" y="759.0" text-anchor="middle" class="framework-note">指标与参考误差</text></a><a class="framework-node framework-terminal" data-node="done" href="#checkpoint" tabindex="0" aria-label="保存与交接结果：脚本 + 配置 + 完整产物"><rect x="695" y="710" width="220" height="62" rx="28"/><text x="805.0" y="736.0" text-anchor="middle" class="framework-title">保存与交接结果</text><text x="805.0" y="759.0" text-anchor="middle" class="framework-note">脚本 + 配置 + 完整产物</text></a><a class="framework-node framework-process" data-node="revise" href="#troubleshooting" tabindex="0" aria-label="排查并修改对应设置：几何 / PDE / 条件 / 训练参数"><rect x="45" y="710" width="250" height="62" rx="8"/><text x="170.0" y="736.0" text-anchor="middle" class="framework-title">排查并修改对应设置</text><text x="170.0" y="759.0" text-anchor="middle" class="framework-note">几何 / PDE / 条件 / 训练参数</text></a></svg></div><p class="framework-footnote">图中“符合目标”需结合物理条件及参考误差判断，训练完成或 loss 下降不等于精度达标。</p></figure></div><div class="layout"><aside><a href="developer_manual.html">切换至开发者说明书</a><div class="toolbar"><button id="expand">展开附录</button><button id="collapse">折叠附录</button><button id="print">打印 / 保存 PDF</button></div><label for="chapter-search">检索章节</label><input id="chapter-search" type="search" placeholder="输入关键词"><p class="toc-tip">检索只筛选目录，不隐藏正文。查找正文可先展开附录，再用浏览器查找。无脚本时仍可完整阅读。</p><nav aria-label="章节目录"><details><summary>安装与快速上手</summary><a href="#scope">01 · 阅读方法与使用范围</a><a href="#install">02 · 安装、环境检查与打开页面</a><a href="#first-run">03 · 第一次运行：从网页下载到看到结果</a><a href="#builtins">05 · 选择内置模型</a></details><details><summary>自定义建模与代码生成</summary><a href="#configurator">04 · 配置生成器完整操作流程</a><a href="#custom-equation">06 · 自定义建模主流程：几何、PDE、边界与训练代码</a><a href="#boundary">11 · 边界和初值怎么填写</a></details><details><summary>几何创建、导入与编辑</summary><a href="#geometry">07 · 直接设置一维、矩形和曲线区域</a><a href="#image-import">08 · 从图片或坐标文件导入区域</a><a href="#dxf">09 · 导入 COMSOL / CAD 的 DXF 几何</a><a href="#hole-editor">10 · 编辑顶点、边长、圆孔尺寸及编号</a></details><details><summary>训练设置与运行</summary><a href="#methods">12 · 方法选择、组合与参数调整</a><a href="#tunnel">13 · 双隧道二维模型专用操作</a><a href="#python-yaml">15 · Python、YAML 与命令行的日常用法</a><a href="#parameters">附录 A · 方法选项完整操作表</a></details><details><summary>结果验证与实验交接</summary><a href="#reference">14 · 使用 COMSOL / CSV 独立参考场</a><a href="#outputs">16 · 结果文件逐项使用说明</a><a href="#metrics">17 · 怎样判断指标，而不是只看图</a><a href="#checkpoint">18 · 迁移、重复实验与结果交接</a></details><details><summary>问题排查与运行核对</summary><a href="#troubleshooting">19 · 常见问题与处理顺序</a><a href="#user-checklist">20 · 每次运行的最终核对表</a></details></nav><noscript><p>浏览器脚本已禁用，请使用浏览器查找或滚动阅读。</p></noscript></aside><main><section id="scope"><h2>01 · 阅读方法与使用范围</h2>
+<div class="note"><strong>核心使用流程：自定义几何 → 控制方程 → 边界条件 → 生成训练代码 → 本地运行与验证。</strong><p>不必把自己的问题改成某个内置案例。先用第 03 章确认环境，再按下列路线建立自己的计算模型。</p><ol><li><a href="#geometry">设置计算区域</a>，或<a href="#image-import">导入图片/坐标</a>、<a href="#dxf">导入 DXF</a>。</li><li><a href="#custom-equation">选择模板、公式与物理参数或按项组合</a>，确认系数与符号。</li><li><a href="#boundary">逐边设置条件及初值</a>，区分外边界和孔洞。</li><li><a href="#custom-delivery">核对并生成训练代码</a>，保存脚本后独立运行。</li><li><a href="#metrics">检查物理条件及参考误差</a>，不以预览图代替验证。</li></ol><p>可直接跟做：<a href="#custom-case-1d">一维不同端点条件</a> · <a href="#custom-case-polygon">二维不规则区域</a> · <a href="#custom-case-holes">两个圆孔区域</a>。</p></div>
+<p>这份说明书只回答“如何操作 OpenPINN”。第一次使用请依次阅读安装、第一次运行、配置器操作和结果查看；需要导入图片、DXF 或 COMSOL 参考表时，再进入对应章节。所有命令除另有注明外都在<strong>项目根目录</strong>执行，即包含 <code>pyproject.toml</code> 的文件夹。</p>
+<table><thead><tr><th>你的任务</th><th>推荐入口</th><th>应得到的结果</th></tr></thead><tbody>
+<tr><td>先确认软件能运行</td><td>第 03 章的 5 步 Poisson 示例</td><td>独立运行目录和有限数值输出</td></tr>
+<tr><td>不想手写控制方程代码</td><td>配置生成器 → 新控制方程 → 复制代码</td><td>完整 Python 脚本；另行运行才开始训练</td></tr>
+<tr><td>计算双隧道二维模型</td><td>内置 <code>tunnel_model1</code></td><td>孔压时间切片、物理诊断图与指标</td></tr>
+<tr><td>导入自己画的区域</td><td>新控制方程 → 二维 → 图片/坐标文件或 DXF</td><td>几何预览、边界设置及嵌入几何的 Python 代码</td></tr>
+<tr><td>和 COMSOL 的数值结果比较</td><td>训练后对比独立参考场</td><td>在相同坐标直接预测后得到误差指标</td></tr>
+</tbody></table>
+<div class="warn">网页里的彩色“示例场”不是 PDE 求解结果，也不是训练前就计算出的真实解。改变 PDE 项而示例场形状没有按预期变化，并不意味着生成代码没有变化。请同时核对公式、生成代码，以及训练结束后的结果文件。</div>
+<p>本手册于 2026-10-16 更新 GitHub 首次安装、网页构建与下载运行步骤；此前已同步解析圆孔导入。软件包报告的版本为 <code>0.2.0</code>，历史工作目录名 <code>v0.6-dev</code> 和 GitHub ZIP 名 <code>OpenPINN-main</code> 都不是另一个包版本。</p></section>
+
+<section id="install"><h2>02 · 安装、环境检查与打开页面</h2>
+<h3>2.1 先分清阅读、构建和训练</h3>
+<p>“安装”指配置 OpenPINN 的 Python 计算环境，不是安装浏览器插件。下载源码后，<code>docs/manuals/public/user_manual.html</code> 和 <code>developer_manual.html</code> 已经存在，可用浏览器离线阅读；完整配置器网站的 <code>docs/_build/html/</code> 尚不存在，必须先按下方步骤生成。</p>
+<p>需要 <a href="https://www.python.org/downloads/">Python 3.10 或以上</a>（本次 macOS 走查为 3.13.9，新手可选常规 3.13.x 安装程序）与 <a href="https://nodejs.org/en/download">Node.js 24.x、版本不低于 24.15.0</a>。下载对应系统的安装程序，而不是 Source release。Windows 安装参见 <a href="https://docs.python.org/3/using/windows.html">Python 官方说明</a>。安装后重新打开终端，确认版本检查命令能输出版本号。没有 GPU 也能在 CPU 上完成首次短运行。</p>
+<p>先完整解压项目；同时包含 <code>README.md</code>、<code>pyproject.toml</code>、<code>src/</code> 和 <code>docs/</code> 的文件夹是项目根目录。在 macOS 终端输入 <code>cd</code> 和一个空格，把项目文件夹从 Finder 拖入后按回车；执行 <code>ls pyproject.toml</code> 应显示文件名。Windows 在该文件夹的地址栏输入 <code>powershell</code> 并按回车，执行 <code>Test-Path .\pyproject.toml</code> 应输出 <code>True</code>。Linux 在该文件夹打开终端。不要照抄“你的路径”这样的占位文字。</p>
+<h3>2.2 macOS / Linux 安装</h3><pre><code>python3 --version
+node --version
+python3 -m venv .venv
+source .venv/bin/activate
+python -m pip install --upgrade pip
+python -m pip install -e ".[test,docs]"
+python -c "import openpinn; print(openpinn.__version__); print(openpinn.__file__)"
+python -m openpinn list-methods</code></pre>
+<p>安装检查应显示 <code>0.2.0</code>。每次新开终端，先回到项目根目录，再执行 <code>source .venv/bin/activate</code>。已有可靠 Conda/PyTorch 环境时可继续使用原环境，不要盲目替换 CUDA/PyTorch。命令逐行执行，遇到错误先停止，不要继续下一步。</p>
+<h3>2.3 Windows PowerShell 安装</h3><pre><code>python --version
+node --version
+python -m venv .venv
+.\.venv\Scripts\python.exe -m pip install --upgrade pip
+.\.venv\Scripts\python.exe -m pip install -e ".[test,docs]"
+.\.venv\Scripts\python.exe -c "import openpinn; print(openpinn.__version__); print(openpinn.__file__)"
+.\.venv\Scripts\python.exe -m openpinn list-methods</code></pre>
+<p>不需要激活环境或修改 PowerShell 执行策略。<strong>本手册后续通用命令中的 <code>python</code>，Windows 未激活环境时一律替换为 <code>.\.venv\Scripts\python.exe</code></strong>；不要把安装依赖的解释器与运行脚本的解释器混用。首次运行的两种系统命令在第 03 章分别列出。</p>
+<h3>2.4 先生成网页，再打开</h3>
+<div class="warn"><strong>刚下载源码时找不到 <code>docs/_build/html/</code> 是正常的。</strong>先完成环境安装，再构建；不用手动创建这个目录。单独阅读这份说明书不代表训练环境已经装好。</div>
+<p>macOS/Linux（已激活环境），在项目根目录执行：</p><pre><code>python scripts/build_docs.py
+ls docs/_build/html/method_configurator.html</code></pre>
+<p>Windows PowerShell：</p><pre><code>.\.venv\Scripts\python.exe scripts/build_docs.py
+Test-Path .\docs\_build\html\method_configurator.html</code></pre>
+<p>先确认构建无报错，并输出 <code>Documentation built:</code>；然后检查文件，macOS/Linux 应列出文件名，Windows 应为 <code>True</code>。构建失败时先处理第一处错误，不要把已有旧文件当作本次成功。</p>
+<ol><li>构建成功后，在文件管理器进入 <code>docs → _build → html</code>，双击 <code>method_configurator.html</code> 打开配置器，或双击 <code>index.html</code> 打开首页。</li><li>左侧“使用者说明书”和“开发者说明书”进入站内分页阅读。不要把 <code>docs/manuals/_sources/</code> 中的正文片段当作入口。</li><li>更新源码后重新执行 <code>scripts/build_docs.py</code> 并刷新页面；只运行 Sphinx 不会更新说明书正文。</li><li>不要只移动一个配置器 HTML，它还需要同目录的 <code>_static</code> 等资源。两份独立说明书可一起复制离线阅读。</li></ol>
+<p>当前源码包不提供 <code>dist/</code> 中的 wheel 安装包，无需寻找它。检查 <code>openpinn.__file__</code> 应指向当前项目的 <code>src/openpinn</code>；版本号相同不保证加载的是同一份源码。</p></section>
+
+<section id="first-run"><h2>03 · 第一次运行：从网页下载到看到结果</h2>
+<h3>3.1 先从网页下载一个 Poisson 示例</h3>
+<ol><li>打开配置生成器，控制方程选择 <code>Poisson（一维） · poisson</code>；训练步数填 <code>5</code>，终端输出间隔填 <code>1</code>，随机种子填 <code>0</code>，结果文件夹填 <code>runs</code>。</li><li>只勾选普通 PINN（<code>baseline</code>），其余方法不选；其他参数保持默认。不勾选“训练后对比独立参考场”。</li><li>点击“下载 .py”，得到 <code>poisson.py</code>。在电脑的“下载”文件夹中明确重命名为 <code>first_poisson_run.py</code>，再移动到项目 <code>examples/</code>。仓库自带 <code>examples/poisson.py</code>，不要覆盖它。重复下载或再次运行时也不要覆盖自己的旧脚本，若另取名字需同步修改命令。</li><li>回到项目根目录，执行对应系统的命令；不要双击 .py，不要在浏览器地址栏执行命令。</li></ol>
+<p>macOS/Linux（已激活环境）：</p><pre><code>python examples/first_poisson_run.py</code></pre>
+<p>Windows PowerShell：</p><pre><code>.\.venv\Scripts\python.exe examples\first_poisson_run.py</code></pre>
+<p>终端应出现 <code>step=1</code> 等日志，结束后打印“结果目录：……”。进入这个目录，用浏览器打开 <code>result.svg</code> 和 <code>loss.svg</code>，用文本编辑器查看 <code>status.json</code>，检查 <code>status</code> 为 <code>completed</code>、<code>finite_outputs</code> 为 <code>true</code>。仅 5 步不能保证图像拟合或物理精度；这里只验证完整流程。</p>
+<h3>3.2 可选：手写一个小预算检查脚本</h3><p>已经跑通网页下载路线可跳过本节。愿意手写代码时，在项目根目录新建 <code>my_first_run.py</code>，保存以下完整代码：</p>
+<pre data-language="python" data-smoke="first-run"><code>import openpinn as op
+
+result = op.solve(
+    "poisson",
+    method="baseline",
+    variant="plain_pinn",
+    steps=5,
+    seed=0,
+    model={"hidden_layers": [8, 8]},
+    sampling={"interior": 16, "boundary": 8},
+    training={"log_every": 1},
+    output_root="runs/manual_first_run",
+)
+print("结果目录：", result.output_dir)
+print("指标：", result.metrics)</code></pre>
+<p>macOS/Linux（已激活环境）：</p><pre><code>python my_first_run.py</code></pre>
+<p>Windows PowerShell：</p><pre><code>.\.venv\Scripts\python.exe my_first_run.py</code></pre>
+<ol><li>终端出现 <code>step=1 total=...</code> 等输出。</li><li>结束时打印独立结果目录。</li><li>打开该目录的 <code>status.json</code>，检查状态及 <code>finite_outputs</code>。</li><li>打开 <code>result.svg</code> 和 <code>loss.svg</code>，再检查 <code>metrics.json</code>。</li></ol>
+<div class="warn">5 步及小网络仅检查程序能否完成，不用于判断模型精度。正式计算时调整回合适的网络、采样点与步数，并用独立参考数据或物理约束检查结果。</div>
+<h3>3.3 可选：命令行方式</h3><pre><code>python -m openpinn run --problem poisson --method baseline --variant plain_pinn --steps 5</code></pre><p>终端最后会打印 JSON 概要。结果目录一般在当前工作目录的 <code>runs</code> 下。不要反复把同一个非空目录作为 <code>--output-dir</code>；软件会拒绝覆盖。</p>
+<h3>3.4 停止运行</h3><p>在终端按 Ctrl+C 可中断当前运行。不要假定中断时一定已有最新检查点：标准实验通常在完整训练和评估后写出最终 checkpoint。重新运行默认会创建新目录。</p></section>
+
+<section id="configurator"><h2>04 · 配置生成器完整操作流程</h2>
+<ol><li><strong>选择控制方程。</strong>内置问题直接选择；自己的问题选择“新控制方程（可视化一维/二维）”。</li><li><strong>设置通用参数。</strong>填训练步数、终端输出间隔、随机种子、结果文件夹。</li><li><strong>如有需要，开启独立参考场对比。</strong>填写表格路径、列名、换算系数；不了解时先关闭，先跑通。</li><li><strong>自定义问题设置区域与条件。</strong>确认几何、维度、时间区间、每条边的条件及 PDE 公式。</li><li><strong>选择方法及变体。</strong>勾选一个或多个兼容方法，修改右侧专用参数；基线方法不能与改进方法一起勾选。</li><li><strong>检查提示。</strong>有冲突、空值或非法几何时先处理错误，不要复制之前生成的旧代码。</li><li><strong>复制代码。</strong>如果复制代码，保存到 <code>examples/my_openpinn_run.py</code>；如果下载脚本，先明确重命名为 <code>my_openpinn_run.py</code> 才能使用下一步的示例命令。</li><li><strong>执行。</strong>在项目根目录运行 <code>python examples/my_openpinn_run.py</code>；Windows 未激活环境时，命令开头改用 <code>.\.venv\Scripts\python.exe</code>。</li><li><strong>检查结果。</strong>根据打印的目录查看图、指标、配置和状态。</li></ol>
+<table><thead><tr><th>页面字段</th><th>如何填写</th><th>容易混淆的地方</th></tr></thead><tbody>
+<tr><td>训练步数</td><td>正整数；先少量测试再增加</td><td>表示外层优化步，不等于 L-BFGS 内部迭代次数</td></tr>
+<tr><td>终端输出间隔</td><td>正整数，例如 100</td><td>只影响日志打印，不改变重采样频率</td></tr>
+<tr><td>随机种子</td><td>非负整数，例如 0</td><td>不是“越大越好”；正式比较应记录并固定</td></tr>
+<tr><td>结果文件夹</td><td>例如 runs</td><td>生成脚本会依照其 PROJECT_ROOT 规则解析相对路径</td></tr>
+<tr><td>方法专用参数</td><td>按字段类型填数值、布尔值、列表或映射</td><td>“权重学习率”等不是网络 Adam 学习率</td></tr>
+</tbody></table>
+<h3>4.1 查看与保存完整代码</h3><p>完整 Python 代码区独占整行，高度随窗口调整。点击“放大查看”可扩大阅读区域，按 Esc 或“关闭放大”返回。代码保留原始缩进、不自动换行，长行请横向滚动。可使用“复制代码”，也可直接点击“下载 .py”；下载后请把脚本移入项目 <code>examples/</code> 目录，在项目根目录运行 <code>python examples/实际文件名.py</code>。下载按问题名命名（例如 <code>poisson.py</code> 或 <code>my_new_equation.py</code>），不要把 <code>实际文件名</code> 当成名称照抄。Windows 未激活环境时用 <code>.\.venv\Scripts\python.exe</code> 替换命令开头的 <code>python</code>。参数无效时复制和下载均禁用，修正后重新保存。</p>
+<p>页面不是在线计算服务器；复制或下载代码都不会立即提交训练。几何文件在浏览器中解析，轮廓会嵌入生成代码；参考数据表则需要你另行放到运行机器可读取的位置。</p>
+<div class="note">配置器脚本按 <code>examples/</code> 内的保存位置组织项目路径。若把文件挪到任意目录，先检查代码开头的 <code>PROJECT_ROOT</code> 与 <code>OUTPUT_ROOT</code>，不要假定相对路径仍相同。保存代码才是保留本次配置的可靠方式，不要依赖浏览器刷新后自动恢复输入。</div></section>
+
+<section id="builtins"><h2>05 · 选择内置模型</h2>
+<table><thead><tr><th>简称</th><th>使用场景</th><th>默认设置摘要</th><th>重点查看</th></tr></thead><tbody>
+<tr><td>poisson</td><td>一维静态方程与入门测试</td><td>x∈[-1,1]；3 层 64 单元；内部/边界点 128/32</td><td>预测与参考曲线、绝对误差、相对 L2</td></tr>
+<tr><td>burgers</td><td>一维空间、含时间的非线性问题</td><td>x∈[-1,1]，t∈[0,1]；4 层 64 单元；256/64/64</td><td>时间切片、参考误差、初值和边界误差</td></tr>
+<tr><td>tunnel_model1</td><td>双隧道二维模型（孔压固结）</td><td>40×40 m，0–40 年；512/256/256</td><td>二维孔压场、PDE 残差、孔压消散、物理范围</td></tr>
+<tr><td>heterogeneous_poisson</td><td>一维两种材料的界面问题</td><td>界面 0；左右扩散系数 1 与 4；3 层 32 单元</td><td>界面值跳跃及通量跳跃</td></tr>
+<tr><td>coupled_manufactured</td><td>检查多输出、多残差工作流程</td><td>制造解测试问题，3 层 32 单元</td><td>各场独立误差，不只看总指标</td></tr>
+</tbody></table><p>表中采样数量按“内部 / 边界 / 初值”顺序。只有含时间问题需要初值点。它们是短 API 的默认值，不代表对所有问题最优。相同模型名称在自定义 YAML 或生成脚本里可能已被覆盖。</p></section>
+
+<section id="custom-equation"><h2>06 · 自定义建模主流程：几何、PDE、边界与训练代码</h2><figure class="manual-map manual-map-flow" aria-label="核心流程：自定义模型 → 训练代码"><figcaption>核心流程：自定义模型 → 训练代码</figcaption><p class="manual-map-hint">点击编号图标或整个节点可跳转；也可用 Tab 选择、Enter 打开。箭头表示步骤顺序。</p><div class="manual-map-body"><ol class="manual-map-branches"><li><a class="manual-map-node" href="#geometry"><span class="manual-map-icon" aria-hidden="true">1</span><span><strong>定义计算区域</strong><small>维度、空间范围；需要时导入轮廓</small></span></a></li><li><a class="manual-map-node" href="#custom-equation-details"><span class="manual-map-icon" aria-hidden="true">2</span><span><strong>填写控制方程</strong><small>模板或公式与物理参数；核对符号、单位与时间维度</small></span></a></li><li><a class="manual-map-node" href="#boundary"><span class="manual-map-icon" aria-hidden="true">3</span><span><strong>逐边设置条件</strong><small>外轮廓 / 孔洞分别设置；动态问题核对初值</small></span></a></li><li><a class="manual-map-node" href="#methods"><span class="manual-map-icon" aria-hidden="true">4</span><span><strong>选择方法与训练预算</strong><small>先用 baseline 和小预算检查；不要跳过训练设置</small></span></a></li><li><a class="manual-map-node" href="#custom-delivery"><span class="manual-map-icon" aria-hidden="true">5</span><span><strong>核对生成脚本</strong><small>坐标、残差、条件与页面一致；修改后重新保存</small></span></a></li><li><a class="manual-map-node" href="#metrics"><span class="manual-map-icon" aria-hidden="true">6</span><span><strong>运行与精度验证</strong><small>短跑检查可执行性；参考误差另行验证</small></span></a></li></ol></div></figure><div id="custom-equation-details"></div>
+<p>本章把分散的设置连成一个可交付的操作流程。几何决定“在哪里求解”，控制方程决定“域内满足什么关系”，边界和初值决定“边上及起始时刻满足什么”；最后生成的 Python 脚本才是实际训练的输入。后续第 07–11 章提供各控件的详细说明。</p>
+<h3>6.1 先设置问题维度</h3><ol><li>填写便于区分结果的问题名称。</li><li>静态方程没有时间输入；含时间方程需要 t 下限与上限。</li><li>一维的输入为 x 或 (x,t)；二维为 (x,y) 或 (x,y,t)。时间放在最后一列。</li><li>每个上限必须严格大于对应下限；二维几何若导入文件，则以导入坐标和明确的换算为准。</li></ol>
+<h3>6.2 常用模板</h3><p>静态模板提供 Poisson 制造解、Helmholtz 制造解、非线性 Poisson 制造解；动态提供线性热方程、三次反应–扩散、Allen–Cahn、对流–扩散，一维动态还提供 Burgers。切换模板后核对展开的系数和公式，不要沿用上一个模板的物理解释。</p>
+<p>静态模板的“制造解”误差评价有适用条件：当前生成逻辑要求使用矩形/一维区域、所有边界均为且等值的 Dirichlet，并处于静态模板模式。任意多边形、圆、椭圆、圆角矩形、样条或不满足上述条件时，不应期待自动附带解析参考解。</p>
+<h3>6.3 公式与物理参数，以及旧版按项组合</h3>
+<div class="note"><strong>方程编辑模式 → 公式与物理参数（推荐）。</strong><p>先设空间维度和静态/含时间，再选择兼容模板、核对未知场及单位。编辑区先显示导数按钮、公式框和公式预览，下方是当前参数。参数和公式经过安全语法与量纲校验后，直接进入生成的训练代码。内置参数定义不提供通用材料值，模板数值仅作演示。</p></div>
+<p><strong>例如输入二维孔压扩散方程 ∂u/∂t = cx·∂²u/∂x² + cy·∂²u/∂y²：</strong></p>
+<ol><li>问题类型选“含时间方程”，空间维度选“二维”，再进入公式模式。</li><li>加载“二维各向异性固结（cx / cy）”模板带入方程和 <code>cx</code>、<code>cy</code>。场变量符号改为 <code>u</code> 后移出输入框，公式中的 <code>p</code> 会同步改名，得到下面的表达式；场单位按实际压力设置。</li><li>在“当前方程的参数”填写两个系数的实际数值与单位，如 <code>m^2/s</code> 或 <code>m^2/year</code>。已有模板参数不用重复从库中添加。</li><li>核对预览与生成代码，再设置计算区域、时间范围、初值和边界。统一初始孔压可选“常数初值”。</li></ol>
+<pre><code>dt(u) = cx * dx(dx(u)) + cy * dy(dy(u))</code></pre>
+<p><code>cx</code>、<code>cy</code> 是系数，不是压力的导数。点击 <strong>∂u/∂t、∂²u/∂x²、∂²u/∂y²</strong> 按钮可在光标处插入导数，不必手动嵌套两次；选中表达式再点击，会对选中部分求导。按钮中的符号跟随场变量设置变化。一维时 y 导数不可用，静态时 t 导数不可用。模板默认用 <code>p</code> 表示孔压，采用等号形式 <code>dt(p) = cx * dx(dx(p)) + cy * dy(dy(p))</code>；两个系数为常数时，与散度形式等价。若系数依赖坐标，不能直接移出导数。场变量改名仅替换完整变量符号，不改写参数或函数名。</p>
+<p>当前参数默认只显示<strong>名称、符号、数值、单位</strong>；公式中填写“符号”。每行的高级信息默认折叠，包含 <code>id</code>、说明和来源；<code>id</code> 只是参数包的唯一引用，不必写进方程。展开添加参数区域，才会看到常用参数库、自定义参数和材料组。新增自定义参数的 <code>id</code> 可以留空，编辑器按符号自动生成并避开已占用标识；公式符号仍须唯一。</p>
+<p>需要保存或迁移时展开“导入与导出”：物理工程 JSON 保存公式、参数和单位，参数包用于分享定义与材料数值。两者都不包含几何、边界或训练设置。模板也不会自动切换主配置的维度/静动态或改写几何、边界、初值，请自行核对。新入口支持单场一维/二维，不代表完整 Biot 耦合。几何/场值使用选定单位，残差内部转为 SI；Neumann 仍为显示单位下的法向导数，并非自动换算的渗流通量。</p>
+<p>原“自由组合”现标为“按项组合（兼容旧版）”。每一行是“带符号系数 × 一项”，所有行求和等于 0。例如 <code>u_t − 0.1u_xx = 0</code> 填两行：<code>1 × u_t</code>、<code>−0.1 × u_xx</code>。源项在等式右侧时，移到左侧再填其符号。</p>
+<table><thead><tr><th>可选项</th><th>操作含义</th><th>范围</th></tr></thead><tbody>
+<tr><td>u、u²、u³</td><td>未知量本身及非线性项</td><td>一维/二维，静态/动态</td></tr>
+<tr><td>u_x、u_xx</td><td>x 一阶、二阶导数</td><td>所有空间问题</td></tr>
+<tr><td>u_y、u_yy</td><td>y 一阶、二阶导数</td><td>仅二维</td></tr>
+<tr><td>u_t、u_tt</td><td>时间一阶、二阶导数</td><td>仅含时间问题</td></tr>
+<tr><td>sin(πx̂)、sin(πx̂)sin(πŷ)</td><td>预设正弦源项，帽号为区间归一化坐标</td><td>第二项仅二维</td></tr>
+<tr><td>高斯源项、常数 1</td><td>预设源项</td><td>按预览公式与代码核对</td></tr>
+</tbody></table>
+<p>点击“添加方程项”增加一行，点击“删除”移除对应项。相同项重复出现会累加，例如三个 <code>1×u</code> 等价于 <code>3u</code>。不要把示例正弦场当成任意自由组合的解。</p>
+<div class="warn">旧版按项组合只提供固定项，不解析任意公式字符串；上面的新公式模式支持限定语法，但也不提供任意多场耦合编辑。旧版即使可选择 <code>u_tt</code>，页面也没有独立初始速度输入；真正的二阶时间问题通常需要额外初始条件，不能只填一个初值就认为问题完整。新公式模式拒绝二阶时间导数。这类需求应由熟悉问题定义的人补充生成脚本。</div>
+<h3 id="custom-case-1d">6.4 跟做案例 A：一维区域，两端条件不同</h3>
+<p>目标：在 <code>0≤x≤1</code> 上求 <code>−u_xx=0</code>，左端 <code>u=0</code>、右端 <code>u=1</code>。此例的解析解为 <code>u=x</code>，用于理解设置；自由组合模式不会因此自动生成参考误差。</p>
+<ol><li>在配置器选择“新控制方程（可视化一维/二维）”，问题名填写 <code>custom_interval</code>，问题类型选静态，空间维度选一维。</li><li>x 下限填 0、上限填 1；方程编辑模式选“按项组合（兼容旧版）”。删掉不需要的行，只保留 <code>−1 × u_xx</code>。</li><li>左边界选 Dirichlet，目标值填 0；右边界选 Dirichlet，目标值填 1。此处纵向显示的是场值 u，不是第二个空间坐标。</li><li>先选择基线方法。不要选择当前只适用于左右等值 Dirichlet 的硬边界变体。</li><li>在生成代码内核对 <code>X_MIN=0</code>、<code>X_MAX=1</code>、<code>LEFT_BOUNDARY_VALUE=0</code>、<code>RIGHT_BOUNDARY_VALUE=1</code>，并核对残差只含负的 x 二阶导数。</li><li>按 6.7 节保存并短跑，确认没有运行错误后，再增加训练步数。若另行准备独立参考 CSV，可按第 14 章填写 x 与参考 u=x；少量步数不能保证预测已接近直线。</li></ol>
+<p>单参数联动检查：把右边界目标值改成 2，提交后确认右端显示值及 <code>RIGHT_BOUNDARY_VALUE</code> 都改变；左端仍为 0。复制新代码后训练的目标才变成 <code>u=2x</code>，已运行的旧脚本不会自动更新。</p>
+<h3 id="custom-case-polygon">6.5 跟做案例 B：二维不规则区域，逐边设置条件</h3>
+<p>目标：导入一个无孔洞的三角形，在域内求 <code>−u_xx−u_yy−1=0</code>，所有边取零 Dirichlet。以下是用于熟悉逐边设置的无量纲示例，不对应特定工程材料。</p>
+<ol><li>新建静态、二维、“按项组合（兼容旧版）”问题 <code>custom_triangle</code>。选择“导入多边形文件（识别图片）”，按导入面板的“文件格式示例”制作坐标文件，三个顶点依次为 (0,0)、(2,0)、(0,1)，不设置孔洞。</li><li>导入后核对三条边及图内编号：1→2、2→3、3→1。应只有一个外环，不应出现额外孔洞。</li><li>按项组合仅保留三项：<code>−1 × u_xx</code>、<code>−1 × u_yy</code>、<code>−1 × 常数 1</code>。核对显示公式等价于 <code>−Δu=1</code>。</li><li>逐条边选择 Dirichlet、目标值 0。每个控件只代表对应编号的边，不是整张图统一设置。</li><li>在图中移动一个顶点或提交新的边长，检查编号和边长，再检查生成代码中的 <code>POLYGON_VERTICES</code>。无效、自交的轮廓不能作为最终几何。</li><li>若要演示混合边界，可把其中一边改成 Neumann、q=0，其余两边保留 Dirichlet 0；核对生成代码中该边使用法向导数条件。不要只改标签而忽略实际类型。</li><li>选择基线、生成并保存代码，按 6.7 节运行。此例没有自动解析解，不应把“没有 L2/R²”误认为没有执行。</li></ol>
+<h3 id="custom-case-holes">6.6 跟做案例 C：矩形外轮廓与两个圆孔</h3>
+<p>目标：导入带两个圆孔的二维 DXF，编辑两个孔洞并设置各自条件。为便于自查，可准备外框 [0,40]×[0,40]、圆心 (10,20) 与 (30,20)、半径均为 4 的图形，导出后按实际图纸单位设置换算。</p>
+<ol><li>选择二维的 CAD/COMSOL 几何导入入口，导入 DXF。确认状态为一个外轮廓、两个孔洞；不要用 .mph 重命名为 .dxf。</li><li>查看图中“孔洞 1”“孔洞 2”的实际位置，再在轮廓选择器选对应孔洞。编号以导入结果为准，不预设左孔一定是 1。</li><li>若已识别为圆形，输入圆心坐标、半径或直径。把选中孔的直径从 8 改成 10，提交后确认 D=10、半径=5、另一孔未改变；检查孔洞仍在外框内且彼此不相交。</li><li>核对生成代码中对应 <code>HOLE_N_CENTER_X</code>、<code>HOLE_N_CENTER_Y</code> 和 <code>HOLE_N_RADIUS</code>；N 使用图上的编号。若列表仍显示很多短边，则该孔未被识别为圆形，先检查 DXF 轮廓和缩放，不能按“整圆孔”流程假设成功。</li><li>先做静态演示：域内设置 <code>−u_xx−u_yy−1=0</code>；外框各边设置 Neumann q=0，两个孔分别设置 Dirichlet c=0。孔壁的计算域外法线指向孔内。</li><li>每个已识别的圆孔应只设置一组边界条件；外框仍逐边设置。生成代码中用整环选择器覆盖该孔，不需要给几十段短边分别填同一个值。</li><li>选择基线，保存并运行。这个静态演示<strong>不是</strong>内置双隧道固结物理模型；要研究孔压随时间变化，还需自行确认物理系数、单位、含时间 PDE 和初值，或使用第 13 章的专用模型。</li></ol>
+<div class="note">外框为四顶点轴对齐矩形、全部孔洞均已识别为圆时，生成代码使用 <code>op.RectangleWithCircularHoles</code>，按圆心和半径精确描述训练边界。请在导入提示中确认“训练几何：解析矩形＋圆孔”。其他轮廓仍用 <code>op.Polygon</code>，页面会说明分段近似。图片/DXF 导入只带入几何，不会同时导入 COMSOL 的材料、PDE、边界条件或解场。</div>
+<h3 id="custom-delivery">6.7 从页面设置到可以交接的训练脚本</h3>
+<table><thead><tr><th>你修改了什么</th><th>页面应核对</th><th>生成代码应核对</th></tr></thead><tbody>
+<tr><td>区域范围、顶点或圆孔</td><td>坐标轴、编号、边长、孔洞 D</td><td>范围常量、POLYGON_VERTICES / POLYGON_HOLES 或圆孔参数</td></tr>
+<tr><td>PDE 项或系数</td><td>公式中项、符号和维度</td><td>残差函数中的导数、源项及系数；不能只检查示例场</td></tr>
+<tr><td>边界类型及 c/q/α/β</td><td>对应边或孔洞的条件行</td><td>边界常量、条件类型、边/整环选择器及法向</td></tr>
+<tr><td>时间区间及初值</td><td>含时间类型、起止时刻、初值选择</td><td>SpaceTimeDomain、时间列与 InitialCondition</td></tr>
+<tr><td>方法及训练参数</td><td>方法兼容提示、步数、种子、输出目录</td><td>op.method 列表与 op.solve 参数</td></tr>
+</tbody></table>
+<ol><li>先处理页面错误提示，再复制最新的完整代码。部分几何字段需要按回车或移出输入框才提交；拖拽结束后再复制。</li><li>将脚本保存为 <code>examples/my_custom_problem.py</code>。网页改动不会自动写回已保存脚本，必须重新复制保存。</li><li>首次设置 5–20 步，只检查运行链路；在项目根目录执行下列命令。</li></ol>
+<pre><code>python examples/my_custom_problem.py</code></pre>
+<p>在终端打印的结果目录检查 <code>status.json</code>、<code>config.yaml</code>、<code>metrics.json</code> 与预测文件；确认结果有限且配置正确，再采用适合问题的预算训练。独立参考解、边界误差和 PDE 残差承担不同检查职责，详见第 17 章。</p>
+<div class="check">交接自己的问题时，至少保存：最新生成脚本、原始几何文件、单位与物理假设、参考数据（如有）、本次结果目录。不能只交一张示意图或仅交 DXF，就认为别人可以复现同一 PDE 计算。</div></section>
+
+<section id="geometry"><h2>07 · 直接设置一维、矩形和曲线区域</h2><figure class="manual-map manual-map-tree" aria-label="选哪一种几何入口？"><figcaption>选哪一种几何入口？</figcaption><p class="manual-map-hint">点击编号图标或整个节点可跳转；也可用 Tab 选择、Enter 打开。连线表示分类或分支，不表示执行先后。</p><div class="manual-map-body"><div class="manual-map-root">选哪一种几何入口？</div><ul class="manual-map-branches"><li><a class="manual-map-node" href="#geometry-details"><span class="manual-map-icon" aria-hidden="true">1</span><span><strong>直接输入参数</strong><small>一维、矩形、圆、椭圆、圆角矩形</small></span></a></li><li><a class="manual-map-node" href="#geometry-details"><span class="manual-map-icon" aria-hidden="true">2</span><span><strong>编辑平滑闭合曲线</strong><small>控制点 + 张力；张力不等于数学曲率</small></span></a></li><li><a class="manual-map-node" href="#image-import"><span class="manual-map-icon" aria-hidden="true">3</span><span><strong>来自图片或坐标</strong><small>核对物理尺度、外轮廓与孔洞</small></span></a></li><li><a class="manual-map-node" href="#dxf"><span class="manual-map-icon" aria-hidden="true">4</span><span><strong>来自工程图纸</strong><small>二维 ASCII DXF → 单位换算 → 轮廓校验</small></span></a></li><li><a class="manual-map-node" href="#hole-editor"><span class="manual-map-icon" aria-hidden="true">5</span><span><strong>导入后精调</strong><small>顶点、边长、圆心与半径；再核对边界编号</small></span></a></li></ul></div></figure><div id="geometry-details"></div>
+<table><thead><tr><th>几何选项</th><th>填写内容</th><th>操作检查</th></tr></thead><tbody>
+<tr><td>一维</td><td>x 下限和上限</td><td>图中横轴为 x，曲线纵向为示例 u，不是第二个空间方向</td></tr>
+<tr><td>矩形</td><td>x/y 四个上下限</td><td>上下左右边界与轴标是否对应</td></tr>
+<tr><td>圆形</td><td>圆心 x、y；半径 R&gt;0</td><td>直径是 2R；直接圆形区域并不是“矩形中的圆孔”</td></tr>
+<tr><td>椭圆</td><td>中心、半轴 a、b；逆时针旋转角（度）</td><td>a、b 是半轴，不是全轴长；a=b 时为圆</td></tr>
+<tr><td>圆角矩形</td><td>坐标范围及圆角半径 r</td><td>0≤r≤短边一半；r=0 退化为直角矩形</td></tr>
+<tr><td>可编辑闭合曲线</td><td>控制点与张力 0–1</td><td>拖动后检查闭合、自相交与细窄部位</td></tr>
+</tbody></table>
+<h3>7.1 椭圆 a、b 的使用</h3><p>不旋转时，几何满足 <code>((x−cx)/a)² + ((y−cy)/b)² = 1</code>。例如 a=2、b=1，横向总宽为 4、纵向总高为 2。旋转改变方向，不改变两个半轴长度。a 只是局部 x 半轴，不强制必须大于 b。</p>
+<h3>7.2 曲线张力不是曲率</h3><p>张力为 0 时更圆滑，接近 1 时更贴近控制折线。张力不等于数学曲率 κ，也没有固定物理单位；不能把张力 0.2 解释为曲率 0.2 m⁻¹。需要严格圆弧时优先直接使用圆/圆角几何，需要沿轮廓的复杂形状时使用闭合曲线。</p>
+<h3>7.3 原点与坐标</h3><p>查看坐标范围、轴名和原点标识；如果 (0,0) 本来在当前计算范围之外，不要为了显示原点而误改几何。改变 Dirichlet 值改变的是边界上的场值 u，不会把二维几何的 y 坐标整体平移。</p></section>
+
+<section id="image-import"><h2>08 · 从图片或坐标文件导入区域</h2>
+<h3>8.1 图片操作步骤</h3><ol><li>选择“导入多边形文件（识别图片）”，选择 PNG/JPG。</li><li>尽量使用裁剪干净的填充色块图：外背景与实体区域可区分，孔洞使用背景色；避免尺寸标注、文字、阴影或其他图形接触轮廓。</li><li>先使用自动前景、自动二值化、1024 px 识别分辨率。</li><li>填写用于像素映射的 x/y 物理坐标范围。它不是自动测得的工程尺寸，导入后必须核对宽高比例和实际边长。</li><li>点击“按当前设置重新识别”，查看外轮廓、孔洞数量以及提示。</li><li>若细孔或细边丢失，提高分辨率或降低拐角简化量；若像素阶梯产生很多点，适当提高简化量。</li><li>识别完成后编辑轮廓、设置边界并复制代码。</li></ol>
+<table><thead><tr><th>设置</th><th>如何使用</th></tr></thead><tbody>
+<tr><td>前景色</td><td>自动、深色区域、浅色区域；若识别到了背景而非实体，切换前景模式后重新处理</td></tr>
+<tr><td>手动阈值</td><td>1–254，默认输入 128；用于自动分色不适合的图片，不是固定“只识别黑色”的开关</td></tr>
+<tr><td>识别分辨率</td><td>384、768、1024、1536、2048 px 上限；越高更慢，无法恢复原图中已经丢失的信息</td></tr>
+<tr><td>拐角简化</td><td>0.25–5 px，默认 2；小值保留更多细节，大值减少碎点但可能抹去小差异</td></tr>
+<tr><td>曲线模式</td><td>自动、强制可编辑曲线、始终多边形、强制圆、强制圆角矩形；强制拟合并不证明原图严格满足该几何</td></tr>
+</tbody></table>
+<p>自动模式可处理灰色、彩色区域以及透明背景，并检查连续转向以选择曲线或拐角表示；带孔图片继续使用多边形表示。当前算法选择主要连通区域，不适合在一张图中导入多个彼此分离的计算域。识别结果必须人工核对，不能把“自动”理解为工程级无损重建。</p>
+<h3>8.2 坐标文件操作</h3><p>同一入口也支持 CSV、JSON 和 GeoJSON Polygon。一个文件描述一条外轮廓及可选孔洞；不支持 MultiPolygon。每个环至少三个不重复有效顶点；不得自相交，孔洞必须在外轮廓内，不得互相重叠或穿出边界。</p>
+<pre><code>ring,x,y
+outer,0,0
+outer,4,0
+outer,2,3</code></pre>
+<pre><code>{
+  "outer": [[0,0], [4,0], [4,4], [0,4]],
+  "holes": [[[1,1], [1,2], [2,2], [2,1]]]
+}</code></pre>
+<p>GeoJSON 使用 Polygon 的外环、内环结构；其标准闭环会重复首尾坐标。导入后会进行标准化。网页单文件限制 5 MB，每个边界环最多 5,000 个顶点；超大工程图应先提取真正的计算区域。</p>
+<div class="note">五角星有 5 个外尖角，但完整轮廓通常还有 5 个凹角，共 10 个关键顶点。不要为了只剩 5 个点而丢掉凹角；应去掉的是像素阶梯碎点。</div></section>
+
+<section id="dxf"><h2>09 · 导入 COMSOL / CAD 的 DXF 几何</h2>
+<h3>9.1 接受与不接受的文件</h3><p>选择“导入 DXF 图纸（COMSOL/CAD）”。这里要求<strong>二维 ASCII DXF</strong>。CAD 是软件/设计类别，不是必须使用的扩展名。<code>.dxf</code> 是交换格式，<code>.dwg</code> 与 COMSOL 的 <code>.mph</code> 原生工程文件不能直接读取，也不能只改后缀变成 DXF。</p>
+<table><thead><tr><th>图纸实体</th><th>当前处理方式</th></tr></thead><tbody>
+<tr><td>闭合 LWPOLYLINE / POLYLINE</td><td>读取轮廓及圆弧 bulge 信息</td></tr>
+<tr><td>CIRCLE、完整 ELLIPSE</td><td>转换成可预览、可训练的边界表示；DXF 路径仍可能离散</td></tr>
+<tr><td>LINE、ARC、开放多段线、椭圆弧</td><td>要求能无缺口、无分叉地拼成闭环</td></tr>
+<tr><td>SPLINE</td><td>需要完整控制点和节点数据；只有拟合点的形式不支持</td></tr>
+<tr><td>块引用、3D、多块不连通区域</td><td>不支持；先在原软件整理为所需的二维闭合计算区域</td></tr>
+</tbody></table>
+<h3>9.2 导入步骤</h3><ol><li>在来源软件中准备计算区域的二维几何交换文件，不要把解场截图当成 DXF。</li><li>选择文件并填写“图纸单位→模型单位”的换算系数。例如毫米转米填 <code>0.001</code>。</li><li>检查状态栏的坐标范围、实体/孔洞数量与 <code>$INSUNITS</code>。未声明单位不意味着一定是米。</li><li>核对外轮廓边长与孔洞位置。确认孔洞是真正空区域，不是多个叠加外轮廓。</li><li>选择外轮廓或某个孔洞，调整尺寸并设置边界条件。</li><li>复制生成代码；运行时几何坐标已嵌入脚本，一般不需要再次读取原 DXF。</li></ol>
+<p>如来源软件没有你所需的导出选项，请先核对版本和可导出格式；此导入器不提供 MPH→DXF 转换。COMSOL 参考场数值表的导入走第 14 章，和几何导入是两项独立操作。</p>
+<h3>9.3 测试文件</h3><p>项目提供 <code>examples/geometries/comsol_2d_export_example.dxf</code>（矩形与八边形孔洞）、<code>cad_l_shape_example.dxf</code>（L 形区域）和 <code>rectangle_with_hole.dxf</code>。这些是交换格式测试样例，不应当作完整原生 COMSOL/CAD 工程文件。</p></section>
+
+<section id="hole-editor"><h2>10 · 编辑顶点、边长、圆孔尺寸及编号</h2>
+<h3>10.1 先选对正在编辑的边界环</h3><p>在醒目的“选择要编辑的外轮廓 / 孔洞”下拉框中选择对象。图内的“孔洞 1”“孔洞 2”与这个下拉框、边界条件行保持一致。编号是导入后的顺序，不保证左边一定是孔洞 1；重新导入另一文件后必须按图核对。</p>
+<h3>10.2 普通多边形</h3><ol><li>选择外轮廓或某个非圆孔。</li><li>在图中拖动顶点，或者在表格中输入该顶点 x/y 坐标。</li><li>“到下一顶点的边长”对应 i→i+1，最后一点连回第一点；修改会移动相关顶点，也可能改变邻接边。</li><li>修改内角、插入或删除顶点后，重新核对编号和对应边界条件。它不是能同时锁定所有长度、角度的 CAD 约束求解器。</li><li>若提示自相交、孔洞越界或重叠，不要忽略；先把轮廓恢复到有效状态。</li></ol>
+<h3>10.3 已识别的 DXF 圆孔</h3><ol><li>选择“孔洞 N（圆形）”。</li><li>输入圆心 x、圆心 y、半径 r 或直径 D；<code>D=2r</code>。</li><li>完成输入并提交字段（回车或移出输入框）后核对预览。该编辑器的部分字段按 change 事件提交，不保证打字每个字符都立即生效。</li><li>图内显示孔洞编号和 D；当前圆孔以蓝色虚线突出。</li><li>检查生成代码中的 <code>HOLE_N_CENTER_X</code>、<code>HOLE_N_CENTER_Y</code>、<code>HOLE_N_RADIUS</code> 已更新。</li></ol>
+<div class="warn">圆孔识别不是把所有看起来像圆的对象无条件改成圆。对椭圆或粗糙轮廓不要强行使用圆的解释。只有四顶点轴对齐矩形＋全部圆孔走解析训练路径；其他情况保留多边形近似。提示中的圆孔弦高 <code>r*(1-cos(π/N))</code> 只衡量等角点列相对拟合圆的离散误差，不衡量拟合圆相对原图的识别误差。拖动外框变成非矩形后，请重新检查“训练几何”提示与生成代码。</div>
+<h3>10.4 整体变换与恢复</h3><p>可以填写旋转角、X/Y 缩放、X/Y 平移后点击“应用整体变换”。操作会影响整个导入区域，先确认所有孔洞都应一起移动。非等比例缩放会改变圆的形状，之后应重新检查是否仍被当作圆孔。点击“恢复刚导入的轮廓”前，先保存需要保留的生成代码；恢复会撤销本次几何调整。</p>
+<h3>10.5 修改后的核对顺序</h3><p>依次核对：图中形状 → 顶点/孔洞编号 → 边界条件对象 → 代码中的坐标与条件 → 5 步运行输出。对一份已经复制到编辑器里的脚本，后来修改网页不会自动回写；必须重新复制保存。</p></section>
+
+<section id="boundary"><h2>11 · 边界和初值怎么填写</h2><figure class="manual-map manual-map-tree" aria-label="边界与初值的选择图"><figcaption>边界与初值的选择图</figcaption><p class="manual-map-hint">点击编号图标或整个节点可跳转；也可用 Tab 选择、Enter 打开。连线表示分类或分支，不表示执行先后。</p><div class="manual-map-body"><div class="manual-map-root">边界与初值的选择图</div><ul class="manual-map-branches"><li><a class="manual-map-node" href="#hole-editor"><span class="manual-map-icon" aria-hidden="true">1</span><span><strong>先确定作用边界</strong><small>一维端点、二维外边、孔洞；按图中编号</small></span></a></li><li><a class="manual-map-node" href="#boundary-details"><span class="manual-map-icon" aria-hidden="true">2</span><span><strong>指定场值</strong><small>Dirichlet：u = c</small></span></a></li><li><a class="manual-map-node" href="#boundary-details"><span class="manual-map-icon" aria-hidden="true">3</span><span><strong>指定外法向导数</strong><small>Neumann：∂u/∂n = q；注意法向符号</small></span></a></li><li><a class="manual-map-node" href="#boundary-details"><span class="manual-map-icon" aria-hidden="true">4</span><span><strong>值与导数组合</strong><small>Robin：αu + β∂u/∂n = c</small></span></a></li><li><a class="manual-map-node" href="#boundary-details"><span class="manual-map-icon" aria-hidden="true">5</span><span><strong>含时间时补初值</strong><small>检查初始时刻与边界条件是否相容</small></span></a></li></ul></div></figure><div id="boundary-details"></div>
+<table><thead><tr><th>类型</th><th>页面输入</th><th>具体含义</th><th>例子</th></tr></thead><tbody>
+<tr><td>Dirichlet</td><td>目标值 c</td><td>规定边界上 u=c</td><td>排水壁超孔压 0；固定温度 20</td></tr>
+<tr><td>Neumann</td><td>目标值 q</td><td>规定外法向导数 ∂u/∂n=q</td><td>零法向梯度 q=0</td></tr>
+<tr><td>Robin</td><td>目标值 c、α、β</td><td>规定 αu+β∂u/∂n=c</td><td>同一条件中同时出现值与导数</td></tr>
+</tbody></table>
+<p>Neumann 输入当前指<strong>法向导数</strong>，不是自动乘好材料系数的物理通量。若你的通量定义为 <code>−k∂u/∂n</code>，应先换算符号和系数。外法线指向计算域外：左边界指向负 x，右边界指向正 x；孔洞边界的计算域外法线指向孔内。</p>
+<ul><li>一维：左右分别设置，可以不同。</li><li>矩形：上下左右分别设置，可以不同。</li><li>普通多边形：逐条 i→j 设置；孔洞的边也按其局部编号设置。</li><li>直接圆形、椭圆、圆角矩形、平滑闭合样条：当前页面按连续整圈设置一组条件。</li><li>识别出的 DXF 圆孔：每个圆孔一组，不需要逐个短边重复输入。</li></ul>
+<h3>11.1 一维 Dirichlet 与 y 轴</h3><p>若显示的是 u(x) 曲线，改变端点值会改变示意曲线的端点高度和显示值域；这个纵轴代表 u。若显示二维区域，y 轴是空间坐标，改变 u 的边界值只影响场值表达，不能改变区域的 y 范围。</p>
+<h3>11.2 初值与兼容性</h3><p>含时间问题可选择正弦场、高斯场或零初值。检查 t=初始时刻的边界与初值是否符合你的问题。例如初值在边界为 1、边界要求始终 0，会出现初边值交角处的不连续；它可能是模型设定本身，不是通过画图平滑就能消除的错误。</p>
+<p>不要给同一边重复设定彼此冲突的条件，也不要将 Robin 的 α、β 同时设为 0。纯 Neumann 问题可能需要额外参考值或守恒兼容条件；界面允许输入并不保证数学问题唯一可解。当前没有页面周期边界选项。</p></section>
+
+<section id="methods"><h2>12 · 方法选择、组合与参数调整</h2>
+<p>一个方法由“家族 / 具体变体”两级确定。正式实验建议两个名称都明确填写，避免以后默认变体变化影响复现。完整可编辑字段见附录 A。</p>
+<table><thead><tr><th>家族</th><th>使用时要注意</th></tr></thead><tbody>
+<tr><td>baseline</td><td>普通 PINN，单独使用，作为比较起点</td></tr>
+<tr><td>modified_mlp</td><td>改变网络结构；参数量、时间可能随之改变</td></tr>
+<tr><td>adaptive_activation</td><td>设置激活初始斜率；不是增加一条 PDE</td></tr>
+<tr><td>fourier</td><td>设置频率数量与尺度；高频表达增强并不保证误差下降</td></tr>
+<tr><td>hard_boundary</td><td>有结构限制；当前自定义页面要求一维且左右为相同 Dirichlet 值</td></tr>
+<tr><td>adaptive_weights</td><td>一个家族只能选一个权重变体；查看权重和各损失而非只看总值</td></tr>
+<tr><td>adaptive_sampling</td><td>候选点与重采样会增加额外计算；检查采样诊断</td></tr>
+<tr><td>adam_lbfgs</td><td>按阶段运行；一次外层步可能多次求值，时间不只由 steps 决定</td></tr>
+<tr><td>time_window</td><td>含时间问题逐步扩大时间区域；与自适应采样占用同一采样位置</td></tr>
+<tr><td>transfer</td><td>必须有兼容 checkpoint；只加载模型初始化，不是完整恢复旧训练</td></tr>
+<tr><td>domain_decomposition</td><td>当前针对一维两材料界面，不是任意二维区域自动切分</td></tr>
+</tbody></table>
+<h3>12.1 可用组合示例</h3><pre data-language="python" data-smoke="composition"><code>import openpinn as op
+
+result = op.solve(
+    "poisson",
+    methods=[
+        op.method("fourier", "random_fourier", num_frequencies=8),
+        op.method("adaptive_weights", "relobralo", temperature=0.1),
+    ],
+    steps=5,
+    model={"hidden_layers": [8, 8]},
+    sampling={"interior": 16, "boundary": 8},
+    output_root="runs/manual_composition",
+)
+print(result.output_dir)</code></pre>
+<p>不要在同一次调用中同时给 <code>methods=[...]</code> 和单方法 <code>method/variant/method_options</code>。常见被拒绝的组合包括：基线与改进方法、同一家族两个变体、时间窗与自适应采样、两个占用网络结构的改进。</p>
+<h3>12.2 修改参数的顺序</h3><ol><li>先固定问题、单位、边界和参考数据。</li><li>先跑 baseline 并保存结果。</li><li>每轮只变动一项，保存新代码及完整输出。</li><li>同时检查误差、时间、参数量和随机种子，不仅比较 loss 最后一行。</li><li>高权重、高频率、高采样分辨率都不等于“越高越好”。</li></ol></section>
+
+<section id="tunnel"><h2>13 · 双隧道二维模型专用操作</h2>
+<h3>13.1 默认几何与物理单位</h3><p>默认区域宽高各 40 m，两个半径 4 m 的隧道，圆心 (10,20) m 与 (30,20) m，分析 0–40 年。外壁与洞壁均为零超孔压，初始内部超孔压 p₀。默认 p₀=20 kPa、Cₓ=0.30 m²/年、Cᵧ=0.60 m²/年是可修改设置，不要当作任何特定工程必然正确的材料值。</p>
+<h3>13.2 运行并修改物理参数</h3><pre data-language="python" data-smoke="tunnel"><code>import openpinn as op
+
+result = op.solve(
+    "tunnel_model1",
+    method="baseline",
+    steps=5,
+    problem_options={"parameters": {
+        "initial_pressure_kpa": 20.0,
+        "consolidation_x_m2_per_year": 0.30,
+        "consolidation_y_m2_per_year": 0.60,
+    }},
+    model={"hidden_layers": [8, 8]},
+    output_root="runs/manual_tunnel",
+)
+print(result.output_dir)</code></pre><p>这是运行检查代码。正式计算再调整预算。修改几何、时间或物理参数时，应同时修改用于对比的 COMSOL 模型和参考数据的单位换算。</p>
+<h3>13.3 哪些量是无量纲</h3><p>模型输入采用 X=x/B、Y=y/H、τ=t/T，输出 U=p/p₀。默认时：米与年转换到模型坐标分别乘 1/40；模型输出还原 kPa 乘 20。<code>predictions.npz</code> 的基础 prediction 不是直接的 kPa。</p>
+<h3>13.4 打开哪些图</h3><ul><li><code>result.svg</code>：物理坐标和孔压 kPa 的时间切片，共用色标。</li><li><code>diagnostics.svg</code>：末时刻残差分布、孔压剖面、平均孔压消散。</li><li><code>loss.svg</code>：优化过程，不是物理孔压。</li></ul><p>默认原始空间评估网格为 61×61，默认时间切片为 0、20、40 年。显示层插值使云图更光滑，不会增加训练精度，也不会修改原始预测或指标。无需在通用配置器寻找“双隧道评估网格”按钮。</p>
+<p>没有独立参考场时，先看 PDE 残差、边界/初值 RMSE、平均孔压消散和超出 [0,p₀] 的比例；软件不会凭空给出全场解的 L2/R²。要比较真实解误差，按下一章提供同一问题、同一单位、同一时刻的参考表。</p></section>
+
+<section id="reference"><h2>14 · 使用 COMSOL / CSV 独立参考场</h2>
+<h3>14.1 准备数据</h3><p>参考表是“坐标 + 场值”，不是几何文件。可用带表头 CSV、制表符表，或带 % 注释、空白分隔数值的 COMSOL Spreadsheet 风格表。支持按列名或从 1 开始的 <code>#1</code>、<code>#2</code> 选列。多时间导出成多个压力列时，每次明确选定一列和对应时间，不会自动识别所有宽表时间列。</p>
+<pre><code>x,y,t,p
+5,5,20,12.4
+20,20,20,15.1
+35,35,20,12.2</code></pre><p>这里只是格式示意，数值不是可信双隧道参考解，请使用自己的求解数据。</p>
+<h3>14.2 在页面逐项填写</h3><ol><li>启用“训练后对比独立参考场”。</li><li>选择文件用于预览列名。</li><li>把实际文件放进项目，例如 <code>examples/references/my_field.csv</code>，填写运行时路径。</li><li>按模型输入顺序填坐标列，例如 <code>x,y,t</code>。不要填成 y,x,t。</li><li>选择场值列，例如 p；多输出模型选择分量编号，u 的第一列为 0。</li><li>填写坐标、参考值和预测值各自的换算系数。</li><li>复制代码运行，训练结束后自动执行参考评价。</li></ol>
+<table><thead><tr><th>默认双隧道，导出 m/年/kPa</th><th>填写值</th></tr></thead><tbody><tr><td>坐标列</td><td>x,y,t</td></tr><tr><td>坐标换算系数</td><td>0.025,0.025,0.025</td></tr><tr><td>参考场值换算系数</td><td>1</td></tr><tr><td>模型预测换算系数</td><td>20</td></tr></tbody></table>
+<p>如果参考压力以 Pa 导出而想报告 kPa，参考值系数填 0.001。若只导出 t=20 年一张切片且文件只有 x/y 列，坐标列填 x,y，固定时间填 20，但坐标系数仍应有 x/y/t 三项。</p>
+<h3>14.3 运行后产物</h3><ul><li><code>reference_metrics.json</code>：相对 L2、RMSE、MAE、最大绝对误差、R²、样本数、文件哈希和换算设置。</li><li><code>reference_predictions.csv</code>：逐点参考、预测、绝对误差。</li><li><code>reference_comparison.svg</code>：比较图。</li><li><code>metrics.json</code> 追加 <code>external_reference_*</code> 指标。</li></ul>
+<div class="note">参考表只用于训练后评价，不参与损失训练。模型直接在参考坐标预测，没有先把参考场插值到另一张网格。指标按不同样本点等权计算，不能自动解释成不规则网格上的面积/体积积分误差。重复坐标的相同值会去重，冲突值会被拒绝；传入问题对象时域外点会报错，而非默默删掉。</div></section>
+
+<section id="python-yaml"><h2>15 · Python、YAML 与命令行的日常用法</h2>
+<h3>15.1 Python 通用参数</h3><table><thead><tr><th>参数</th><th>填写示例 / 用途</th></tr></thead><tbody><tr><td>steps / seed</td><td>训练步数与随机种子</td></tr><tr><td>device / dtype</td><td>默认 cpu / float32；可用设备取决于本地 PyTorch 环境</td></tr><tr><td>model</td><td><code>{"hidden_layers": [64,64,64]}</code></td></tr><tr><td>sampling</td><td><code>{"interior":128,"boundary":32,"initial":32}</code></td></tr><tr><td>training</td><td><code>{"log_every":100}</code>；不要把打印间隔误作采样间隔</td></tr><tr><td>problem_options</td><td>修改内置问题域或物理参数</td></tr><tr><td>output_root</td><td>结果父目录；自动生成本次运行子目录</td></tr><tr><td>output_dir</td><td>显式指定本次目录；必须不存在或为空</td></tr><tr><td>plot</td><td>False 可不生成标准结果图；不等于不保存预测/指标</td></tr></tbody></table>
+<h3>15.2 紧凑 YAML</h3><p>保存为 <code>my_experiment.yaml</code>：</p><pre data-language="yaml"><code>schema_version: 2
+problem:
+  name: poisson
+method:
+  name: fourier
+  variant: random_fourier
+  options:
+    num_frequencies: 16
+    scale: 1.0
+experiment:
+  seed: 0
+  device: cpu
+training:
+  steps: 1000
+  log_every: 100
+output:
+  root: runs</code></pre>
+<pre><code>python -m openpinn run --config my_experiment.yaml --steps 5
+python -m openpinn show-config --problem poisson --method fourier --variant random_fourier --steps 5
+python -m openpinn list-methods --family adaptive_sampling</code></pre>
+<div class="warn">紧凑 YAML 使用 schema_version: 2；结果目录中保存的展开配置是 schema_version: 1，不可直接交给 <code>solve_config</code> 当紧凑 YAML 重跑。当前紧凑 YAML/CLI 主要支持单方法；多方法组合使用 Python 的 <code>methods=[...]</code>。使用 <code>--config</code> 时，CLI 只将 <code>--steps</code> 与 <code>--output-dir</code> 作为额外覆盖传给该路径，种子等请改 YAML，不要以为所有命令行选项都会覆盖。</div>
+<h3>15.3 单方法参数的命令行写法</h3><pre><code>python -m openpinn run --problem poisson --method fourier --variant random_fourier --steps 5 --method-option num_frequencies=8 --method-option scale=1.0</code></pre><p>重复 <code>--method-option</code> 增加参数。布尔/列表等优先使用 JSON 值格式，复杂组合更建议保存为 Python 文件。</p></section>
+
+<section id="outputs"><h2>16 · 结果文件逐项使用说明</h2><figure class="manual-map manual-map-tree" aria-label="结果应该看哪一类文件？"><figcaption>结果应该看哪一类文件？</figcaption><p class="manual-map-hint">点击编号图标或整个节点可跳转；也可用 Tab 选择、Enter 打开。连线表示分类或分支，不表示执行先后。</p><div class="manual-map-body"><div class="manual-map-root">结果应该看哪一类文件？</div><ul class="manual-map-branches"><li><a class="manual-map-node" href="#outputs-details"><span class="manual-map-icon" aria-hidden="true">1</span><span><strong>运行是否完成</strong><small>status、failure_notes 与有限值检查</small></span></a></li><li><a class="manual-map-node" href="#outputs-details"><span class="manual-map-icon" aria-hidden="true">2</span><span><strong>计算结果是什么</strong><small>predictions 与 metrics；保留原始数组</small></span></a></li><li><a class="manual-map-node" href="#metrics"><span class="manual-map-icon" aria-hidden="true">3</span><span><strong>训练过程怎样</strong><small>history 与 loss 图不等于参考误差</small></span></a></li><li><a class="manual-map-node" href="#reference"><span class="manual-map-icon" aria-hidden="true">4</span><span><strong>误差是否可信</strong><small>同坐标、同单位的独立参考对比</small></span></a></li><li><a class="manual-map-node" href="#checkpoint"><span class="manual-map-icon" aria-hidden="true">5</span><span><strong>如何复现与交接</strong><small>脚本、配置、数据、环境及完整结果目录</small></span></a></li></ul></div></figure><div id="outputs-details"></div>
+<table><thead><tr><th>文件</th><th>怎样使用</th><th>注意</th></tr></thead><tbody>
+<tr><td>config.yaml</td><td>核对实际问题、网络、方法、训练和输出设置</td><td>是展开配置，不是网页表单的原样备份</td></tr>
+<tr><td>status.json</td><td>查看 completed/failed、finite_outputs、accuracy_claim</td><td>completed 不等于达到工程精度；accuracy_claim 默认 false</td></tr>
+<tr><td>metrics.json</td><td>查看定量评价，比较相同条件运行</td><td>先区分解误差、PDE 残差与训练损失</td></tr>
+<tr><td>history.csv</td><td>用表格软件或 Python 查看训练过程</td><td>含 step、total 和具名损失；日志少不意味着历史没保存</td></tr>
+<tr><td>predictions.npz</td><td>读取原始坐标、预测、残差及可用参考</td><td>图片显示插值不会写回这些数组</td></tr>
+<tr><td>compute_ledger.json</td><td>查看时间、设备、参数量、closure 次数等</td><td>elapsed_seconds 主要是 fit 计时，不是安装/全部后处理总耗时</td></tr>
+<tr><td>checkpoint.pt</td><td>兼容结构的模型迁移或底层断点恢复</td><td>不是双击即可运行的程序；只加载可信文件</td></tr>
+<tr><td>result.svg / loss.svg</td><td>浏览器或矢量图查看器打开</td><td>自定义问题不会自动获得每种物理量的专用二维图</td></tr>
+<tr><td>diagnostics.svg</td><td>双隧道物理诊断</td><td>不是所有问题都会生成</td></tr>
+<tr><td>sampling_diagnostics.json / optimizer_diagnostics.json</td><td>分析采用相应方法后的运行细节</td><td>组件返回诊断时才生成</td></tr>
+<tr><td>failure_notes.md</td><td>查看失败或限制说明</td><td>运行完成后的通用说明不是独立质量认证</td></tr>
+<tr><td>manifest.json</td><td>文件大小与 SHA-256，方便交付核对</td><td>手工编辑输出后哈希将不再一致</td></tr>
+</tbody></table>
+<h3>读取原始预测</h3><pre data-language="python"><code>import numpy as np
+
+# 改成终端实际打印的目录
+with np.load("runs/你的运行目录/predictions.npz") as data:
+    print(data.files)
+    coordinates = data["coordinates"]
+    prediction = data["prediction"]
+    print(coordinates.shape, prediction.shape)</code></pre><p>不要在没有检查键名和排列方式的情况下，直接假设数组可 reshape 成某张矩形图；带孔区域会排除孔内点。</p></section>
+
+<section id="metrics"><h2>17 · 怎样判断指标，而不是只看图</h2>
+<table><thead><tr><th>指标</th><th>读取方式</th><th>解释边界</th></tr></thead><tbody>
+<tr><td>相对 L2</td><td>‖预测−参考‖₂ / ‖参考‖₂，越小越好</td><td>无量纲；参考接近全零时分母保护会使数值难解释；不是绝对 L2</td></tr>
+<tr><td>RMSE</td><td>误差平方均值开根号，越小越好</td><td>与场值同单位，必须先对齐物理单位</td></tr>
+<tr><td>MAE</td><td>绝对误差平均值</td><td>对局部极端误差敏感性低于最大误差</td></tr>
+<tr><td>最大绝对误差</td><td>所有评估点中最大的绝对差</td><td>受评估点覆盖和离群点影响</td></tr>
+<tr><td>R²</td><td>1−残差平方和/参考离均差平方和</td><td>可以为负；参考为常数时当前实现用有限值约定，不适合照常解释</td></tr>
+<tr><td>PDE residual RMSE</td><td>控制方程残差相对 0 的 RMSE</td><td>不是与参考解比较的 RMSE</td></tr>
+<tr><td>boundary / initial RMSE</td><td>边界或初值条件误差</td><td>不能替代全域解的误差</td></tr>
+<tr><td>final_total_loss</td><td>训练目标的最终记录</td><td>不同权重/幂变换方法的总损失不能直接当成同一精度尺度</td></tr>
+</tbody></table>
+<p>所谓“absolute 差值很大”，首先检查量纲、坐标顺序、时间切片、边界设定和参考场是否属于同一问题。光滑云图、很小 PDE 残差和较低训练损失各自只能说明一部分情况；它们不等价于正确工程预测。</p>
+<p>内置参考指标常用键为 <code>relative_l2_error</code>、<code>r2_score</code>；外部参考文件中常用 <code>relative_l2</code>、<code>r2</code>。命名有差别，比较时确认取的是同一类指标。</p></section>
+
+<section id="checkpoint"><h2>18 · 迁移、重复实验与结果交接</h2>
+<h3>18.1 使用已有模型开始新训练</h3><pre data-language="python"><code>import openpinn as op
+
+result = op.solve(
+    "poisson",
+    method="transfer",
+    variant="checkpoint_transfer",
+    method_options={"checkpoint": "runs/源运行/checkpoint.pt"},
+    steps=1000,
+    output_root="runs/transfer_runs",
+)</code></pre><p>源模型的输入/输出维度和网络结构必须匹配。若源运行使用了 [8,8] 网络，而本次未指定相同 model，就不能期望默认 [64,64,64] 网络成功加载。</p>
+<div class="warn">迁移只使用模型权重作初始化。完整断点恢复还包括优化器、采样器、随机状态、历史与步数；这是底层 Trainer 的独立操作，不是网页上选择 transfer 的含义。</div>
+<h3>18.2 正式比较</h3><ol><li>给每个实验保存完整脚本与参考数据来源。</li><li>固定问题、训练预算、网络/采样条件与评估坐标；只更改计划比较的方法。</li><li>用多个明确记录的随机种子重复，报告均值、离散程度及失败运行。</li><li>把结果目录整体交接，不要只发送一张 result.svg。</li></ol>
+<h3>18.3 交付清单</h3><p>至少包含：运行脚本、依赖环境信息、实际展开配置、metrics、原始 predictions、history、compute ledger、checkpoint（需要复用时）、manifest、参考数据及其单位说明。涉及外部数据共享时先确认可分享范围。说明运行机器、时间与限制，不把短跑结果写成精度验证完成。</p></section>
+
+<section id="troubleshooting"><h2>19 · 常见问题与处理顺序</h2>
+<table><thead><tr><th>现象</th><th>先检查</th><th>处理</th></tr></thead><tbody>
+<tr><td>导入图片把灰色实体识别丢了</td><td>前景、自动分色、背景和填充对比</td><td>重新处理；必要时手动阈值；去掉文字与杂物</td></tr>
+<tr><td>小孔、细长边丢失</td><td>原图像素与简化量</td><td>用更清晰原图、较高分辨率和较小简化量；不能凭空恢复细节</td></tr>
+<tr><td>一个圆孔出现几十条边界行</td><td>是否成功标记“圆形”、是否打开旧页面</td><td>刷新最新页面重新导入；核对是否真圆，不要强行合并非圆边界</td></tr>
+<tr><td>不知道孔洞编号</td><td>图中孔洞 N 与下拉框</td><td>先选对应项，检查高亮与 D；编号不固定按左右排序</td></tr>
+<tr><td>输入直径没有变化</td><td>是否选中圆形孔洞、是否提交字段</td><td>回车/移出字段后检查半径与代码；若几何无效先解决提示</td></tr>
+<tr><td>修改网页后旧脚本没变化</td><td>编辑器里的代码是否重新复制</td><td>网页不自动同步已保存文件；重新复制完整代码</td></tr>
+<tr><td>DXF 无法闭合或存在分叉</td><td>重复线、开口、块、三维坐标</td><td>在原软件清理为二维闭合计算边界后重导出</td></tr>
+<tr><td>图纸打开错误</td><td>文件是否确为支持格式、是否仅更改后缀</td><td>重新正规导出 ASCII DXF；不要把 .mph/.dwg 直接改名</td></tr>
+<tr><td>Method option / component 不支持</td><td>名称、变体和参数拼写</td><td>用 list-methods 和附录 A 核对；不要期望静默回退到基线</td></tr>
+<tr><td>Condition selected no sample points</td><td>某条短边没有被采样命中、选择条件是否正确</td><td>核对边界对象和采样数，增加边界点后小步重跑</td></tr>
+<tr><td>NaN / infinity</td><td>异常参数、单位、学习率、导数项、初边值</td><td>保留失败目录；先回到 baseline 小问题定位，不只增加训练步数</td></tr>
+<tr><td>参考表文件不存在</td><td>运行时路径而非网页文件名</td><td>把文件放到填写位置，核对 PROJECT_ROOT</td></tr>
+<tr><td>参考点位于域外</td><td>坐标列顺序、mm/m、s/年、孔内点</td><td>统一问题与单位后重导出；不要删异常点来美化指标</td></tr>
+<tr><td>R² 或 L2 没有生成</td><td>是否存在合法独立参考解</td><td>提供参考场；物理残差与解误差不是一回事</td></tr>
+<tr><td>图像很光滑但不准确</td><td>是否只是显示插值</td><td>以原始预测、参考误差和物理指标为准</td></tr>
+<tr><td>Output directory is not empty</td><td>重复使用固定输出目录</td><td>指定新目录；不要删除旧实验来掩盖冲突</td></tr>
+</tbody></table></section>
+
+<section id="user-checklist"><h2>20 · 每次运行的最终核对表</h2>
+<ul><li>□ 当前解释器加载的是本工作目录的 OpenPINN。</li><li>□ 几何和参考数据的长度、时间、场值单位一致。</li><li>□ 内外边界及每个孔洞编号与条件一一对应。</li><li>□ PDE 公式、系数、初值和边界共同定义了想求解的问题。</li><li>□ 新几何或新方法先完成小预算链路检查。</li><li>□ 已重新复制并保存最新生成代码。</li><li>□ 结果目录独立，状态完成，保存值有限。</li><li>□ 没把示例场、显示平滑或 loss 数值当作准确性证明。</li><li>□ 比较时使用相同坐标、参考、单位与指标定义。</li><li>□ 交接包含配置、脚本、原始数据与限制说明，而非只有图片。</li></ul></section>
+<section id="parameters"><h2>附录 A · 方法选项完整操作表</h2><p>以下名称、默认值、类型和范围直接读取当前版本参数目录。选定方法后在网页填写，或作为 <code>op.method(家族, 变体, 参数名=值)</code> 的关键字传入。默认值不是精度保证；“未提供”表示需用户填写或可省略，见说明。</p><h3>组合优化器 / Adam 后接 L-BFGS</h3><p><code>adam_lbfgs / adam_then_lbfgs</code></p><table><thead><tr><th>参数</th><th>类型 / 默认值</th><th>限制</th><th>用途及调整影响</th></tr></thead><tbody><tr><td><code>adam_lr</code><br>Adam 学习率</td><td>number<br><code>0.001</code></td><td>≥ 1e-12</td><td>第一阶段 Adam 优化器的学习率。<br>调大前期下降可能更快但更易震荡或发散；调小更稳，但需要更多 Adam 步。</td></tr><tr><td><code>lbfgs_lr</code><br>L-BFGS 学习率</td><td>number<br><code>1.0</code></td><td>≥ 1e-12</td><td>第二阶段 L-BFGS 优化器的学习率。<br>调大单次更新更激进，可能降低更快也可能不稳；调小更保守，收尾速度可能变慢。</td></tr><tr><td><code>lbfgs_fraction</code><br>L-BFGS 步数比例</td><td>number<br><code>0.02</code></td><td>≥ 1e-12；≤ 0.999999</td><td>总外层训练步数中分给 L-BFGS 的比例。<br>调大给二阶收尾更多外层步、通常更耗时；调小把预算更多留给 Adam，可能收尾不足。</td></tr><tr><td><code>lbfgs_max_steps</code><br>L-BFGS 最大外层步数</td><td>integer<br><code>20</code></td><td>≥ 1</td><td>限制 L-BFGS 使用的外层训练步数。<br>调大允许更充分收尾但增加 closure 调用与时间；调小限制成本，也可能提前停止。</td></tr><tr><td><code>lbfgs_max_iter</code><br>每步最大内部迭代</td><td>integer<br><code>10</code></td><td>≥ 1</td><td>每个 L-BFGS 外层步允许的最大内部迭代次数。<br>调大每个外层步可能更充分，但时间和显存成本上升；调小更快，单步优化可能不充分。</td></tr><tr><td><code>history_size</code><br>历史向量数量</td><td>integer<br><code>50</code></td><td>≥ 1</td><td>L-BFGS 保存的历史校正向量数量。<br>调大可利用更多曲率历史但增加内存；调小更省内存，但二阶近似可能变粗。</td></tr><tr><td><code>line_search_fn</code><br>线搜索</td><td>choice<br><code>&#x27;strong_wolfe&#x27;</code></td><td>可选 [&#x27;strong_wolfe&#x27;]</td><td>L-BFGS 使用的线搜索策略。<br>当前只开放 strong_wolfe，不能随意改成未注册字符串；它通常更稳，但每步可能多次计算 closure。</td></tr></tbody></table><h3>自适应激活 / 可训练斜率 tanh</h3><p><code>adaptive_activation / adaptive_tanh</code></p><table><thead><tr><th>参数</th><th>类型 / 默认值</th><th>限制</th><th>用途及调整影响</th></tr></thead><tbody><tr><td><code>initial_slope</code><br>初始激活斜率</td><td>number<br><code>1.0</code></td><td>≥ 1e-12</td><td>每个隐藏层可训练 tanh 斜率的初始值。<br>调大使初始激活变化更陡，可能更快表示局部变化，但过大容易梯度不稳；调小更平滑，但可能学习较慢。</td></tr></tbody></table><h3>自适应采样 / 残差驱动自适应重采样</h3><p><code>adaptive_sampling / residual_adaptive</code></p><table><thead><tr><th>参数</th><th>类型 / 默认值</th><th>限制</th><th>用途及调整影响</th></tr></thead><tbody><tr><td><code>candidate_pool</code><br>候选点数量</td><td>integer<br><code>512</code></td><td>≥ 1</td><td>每次重采样前用于评估残差的候选内部点数量。<br>调大覆盖更充分、找到难点的机会更高，但每次重采样更耗时和内存；调小更快但选择更粗糙。</td></tr><tr><td><code>power</code><br>残差幂指数</td><td>number<br><code>1.0</code></td><td>≥ 0.0</td><td>残差转为抽样概率时使用的幂指数。<br>调大更集中采样高残差区域，可能丢失全局覆盖；调小使分布更接近均匀，适应性减弱。</td></tr><tr><td><code>uniform_mix</code><br>均匀采样混合比例</td><td>number<br><code>0.1</code></td><td>≥ 0.0；≤ 1.0</td><td>保留均匀覆盖的概率比例。<br>调大增强全域探索但减少难点聚焦；调小更集中高残差点，也更容易遗漏其他区域。</td></tr><tr><td><code>epsilon</code><br>数值稳定量</td><td>number<br><code>1e-12</code></td><td>≥ 0.0</td><td>残差转概率时避免全零的极小正数。<br>通常保持默认；调大使概率更均匀，过大可能淹没残差差异；过小在全零附近保护较弱。</td></tr><tr><td><code>resample_every</code><br>重采样间隔</td><td>integer<br><code>50</code></td><td>≥ 1</td><td>每隔多少个外层训练步更新一次内部点。<br>调小会更频繁追踪当前误差但增加采样开销和波动；调大更省算力，但训练点可能更新不及时。</td></tr></tbody></table><h3>自适应采样 / RAM 残差配点移动</h3><p><code>adaptive_sampling / residual_movement</code></p><table><thead><tr><th>参数</th><th>类型 / 默认值</th><th>限制</th><th>用途及调整影响</th></tr></thead><tbody><tr><td><code>candidate_pool</code><br>候选点数量</td><td>integer<br><code>512</code></td><td>≥ 1</td><td>每次移动配点前用于评估指标的候选点数量。<br>调大能更充分搜索高残差位置，但增加移动时的计算和内存；调小更快但搜索范围更粗。</td></tr><tr><td><code>movable_fraction</code><br>可移动点比例</td><td>number<br><code>0.5</code></td><td>≥ 0.0；≤ 1.0</td><td>每次更新中允许移动的内部点比例。<br>调大让配点更积极追随残差，但全局固定覆盖减少；调小保留更多固定点，适应速度变慢。</td></tr><tr><td><code>power</code><br>残差幂指数</td><td>number<br><code>1.0</code></td><td>≥ 0.0</td><td>残差转为移动概率时使用的幂指数。<br>调大更偏向最高残差位置但可能过度集中；调小更均匀、覆盖更广。</td></tr><tr><td><code>epsilon</code><br>数值稳定量</td><td>number<br><code>1e-12</code></td><td>≥ 0.0</td><td>残差转概率时使用的极小正数。<br>通常保持默认；调大使移动概率更均匀，过大可能掩盖残差差异。</td></tr><tr><td><code>resample_every</code><br>移动间隔</td><td>integer<br><code>50</code></td><td>≥ 1</td><td>每隔多少个外层训练步移动一次配点。<br>调小会更频繁移动、开销和波动更大；调大更省算力，但点可能长期停留在旧位置。</td></tr></tbody></table><h3>自适应采样 / WAM 梯度配点移动</h3><p><code>adaptive_sampling / gradient_movement</code></p><table><thead><tr><th>参数</th><th>类型 / 默认值</th><th>限制</th><th>用途及调整影响</th></tr></thead><tbody><tr><td><code>candidate_pool</code><br>候选点数量</td><td>integer<br><code>512</code></td><td>≥ 1</td><td>每次移动配点前用于评估指标的候选点数量。<br>调大能更充分搜索高梯度位置，但增加移动时的计算和内存；调小更快但搜索更粗。</td></tr><tr><td><code>movable_fraction</code><br>可移动点比例</td><td>number<br><code>0.5</code></td><td>≥ 0.0；≤ 1.0</td><td>每次更新中允许移动的内部点比例。<br>调大让更多点追随解梯度，但固定全域覆盖减少；调小更保守，也可能错过陡变区。</td></tr><tr><td><code>power</code><br>梯度幂指数</td><td>number<br><code>1.0</code></td><td>≥ 0.0</td><td>解梯度转为移动概率时使用的幂指数。<br>调大更聚焦最陡区域但可能过度集中；调小分布更均匀，梯度导向更弱。</td></tr><tr><td><code>epsilon</code><br>数值稳定量</td><td>number<br><code>1e-12</code></td><td>≥ 0.0</td><td>解梯度转概率时使用的极小正数。<br>通常保持默认；调大使概率更平滑，过大可能掩盖梯度差异。</td></tr><tr><td><code>resample_every</code><br>移动间隔</td><td>integer<br><code>50</code></td><td>≥ 1</td><td>每隔多少个外层训练步移动一次配点。<br>调小会更频繁更新且更耗时；调大更省算力，但点对当前解变化的响应更慢。</td></tr></tbody></table><h3>自适应采样 / 损失重要性采样</h3><p><code>adaptive_sampling / importance_sampling</code></p><table><thead><tr><th>参数</th><th>类型 / 默认值</th><th>限制</th><th>用途及调整影响</th></tr></thead><tbody><tr><td><code>candidate_pool</code><br>候选点数量</td><td>integer<br><code>512</code></td><td>≥ 1</td><td>用于估计逐点损失及抽样概率的候选点数量。<br>调大能更好估计重要性分布，但增加每次评估成本；调小更快但概率估计噪声更大。</td></tr><tr><td><code>epsilon</code><br>数值稳定量</td><td>number<br><code>1e-12</code></td><td>≥ 0.0</td><td>计算抽样概率和逆概率权重时使用的极小正数。<br>调大可压低极端逆概率权重、提高稳定性，但会削弱重要性差异；过小可能产生很大的修正权重。</td></tr><tr><td><code>resample_every</code><br>重采样间隔</td><td>integer<br><code>50</code></td><td>≥ 1</td><td>每隔多少个外层训练步重新执行重要性采样。<br>调小能更快跟随损失分布但增加成本和方差；调大更省算力，但采样概率可能过时。</td></tr></tbody></table><h3>自适应权重 / 可训练损失权重</h3><p><code>adaptive_weights / self_adaptive</code></p><table><thead><tr><th>参数</th><th>类型 / 默认值</th><th>限制</th><th>用途及调整影响</th></tr></thead><tbody><tr><td><code>lr</code><br>权重学习率</td><td>number<br><code>0.01</code></td><td>≥ 1e-12</td><td>损失权重梯度上升时使用的学习率。<br>调大让权重反应更快，但可能振荡或迅速顶到上限；调小更稳定，但难以在有限步数内明显调整。</td></tr><tr><td><code>min_weight</code><br>最小权重</td><td>number<br><code>1e-06</code></td><td>≥ 0.0</td><td>自适应权重允许达到的下界。<br>调大可防止某项被忽略，但可能压制其他任务；调小允许更强降权，也可能让某项几乎失去作用。</td></tr><tr><td><code>max_weight</code><br>最大权重</td><td>number<br><code>100.0</code></td><td>≥ 1e-12</td><td>自适应权重允许达到的上界。<br>调大允许更强地关注困难项，但可能造成梯度爆炸；调小更稳，却可能限制自适应能力。</td></tr></tbody></table><h3>自适应权重 / 不确定性损失权重</h3><p><code>adaptive_weights / uncertainty_weighting</code></p><table><thead><tr><th>参数</th><th>类型 / 默认值</th><th>限制</th><th>用途及调整影响</th></tr></thead><tbody><tr><td><code>lr</code><br>对数方差学习率</td><td>number<br><code>0.001</code></td><td>≥ 1e-12</td><td>学习各损失项对数方差时的学习率。<br>调大使任务权重变化更快但更易波动；调小变化更平滑，但适应速度更慢。</td></tr><tr><td><code>min_log_variance</code><br>最小对数方差</td><td>number<br><code>-10.0</code></td><td>无额外数值范围；仍须满足类型与运行校验</td><td>对数方差参数的下界。<br>设得更小允许更大的实际权重 exp(-s)，也增加数值过大风险；提高下界会限制最大权重。</td></tr><tr><td><code>max_log_variance</code><br>最大对数方差</td><td>number<br><code>10.0</code></td><td>无额外数值范围；仍须满足类型与运行校验</td><td>对数方差参数的上界。<br>设得更大允许把高不确定项降得更低，也可能近似忽略该项；降低上界可避免过度降权。</td></tr></tbody></table><h3>自适应权重 / ReLoBRaLo 相对损失平衡</h3><p><code>adaptive_weights / relobralo</code></p><table><thead><tr><th>参数</th><th>类型 / 默认值</th><th>限制</th><th>用途及调整影响</th></tr></thead><tbody><tr><td><code>alpha</code><br>历史平滑系数</td><td>number<br><code>0.999</code></td><td>≥ 0.0；≤ 1.0</td><td>当前权重与历史权重之间的指数平滑系数。<br>接近 1 时权重更平滑、记忆更长但响应慢；减小时响应更快，也更容易抖动。</td></tr><tr><td><code>temperature</code><br>温度</td><td>number<br><code>0.1</code></td><td>≥ 1e-12</td><td>控制相对损失 softmax 分布的尖锐程度。<br>调小会放大损失差异、权重更尖锐且可能不稳；调大使各项权重更接近，适应性更弱。</td></tr><tr><td><code>expected_lookback</code><br>回看概率期望</td><td>number<br><code>0.999</code></td><td>≥ 0.0；≤ 1.0</td><td>使用上一步损失而非初始损失的期望概率。<br>接近 1 时主要关注短期变化；调小会更频繁回看初始损失，增加长期参照和随机性。</td></tr><tr><td><code>epsilon</code><br>数值稳定量</td><td>number<br><code>1e-12</code></td><td>≥ 0.0</td><td>计算相对损失时避免除零的极小正数。<br>通常保持默认；过大可能扭曲很小的损失比值，过小在接近零时可能降低数值保护。</td></tr><tr><td><code>seed</code><br>方法随机种子</td><td>integer<br><code>0</code></td><td>≥ 0</td><td>随机回看过程的随机种子。<br>改变它会改变随机回看序列，不存在越大越好；公平比较时应固定或采用多随机种子。</td></tr></tbody></table><h3>自适应权重 / MMPINN 多量级幂损失</h3><p><code>adaptive_weights / magnitude_power</code></p><table><thead><tr><th>参数</th><th>类型 / 默认值</th><th>限制</th><th>用途及调整影响</th></tr></thead><tbody><tr><td><code>roots</code><br>各损失开方次数</td><td>number_map<br><code>{&#x27;pde&#x27;: 3.0, &#x27;boundary&#x27;: 2.0, &#x27;initial&#x27;: 2.0}</code></td><td>无额外数值范围；仍须满足类型与运行校验</td><td>损失名称到幂根次数的映射，例如 PDE 使用三次方根。<br>某项的根次数调大，会更强地压缩大损失的数量级；调小则更接近原损失。必须使用实际损失项名称。</td></tr><tr><td><code>default_root</code><br>未列出损失的开方次数</td><td>number<br><code>1.0</code></td><td>≥ 1e-12</td><td>没有出现在 roots 中的损失项使用的根次数。<br>调大对未列出的损失进行更强压缩；设为 1 表示保持原损失。不要设为零或负数。</td></tr><tr><td><code>epsilon</code><br>数值稳定量</td><td>number<br><code>1e-12</code></td><td>≥ 0.0</td><td>幂变换时使用的数值稳定量。<br>通常保持默认；过大将改变小损失，过小可能减弱零附近的数值保护。</td></tr></tbody></table><h3>自适应权重 / 逐点自适应 SA-PINN</h3><p><code>adaptive_weights / pointwise_self_adaptive</code></p><table><thead><tr><th>参数</th><th>类型 / 默认值</th><th>限制</th><th>用途及调整影响</th></tr></thead><tbody><tr><td><code>lr</code><br>逐点权重学习率</td><td>number<br><code>0.01</code></td><td>≥ 1e-12</td><td>逐训练点掩码梯度上升时使用的学习率。<br>调大让难点权重增长更快，但更易振荡或饱和；调小更稳，但需要更多训练步才有明显效果。</td></tr><tr><td><code>min_weight</code><br>最小逐点权重</td><td>number<br><code>1e-06</code></td><td>≥ 0.0</td><td>逐点权重允许达到的下界。<br>调大能防止任何训练点被忽略，但降低稀疏选择能力；调小允许弱化易点，也可能让其几乎无贡献。</td></tr><tr><td><code>max_weight</code><br>最大逐点权重</td><td>number<br><code>100.0</code></td><td>≥ 1e-12</td><td>逐点权重允许达到的上界。<br>调大允许极难点获得更高关注，但可能产生大梯度；调小更稳，却可能压制难点权重。</td></tr></tbody></table><h3>普通 PINN / 普通 PINN</h3><p><code>baseline / plain_pinn</code></p><p>此变体没有专用可编辑超参数。仍可调整通用训练设置。</p><h3>区域分解 / 两子域多网络分解</h3><p><code>domain_decomposition / two_subdomain</code></p><table><thead><tr><th>参数</th><th>类型 / 默认值</th><th>限制</th><th>用途及调整影响</th></tr></thead><tbody><tr><td><code>interface</code><br>子域界面位置</td><td>number<br><code>0.0</code></td><td>无额外数值范围；仍须满足类型与运行校验</td><td>一维非均质 Poisson 两个材料子域的分界坐标。<br>必须与材料系数真正跳变的位置一致；改错会让子网络划分和界面条件施加在错误位置，并非越大越好。</td></tr></tbody></table><h3>Fourier 特征 / 固定随机 Fourier 特征</h3><p><code>fourier / random_fourier</code></p><table><thead><tr><th>参数</th><th>类型 / 默认值</th><th>限制</th><th>用途及调整影响</th></tr></thead><tbody><tr><td><code>num_frequencies</code><br>频率数量</td><td>integer<br><code>16</code></td><td>≥ 1</td><td>每个输入维度使用的随机 Fourier 频率数。<br>调大会增加特征维度、参数量和高频表达能力，也会增加时间与过拟合风险；调小更省算力，但可能漏掉高频。</td></tr><tr><td><code>scale</code><br>频率尺度</td><td>number<br><code>1.0</code></td><td>≥ 1e-12</td><td>随机频率矩阵的尺度；越大越强调高频。<br>调大偏向更短波长，适合高频解但可能让优化变难；调小偏向平滑、低频结构。</td></tr><tr><td><code>seed</code><br>特征随机种子</td><td>integer<br><code>29</code></td><td>≥ 0</td><td>固定随机 Fourier 特征的随机种子。<br>改变它会换一组随机频率，不代表数值越大越好；正式比较应固定种子或报告多种子结果。</td></tr><tr><td><code>include_input</code><br>保留原始坐标</td><td>boolean<br><code>True</code></td><td>无额外数值范围；仍须满足类型与运行校验</td><td>是否把原始坐标与 Fourier 特征拼接。<br>设为 True 可保留低频和坐标直连信息但增加输入维度；False 更精简，但完全依赖 Fourier 特征。</td></tr><tr><td><code>trainable</code><br>训练频率矩阵</td><td>boolean<br><code>False</code></td><td>无额外数值范围；仍须满足类型与运行校验</td><td>是否把随机频率矩阵也作为可训练参数。<br>True 增加可训练自由度，可能适应问题频谱但更慢、更易不稳；False 固定特征，复现更简单。</td></tr></tbody></table><h3>强制边界 / 解析输出变换</h3><p><code>hard_boundary / exact_output_transform</code></p><p>此变体没有专用可编辑超参数。仍可调整通用训练设置。</p><h3>改进 MLP / 门控 Modified MLP</h3><p><code>modified_mlp / gated_mlp</code></p><p>此变体没有专用可编辑超参数。仍可调整通用训练设置。</p><h3>时间窗 / 顺序因果时间窗</h3><p><code>time_window / causal_window</code></p><table><thead><tr><th>参数</th><th>类型 / 默认值</th><th>限制</th><th>用途及调整影响</th></tr></thead><tbody><tr><td><code>window_ends</code><br>时间窗终点</td><td>number_list<br><code>[0.25, 0.5, 0.75, 1.0]</code></td><td>无额外数值范围；仍须满足类型与运行校验</td><td>按顺序扩展训练区域时使用的归一化时间终点。<br>增加窗口数量会让因果推进更细但重采样阶段更多；减少窗口更简单。数值必须递增，最后通常为 1.0。</td></tr></tbody></table><h3>迁移学习 / 兼容检查点迁移</h3><p><code>transfer / checkpoint_transfer</code></p><table><thead><tr><th>参数</th><th>类型 / 默认值</th><th>限制</th><th>用途及调整影响</th></tr></thead><tbody><tr><td><code>checkpoint</code><br>检查点路径</td><td>string<br><code>未提供</code></td><td>必填</td><td>结构兼容的 OpenPINN checkpoint.pt 路径。<br>它决定初始化来源，不是大小型超参数；换路径会换源模型，结构不兼容会在训练前报错。</td></tr><tr><td><code>trainable_last_linear_layers</code><br>继续训练的末端线性层数</td><td>integer<br><code>未提供</code></td><td>≥ 1</td><td>留空表示继续训练全网络；填写后只训练最后若干线性层。<br>留空适应能力最大但训练参数多；设为较小整数更快且保留更多源知识，但可能限制新问题拟合能力。</td></tr></tbody></table></section></main></div><footer>OpenPINN 双说明书 · 以源码与实际接口为准 · 完整单文件归档版 · 网站按六个子页面阅读 · 不依赖 CDN</footer><script>
+const nav=document.querySelector('nav');
+document.querySelector('#chapter-search').addEventListener('input',e=>{const v=e.target.value.trim().toLowerCase();document.querySelectorAll('nav a').forEach(a=>{const s=document.getElementById(a.hash.slice(1));a.hidden=!!v&&!s.textContent.toLowerCase().includes(v)});nav.querySelectorAll('details').forEach(d=>{d.hidden=[...d.querySelectorAll('a')].every(a=>a.hidden);d.open=!!v&&!d.hidden})});
+document.querySelector('#expand').addEventListener('click',()=>document.querySelectorAll('details').forEach(d=>d.open=true));
+document.querySelector('#collapse').addEventListener('click',()=>document.querySelectorAll('details').forEach(d=>d.open=false));
+document.querySelector('#print').addEventListener('click',()=>{document.querySelectorAll('details').forEach(d=>d.open=true);window.print()});
+document.querySelectorAll('[data-filter-target]').forEach(input=>input.addEventListener('input',()=>{const needle=input.value.trim().toLowerCase();const container=document.getElementById(input.dataset.filterTarget);container.querySelectorAll(':scope > details').forEach(d=>{d.hidden=!!needle&&!d.textContent.toLowerCase().includes(needle);if(needle&&!d.hidden)d.open=true})}));
+function revealHash(){let id;try{id=decodeURIComponent(location.hash.slice(1))}catch(error){id=''}const el=document.getElementById(id);const section=el&&el.closest('section');nav.querySelectorAll('a').forEach(a=>{if(section&&a.hash==='#'+section.id){a.setAttribute('aria-current','location');a.closest('details').open=true}else a.removeAttribute('aria-current')});if(!el)return;let p=el.parentElement;while(p){if(p.tagName==='DETAILS')p.open=true;p.hidden=false;p=p.parentElement}el.scrollIntoView()}
+window.addEventListener('hashchange',revealHash);if(location.hash)revealHash();
+</script></body></html>

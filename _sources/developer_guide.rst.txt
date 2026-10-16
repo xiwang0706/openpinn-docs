@@ -1,0 +1,33 @@
+开发者说明书
+============
+
+这份说明书面向想继续建设 OpenPINN 的贡献者：你可能刚用它发现一个问题，
+也可能准备加入新算法、新方程，或改善一个操作细节。
+先沿下图确定自己的任务，再进入对应开发指南；不需要先读完所有源码。
+
+.. openpinn-manual:: developer
+
+.. note::
+
+   **先能复现 → 找对扩展点 → 做最小改动 → 给出验证证据 → 提交并响应审阅。**
+   第一次贡献从 :doc:`developer_guide_start` 开始；算法开发看 :doc:`developer_guide_runtime`；
+   小修复也可直接从 :doc:`developer_guide_configurator` 起步。
+   程序怎样运行、各函数在哪里，放在 :doc:`developer_guide_reference` 按需查询。
+
+   GitHub 的 Issue / 分支 / PR 流程是发布后的协作建议，不代表当前本地已配置远程仓库、CI 或自动合并。
+   发布前由项目负责人确认许可证、仓库地址和维护规则，详见 :doc:`developer_guide_delivery`。
+
+.. toctree::
+   :maxdepth: 1
+   :hidden:
+
+   developer_guide_start
+   developer_guide_runtime
+   developer_guide_modeling
+   developer_guide_configurator
+   developer_guide_delivery
+   developer_guide_reference
+
+离线保存或打印时可使用 `完整单文件版 <developer_manual.html>`_。
+软件操作说明见 :doc:`user_guide`。
+

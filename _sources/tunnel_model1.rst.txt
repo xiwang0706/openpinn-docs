@@ -1,0 +1,150 @@
+双隧道二维模型
+==============
+
+这个内置问题来自用户提供的 Word 稿件 ``8.28 9点.docx``，题为
+*Gradient-Coordinated Physics-Informed Learning for Forward and Inverse Tunnel
+Consolidation in Layered Anisotropic Ground*。这里只接入稿件中的“模型一”控制方程、
+几何和初边界条件，没有复制任何外部代码。
+
+最短调用
+--------
+
+.. code-block:: python
+
+   import openpinn as op
+
+   result = op.solve(
+       "tunnel_model1",              # 新问题简称
+       method="baseline",            # 方法大类
+       variant="plain_pinn",         # 具体方法简称
+       steps=5,                       # 链路检查；正式预算见下文
+   )
+   print(result.output_dir)
+
+只修改 ``method`` 和 ``variant`` 就能组合已有的兼容方法。例如：
+
+.. code-block:: python
+
+   result = op.solve(
+       "tunnel_model1",
+       method="adaptive_weights",
+       variant="self_adaptive",
+       steps=20000,
+   )
+
+数学模型
+--------
+
+双隧道二维模型采用二维各向异性固结扩散方程：
+
+.. math::
+
+   \frac{\partial u}{\partial t}
+   = C_x\frac{\partial^2 u}{\partial x^2}
+   + C_y\frac{\partial^2 u}{\partial y^2}.
+
+土体是 ``40 m × 40 m`` 正方形，扣除两个半径 ``4 m`` 的圆形隧道；圆心分别为
+``(10 m, 20 m)`` 和 ``(30 m, 20 m)``。外边界与两个隧道壁均为排水边界
+``u=0``，土体内部初始超孔压为 ``p0``，分析时段为 ``0–40 年``。
+
+代码按稿件给出的无量纲方式训练：
+
+.. math::
+
+   X=x/B,\quad Y=y/H,\quad \tau=t/T,\quad U=u/p_0,
+
+   U_\tau-\widehat C_x U_{XX}-\widehat C_y U_{YY}=0,
+   \quad \widehat C_x=C_xT/B^2,\quad \widehat C_y=C_yT/H^2.
+
+所以 ``predictions.npz`` 中的 ``prediction`` 和 ``field_U`` 是无量纲 ``U``；
+物理孔压用 ``u = p0 * U`` 还原。
+
+参数怎样改
+----------
+
+Word 的模型一小节明确了几何与 40 年时段，但没有在该小节单独明确列出 ``p0``、
+``Cx``、``Cy``。为了让短调用可运行，当前把 ``20 kPa``、``0.30 m²/年``、
+``0.60 m²/年`` 作为**公开、可修改的默认假设**，不能称为从模型一原文提取的确定值。
+
+.. code-block:: python
+
+   result = op.solve(
+       "tunnel_model1",
+       method="fourier",
+       variant="random_fourier",
+       steps=20000,
+       problem_options={
+           "parameters": {
+               "initial_pressure_kpa": 25.0,
+               "consolidation_x_m2_per_year": 0.25,
+               "consolidation_y_m2_per_year": 0.55,
+           }
+       },
+   )
+
+同样的参数集中保存在 ``configs/problems/tunnel_model1.yaml``；可直接运行的组合配置为
+``configs/experiments/tunnel_model1_baseline.yaml``，最短脚本为
+``examples/tunnel_model1.py``。
+
+怎样看双隧道结果
+------------------
+
+双隧道不再套用 Poisson 的一维曲线图。每次运行现在保存三张分工明确的图：
+
+* ``result.svg``：用物理坐标 ``x/y (m)`` 和物理孔压 ``kPa`` 显示初始、中间与
+  末时刻的二维孔压场；两个白色圆是排水隧道壁，三张图共用同一色标，
+  所以可以直接比较孔压随时间的消散。默认数值评估网格为 ``61 x 61``，
+  图像显示层再用双三次插值生成光滑云图。插值只改善显示，不修改
+  ``predictions.npz`` 或任何指标，也不代表模型精度被提高。
+* ``diagnostics.svg``：显示末时刻 PDE 残差空间分布、一条物理孔压剖面和
+  全域平均孔压随时间的消散趋势。
+* ``loss.svg``：仍只负责显示训练损失，不把损失曲线当作物理结果图。
+
+``metrics.json`` 中会保存以下两类指标：
+
+.. list-table::
+   :header-rows: 1
+
+   * - 指标
+     - 表示什么
+     - 怎样判断
+   * - ``pde_residual_rmse``
+     - 无量纲控制方程残差 RMSE
+     - 越小说明越符合 PDE，但不等于解已经准确
+   * - ``boundary_pressure_rmse_kpa``
+     - 排水外边界和隧道壁上的孔压 RMSE
+     - 越接近 ``0 kPa`` 越好
+   * - ``initial_pressure_rmse_kpa``
+     - 初始孔压与 ``p0`` 的 RMSE
+     - 越小越好
+   * - ``mean_pressure_dissipation_percent``
+     - 从 ``p0`` 到末时刻预测平均孔压的消散比例
+     - 用于看总体消散趋势，不是对参考解的误差
+   * - ``physical_range_violation_fraction``
+     - 预测超出 ``0 <= u <= p0`` 的评估点比例
+     - 越接近 0 越好；非零提示出现负孔压或超过初始孔压
+
+Poisson 和 Burgers 有独立参考解时，``metrics.json`` 现在还会统一保存
+``relative_l2_error``、``rmse``、``mae``、``max_absolute_error`` 和
+``r2_score``。当前双隧道附件没有提供 COMSOL 或其他独立参考场，因此
+``reference_solution_available`` 为 ``false``，不生成虚假的解 L2、解 RMSE 或
+``R2``。现有 ``initial/boundary RMSE`` 只衡量初边值条件，不能替代整个时空场的
+参考解误差。
+
+训练预算与当前验证边界
+----------------------
+
+稿件报告模型一采用 ``512/256/256`` 个 PDE/初值/边界点、Adam 训练 20,000 个 epoch，
+主要策略为 ConFIG 加均匀时空采样。OpenPINN 已把 512 个内部点、256 个边界点和
+256 个初值点设为该问题默认值；但当前方法目录尚无 ConFIG，因此这里完成的是
+“模型一问题接入”，不是对稿件数值结果的完整复现。
+
+2026-08-30 已用同一随机种子分别完成 5 步 ``baseline/plain_pinn`` 和
+``adaptive_weights/self_adaptive`` 链路检查，产物位于
+``results/model_validation/``。两组都保存了配置、PDE/边界/初值 RMSE、时间、二维
+时间切片图、loss 图、预测、checkpoint、manifest 和失败/限制说明。2026-09-05
+起，新运行还会生成物理坐标孔压场和 ``diagnostics.svg``。
+
+附件没有提供模型一的解析解或可读取的 COMSOL 数值数组，因此当前不报告相对 L2
+误差，也不能凭 5 步结果判断方法优劣。若要复现论文精度，下一步必须取得论文使用的
+完整 ``p0/Cx/Cy``、COMSOL 参考数据和 ConFIG 的明确许可实现。

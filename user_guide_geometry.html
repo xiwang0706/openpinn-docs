@@ -1,0 +1,432 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>几何创建、导入与编辑 &mdash; OpenPINN 文档</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="_static/method_catalog.css?v=9c037d8c" />
+      <link rel="stylesheet" type="text/css" href="_static/method_configurator.css?v=7e8bb877" />
+      <link rel="stylesheet" type="text/css" href="_static/physics_editor.css?v=274d97ba" />
+      <link rel="stylesheet" type="text/css" href="_static/problem_designer.css?v=91cae30d" />
+      <link rel="stylesheet" type="text/css" href="_static/vendor/katex/katex.min.css?v=d850987e" />
+      <link rel="stylesheet" type="text/css" href="_static/visual_problem_designer.css?v=a458b408" />
+      <link rel="stylesheet" type="text/css" href="_static/manuals.css?v=6f2ed0c6" />
+      <link rel="stylesheet" type="text/css" href="_static/manual_diagrams.css?v=ae97075d" />
+      <link rel="stylesheet" type="text/css" href="_static/documentation_search.css?v=01fd3019" />
+      <link rel="stylesheet" type="text/css" href="_static/document_site.css?v=73270abc" />
+
+  
+    <link rel="shortcut icon" href="_static/favicon.svg"/>
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=ad3000b3"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="_static/copybutton.js?v=f281be69"></script>
+      <script defer="defer" src="_static/polygon_image_trace.js?v=ba20ab72"></script>
+      <script defer="defer" src="_static/dxf_geometry_import.js?v=e4debea6"></script>
+      <script defer="defer" src="_static/physics_editor.js?v=107262fa"></script>
+      <script defer="defer" src="_static/method_configurator.js?v=7e29dcc9"></script>
+      <script defer="defer" src="_static/configurator_navigation.js?v=624f0b8a"></script>
+      <script defer="defer" src="_static/problem_designer.js?v=66bcf361"></script>
+      <script defer="defer" src="_static/vendor/blockly/blockly_compressed.js?v=b2ec3820"></script>
+      <script defer="defer" src="_static/vendor/blockly/zh-hans.js?v=a2eae252"></script>
+      <script defer="defer" src="_static/vendor/katex/katex.min.js?v=4f2e6063"></script>
+      <script defer="defer" src="_static/visual_problem_designer.js?v=16229ff5"></script>
+      <script defer="defer" src="_static/manuals.js?v=9159a2c6"></script>
+      <script defer="defer" src="_static/documentation_search.js?v=a6773392"></script>
+      <script src="_static/translations.js?v=beaddf03"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="genindex.html" />
+    <link rel="search" title="搜索" href="search.html" />
+    <link rel="next" title="训练设置与运行" href="user_guide_training.html" />
+    <link rel="prev" title="自定义建模与代码生成" href="user_guide_modeling.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            OpenPINN
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="搜索文档" aria-label="搜索文档" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
+              <p class="caption" role="heading"><span class="caption-text">软件说明书</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="user_guide.html">使用者说明书</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="user_guide_start.html">安装与快速上手</a></li>
+<li class="toctree-l2"><a class="reference internal" href="user_guide_modeling.html">自定义建模与代码生成</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">几何创建、导入与编辑</a></li>
+<li class="toctree-l2"><a class="reference internal" href="user_guide_training.html">训练设置与运行</a></li>
+<li class="toctree-l2"><a class="reference internal" href="user_guide_results.html">结果验证与实验交接</a></li>
+<li class="toctree-l2"><a class="reference internal" href="user_guide_help.html">问题排查与运行核对</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="developer_guide.html">开发者说明书</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="developer_guide_start.html">开始贡献：从反馈到开发计划</a></li>
+<li class="toctree-l2"><a class="reference internal" href="developer_guide_runtime.html">新增算法与改进方法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="developer_guide_modeling.html">扩展方程、几何与边界</a></li>
+<li class="toctree-l2"><a class="reference internal" href="developer_guide_configurator.html">修复功能与改进网页</a></li>
+<li class="toctree-l2"><a class="reference internal" href="developer_guide_delivery.html">验证、提交 PR 与版本维护</a></li>
+<li class="toctree-l2"><a class="reference internal" href="developer_guide_reference.html">架构与源码参考</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">开始使用</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="install.html">安装与运行环境配置</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="install.html#id2">准备与定位项目文件夹</a></li>
+<li class="toctree-l2"><a class="reference internal" href="install.html#id4">推荐方式：从源码开始</a></li>
+<li class="toctree-l2"><a class="reference internal" href="install.html#conda-cuda">已有 Conda 或 CUDA 环境</a></li>
+<li class="toctree-l2"><a class="reference internal" href="install.html#id5">生成网页并确认文件存在</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">5 分钟快速入门</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#python">最短 Python 调用</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#id2">网页配置生成器</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#id3">可直接复制的方法简称</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#id4">最短命令行调用</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#yaml">最短 YAML 调用</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#id5">每次运行保存什么</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#id6">下一步</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="architecture.html">项目结构与调用流程</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="architecture.html#id2">最终流程</a></li>
+<li class="toctree-l2"><a class="reference internal" href="architecture.html#id3">源码文件各负责什么</a></li>
+<li class="toctree-l2"><a class="reference internal" href="architecture.html#id4">文件夹为什么分开</a></li>
+<li class="toctree-l2"><a class="reference internal" href="architecture.html#id5">新增方法的固定闭环</a></li>
+<li class="toctree-l2"><a class="reference internal" href="architecture.html#id6">方法大类与具体变体</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">问题与案例</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="poisson.html">Poisson：静态与非均质案例</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="poisson.html#id1">普通 Poisson</a></li>
+<li class="toctree-l2"><a class="reference internal" href="poisson.html#id2">正式基线结果</a></li>
+<li class="toctree-l2"><a class="reference internal" href="poisson.html#id3">分段系数 Poisson</a></li>
+<li class="toctree-l2"><a class="reference internal" href="poisson.html#id4">比较改进方法时</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="burgers.html">Burgers：动态案例</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="burgers.html#id1">可信参考解</a></li>
+<li class="toctree-l2"><a class="reference internal" href="burgers.html#id2">快速检查</a></li>
+<li class="toctree-l2"><a class="reference internal" href="burgers.html#id3">较长的默认训练</a></li>
+<li class="toctree-l2"><a class="reference internal" href="burgers.html#id4">查看结果</a></li>
+<li class="toctree-l2"><a class="reference internal" href="burgers.html#id5">正式基线结果</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="tunnel_model1.html">双隧道二维模型</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="tunnel_model1.html#id2">最短调用</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tunnel_model1.html#id3">数学模型</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tunnel_model1.html#id4">参数怎样改</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tunnel_model1.html#id5">怎样看双隧道结果</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tunnel_model1.html#id6">训练预算与当前验证边界</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="custom_equation.html">加入自己的控制方程</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="custom_equation.html#id2">从配置生成器取得完整模板</a></li>
+<li class="toctree-l2"><a class="reference internal" href="custom_equation.html#id3">边界与初值的实现边界</a></li>
+<li class="toctree-l2"><a class="reference internal" href="custom_equation.html#yaml">为什么不能只在 YAML 写一行公式</a></li>
+<li class="toctree-l2"><a class="reference internal" href="custom_equation.html#id4">一个完整但很短的例子</a></li>
+<li class="toctree-l2"><a class="reference internal" href="custom_equation.html#id5">用 YAML 选择用户方程</a></li>
+<li class="toctree-l2"><a class="reference internal" href="custom_equation.html#id6">用户方程文件至少负责</a></li>
+<li class="toctree-l2"><a class="reference internal" href="custom_equation.html#id7">兼容性不是强行保证</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="physics_library.html">物理参数库与安全单场公式</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="physics_library.html#id2">先试一个完整流程</a></li>
+<li class="toctree-l2"><a class="reference internal" href="physics_library.html#physics-equation-entry">水压力场与固结系数：输入二维孔压扩散方程</a></li>
+<li class="toctree-l2"><a class="reference internal" href="physics_library.html#id4">常用操作与高级信息分开</a></li>
+<li class="toctree-l2"><a class="reference internal" href="physics_library.html#id5">定义、数值与模板分别保存</a></li>
+<li class="toctree-l2"><a class="reference internal" href="physics_library.html#id6">从模板开始</a></li>
+<li class="toctree-l2"><a class="reference internal" href="physics_library.html#id7">公式支持范围</a></li>
+<li class="toctree-l2"><a class="reference internal" href="physics_library.html#id8">单位是计算规则</a></li>
+<li class="toctree-l2"><a class="reference internal" href="physics_library.html#id9">离线导入、导出与迁移</a></li>
+<li class="toctree-l2"><a class="reference internal" href="physics_library.html#python-api">Python API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="physics_library.html#id10">贡献与验收</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="problem_designer.html">新控制方程与适用方法检查</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="problem_designer.html#id2">复制代码后做什么</a></li>
+<li class="toctree-l2"><a class="reference internal" href="problem_designer.html#id3">结果的三种状态</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">方法选择与说明</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="method_catalog.html">方法简称总表</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="method_catalog.html#id2">以后怎样增加新方法</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="method_configurator.html">配置生成器</a></li>
+<li class="toctree-l1"><a class="reference internal" href="methods.html">十类改进方法详解</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="methods.html#id2">统一选择方式</a></li>
+<li class="toctree-l2"><a class="reference internal" href="methods.html#id3">增加同一家族的第二种方法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="methods.html#id4">阅读方法页时建议关注七项信息</a></li>
+<li class="toctree-l2"><a class="reference internal" href="methods.html#id5">比较方法的推荐流程</a></li>
+<li class="toctree-l2"><a class="reference internal" href="methods.html#id6">已接入的方法</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="methods/baseline.html">普通 PINN（<code class="docutils literal notranslate"><span class="pre">plain_pinn</span></code>）</a></li>
+<li class="toctree-l3"><a class="reference internal" href="methods/fourier_features.html">Fourier 特征：先把坐标展开再交给网络</a></li>
+<li class="toctree-l3"><a class="reference internal" href="methods/modified_mlp.html">Modified MLP：用门控融合缓解梯度传递困难</a></li>
+<li class="toctree-l3"><a class="reference internal" href="methods/adaptive_activation.html">自适应激活函数</a></li>
+<li class="toctree-l3"><a class="reference internal" href="methods/hard_boundary.html">硬边界约束：让网络天生满足 Dirichlet 边界</a></li>
+<li class="toctree-l3"><a class="reference internal" href="methods/adaptive_weights.html">损失平衡与自适应权重</a></li>
+<li class="toctree-l3"><a class="reference internal" href="methods/adaptive_sampling.html">自适应采样：训练点怎么随模型变化</a></li>
+<li class="toctree-l3"><a class="reference internal" href="methods/adam_lbfgs.html">Adam + L-BFGS：先找方向，再做二阶收尾</a></li>
+<li class="toctree-l3"><a class="reference internal" href="methods/time_window.html">顺序时间窗：先学早期，再打开后期</a></li>
+<li class="toctree-l3"><a class="reference internal" href="methods/transfer_learning.html">迁移学习与继续训练：新问题不再完全从零开始</a></li>
+<li class="toctree-l3"><a class="reference internal" href="methods/domain_decomposition.html">多网络与区域分解：左右各学一段，界面再接起来</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="methods.html#id7">新增二级变体</a></li>
+<li class="toctree-l2"><a class="reference internal" href="methods.html#id8">十种方法的实际结果摘要</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">验证与复现</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="reproducibility.html">三随机种子复现</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="reproducibility.html#id2">目的</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reproducibility.html#id3">运行</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reproducibility.html#id4">统计口径</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reproducibility.html#id5">输出</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reproducibility.html#id6">三随机种子结果</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reproducibility.html#id7">解释边界</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="validation.html">质量验证</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="validation.html#wheel">wheel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="validation.html#id2">环境说明</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API 与交付检查</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="api.html">常用 Python 接口</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api.html#id1">配置和运行</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api.html#openpinn.solve"><code class="docutils literal notranslate"><span class="pre">solve()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api.html#openpinn.method"><code class="docutils literal notranslate"><span class="pre">method()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api.html#openpinn.MethodSelection"><code class="docutils literal notranslate"><span class="pre">MethodSelection</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api.html#openpinn.solve_config"><code class="docutils literal notranslate"><span class="pre">solve_config()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api.html#openpinn.build_config"><code class="docutils literal notranslate"><span class="pre">build_config()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api.html#openpinn.list_methods"><code class="docutils literal notranslate"><span class="pre">list_methods()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api.html#openpinn.list_method_variants"><code class="docutils literal notranslate"><span class="pre">list_method_variants()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api.html#openpinn.check_method_compatibility"><code class="docutils literal notranslate"><span class="pre">check_method_compatibility()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api.html#openpinn.ProblemCompatibilityReport"><code class="docutils literal notranslate"><span class="pre">ProblemCompatibilityReport</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api.html#openpinn.load_config"><code class="docutils literal notranslate"><span class="pre">load_config()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api.html#openpinn.Experiment"><code class="docutils literal notranslate"><span class="pre">Experiment</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api.html#openpinn.ExperimentResult"><code class="docutils literal notranslate"><span class="pre">ExperimentResult</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api.html#openpinn.evaluate_reference_csv"><code class="docutils literal notranslate"><span class="pre">evaluate_reference_csv()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#id2">方法注册</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api.html#openpinn.MethodSpec"><code class="docutils literal notranslate"><span class="pre">MethodSpec</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api.html#openpinn.MethodCompatibility"><code class="docutils literal notranslate"><span class="pre">MethodCompatibility</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api.html#openpinn.MethodVariantSpec"><code class="docutils literal notranslate"><span class="pre">MethodVariantSpec</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api.html#openpinn.MethodRegistry"><code class="docutils literal notranslate"><span class="pre">MethodRegistry</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#id3">网络与特征</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api.html#openpinn.MLP"><code class="docutils literal notranslate"><span class="pre">MLP</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api.html#openpinn.PINNModel"><code class="docutils literal notranslate"><span class="pre">PINNModel</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api.html#openpinn.freeze_all_but_last_linear_layers"><code class="docutils literal notranslate"><span class="pre">freeze_all_but_last_linear_layers()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api.html#openpinn.FourierFeatures"><code class="docutils literal notranslate"><span class="pre">FourierFeatures</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#id4">采样与训练</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api.html#openpinn.UniformSampler"><code class="docutils literal notranslate"><span class="pre">UniformSampler</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api.html#openpinn.Trainer"><code class="docutils literal notranslate"><span class="pre">Trainer</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#id5">已有问题</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api.html#openpinn.PDEProblem"><code class="docutils literal notranslate"><span class="pre">PDEProblem</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api.html#openpinn.Polygon"><code class="docutils literal notranslate"><span class="pre">Polygon</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api.html#openpinn.DirichletBC"><code class="docutils literal notranslate"><span class="pre">DirichletBC</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api.html#openpinn.NeumannBC"><code class="docutils literal notranslate"><span class="pre">NeumannBC</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api.html#openpinn.RobinBC"><code class="docutils literal notranslate"><span class="pre">RobinBC</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api.html#openpinn.make_poisson_problem"><code class="docutils literal notranslate"><span class="pre">make_poisson_problem()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api.html#openpinn.make_piecewise_poisson_problem"><code class="docutils literal notranslate"><span class="pre">make_piecewise_poisson_problem()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api.html#openpinn.make_burgers_problem"><code class="docutils literal notranslate"><span class="pre">make_burgers_problem()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api.html#openpinn.make_coupled_manufactured_problem"><code class="docutils literal notranslate"><span class="pre">make_coupled_manufactured_problem()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api.html#openpinn.make_tunnel_consolidation_model1_problem"><code class="docutils literal notranslate"><span class="pre">make_tunnel_consolidation_model1_problem()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api.html#openpinn.RectangleWithCircularHoles"><code class="docutils literal notranslate"><span class="pre">RectangleWithCircularHoles</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="faq.html">常见错误</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="faq.html#python">找不到 python</a></li>
+<li class="toctree-l2"><a class="reference internal" href="faq.html#no-module-named-openpinn">提示 No module named openpinn</a></li>
+<li class="toctree-l2"><a class="reference internal" href="faq.html#pytorch-cuda">PyTorch 或 CUDA 安装冲突</a></li>
+<li class="toctree-l2"><a class="reference internal" href="faq.html#id2">结果目录不是空的</a></li>
+<li class="toctree-l2"><a class="reference internal" href="faq.html#nan">出现 NaN 或无穷大</a></li>
+<li class="toctree-l2"><a class="reference internal" href="faq.html#id3">短案例运行成功，但误差较大</a></li>
+<li class="toctree-l2"><a class="reference internal" href="faq.html#id4">网站文档构建失败</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="delivery_status.html">功能概览</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="delivery_status.html#id2">文档范围</a></li>
+<li class="toctree-l2"><a class="reference internal" href="delivery_status.html#id3">使用建议</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="workload.html">计算成本参考</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changelog.html">变更记录</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#comsol-cad-dxf">2026-10-03：COMSOL/CAD 二维 DXF 导入</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id2">2026-09-30：可旋转椭圆几何</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id3">2026-09-30：图片曲率识别与可编辑闭合样条</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id4">2026-09-30：真圆与可调圆角几何</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id5">2026-09-30：多边形拖动缩放与尺寸标注</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id6">2026-09-30</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id7">2026-09-21</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id8">2026-09-19</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id9">2026-09-18</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id10">2026-09-11</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id11">2026-09-05</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id12">2026-08-30</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id13">0.2.0 - 2026-08-29</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id14">2026-08-28</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id15">0.1.2 - 2026-08-26</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id16">0.1.1</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="移动版导航菜单" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">OpenPINN</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="页面导航">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="user_guide.html">使用者说明书</a></li>
+      <li class="breadcrumb-item active">几何创建、导入与编辑</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/user_guide_geometry.rst.txt" rel="nofollow"> 查看页面源码</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="id1">
+<h1>几何创建、导入与编辑<a class="headerlink" href="#id1" title="Link to this heading"></a></h1>
+<p>设置区域，导入图片或 DXF，编辑顶点和圆孔。</p>
+<p>区域确定后，返回 <a class="reference internal" href="user_guide_modeling.html"><span class="doc">自定义建模与代码生成</span></a> 设置控制方程、边界与初值并生成代码；
+已有脚本则进入 <a class="reference internal" href="user_guide_training.html"><span class="doc">训练设置与运行</span></a>。本页只处理几何，不会自动完成 PDE 求解。</p>
+<div class="openpinn-manual"><nav class="manual-page-links" aria-label="说明书分页"><a href="user_guide.html">返回说明书总览</a><a href="user_guide_modeling.html">上一部分：自定义建模与代码生成</a><a href="user_guide_training.html">下一部分：训练设置与运行</a></nav><div class="manual-tools"><label>筛选本页小节 <input type="search" data-manual-search placeholder="输入关键词，不隐藏正文"></label><button type="button" data-manual-expand>展开本页折叠内容</button><button type="button" data-manual-collapse>收起</button></div><details class="manual-local-nav"><summary>本页内容导航（4 节）</summary><nav class="manual-contents" aria-label="本页内容导航"><ul><li><a href="#geometry">07 · 直接设置一维、矩形和曲线区域</a></li><li><a href="#image-import">08 · 从图片或坐标文件导入区域</a></li><li><a href="#dxf">09 · 导入 COMSOL / CAD 的 DXF 几何</a></li><li><a href="#hole-editor">10 · 编辑顶点、边长、圆孔尺寸及编号</a></li></ul></nav></details><section id="geometry"><h2>07 · 直接设置一维、矩形和曲线区域</h2><figure class="manual-map manual-map-tree" aria-label="选哪一种几何入口？"><figcaption>选哪一种几何入口？</figcaption><p class="manual-map-hint">点击编号图标或整个节点可跳转；也可用 Tab 选择、Enter 打开。连线表示分类或分支，不表示执行先后。</p><div class="manual-map-body"><div class="manual-map-root">选哪一种几何入口？</div><ul class="manual-map-branches"><li><a class="manual-map-node" href="#geometry-details"><span class="manual-map-icon" aria-hidden="true">1</span><span><strong>直接输入参数</strong><small>一维、矩形、圆、椭圆、圆角矩形</small></span></a></li><li><a class="manual-map-node" href="#geometry-details"><span class="manual-map-icon" aria-hidden="true">2</span><span><strong>编辑平滑闭合曲线</strong><small>控制点 + 张力；张力不等于数学曲率</small></span></a></li><li><a class="manual-map-node" href="#image-import"><span class="manual-map-icon" aria-hidden="true">3</span><span><strong>来自图片或坐标</strong><small>核对物理尺度、外轮廓与孔洞</small></span></a></li><li><a class="manual-map-node" href="#dxf"><span class="manual-map-icon" aria-hidden="true">4</span><span><strong>来自工程图纸</strong><small>二维 ASCII DXF → 单位换算 → 轮廓校验</small></span></a></li><li><a class="manual-map-node" href="#hole-editor"><span class="manual-map-icon" aria-hidden="true">5</span><span><strong>导入后精调</strong><small>顶点、边长、圆心与半径；再核对边界编号</small></span></a></li></ul></div></figure><div id="geometry-details"></div>
+<table><thead><tr><th>几何选项</th><th>填写内容</th><th>操作检查</th></tr></thead><tbody>
+<tr><td>一维</td><td>x 下限和上限</td><td>图中横轴为 x，曲线纵向为示例 u，不是第二个空间方向</td></tr>
+<tr><td>矩形</td><td>x/y 四个上下限</td><td>上下左右边界与轴标是否对应</td></tr>
+<tr><td>圆形</td><td>圆心 x、y；半径 R&gt;0</td><td>直径是 2R；直接圆形区域并不是“矩形中的圆孔”</td></tr>
+<tr><td>椭圆</td><td>中心、半轴 a、b；逆时针旋转角（度）</td><td>a、b 是半轴，不是全轴长；a=b 时为圆</td></tr>
+<tr><td>圆角矩形</td><td>坐标范围及圆角半径 r</td><td>0≤r≤短边一半；r=0 退化为直角矩形</td></tr>
+<tr><td>可编辑闭合曲线</td><td>控制点与张力 0–1</td><td>拖动后检查闭合、自相交与细窄部位</td></tr>
+</tbody></table>
+<h3>7.1 椭圆 a、b 的使用</h3><p>不旋转时，几何满足 <code>((x−cx)/a)² + ((y−cy)/b)² = 1</code>。例如 a=2、b=1，横向总宽为 4、纵向总高为 2。旋转改变方向，不改变两个半轴长度。a 只是局部 x 半轴，不强制必须大于 b。</p>
+<h3>7.2 曲线张力不是曲率</h3><p>张力为 0 时更圆滑，接近 1 时更贴近控制折线。张力不等于数学曲率 κ，也没有固定物理单位；不能把张力 0.2 解释为曲率 0.2 m⁻¹。需要严格圆弧时优先直接使用圆/圆角几何，需要沿轮廓的复杂形状时使用闭合曲线。</p>
+<h3>7.3 原点与坐标</h3><p>查看坐标范围、轴名和原点标识；如果 (0,0) 本来在当前计算范围之外，不要为了显示原点而误改几何。改变 Dirichlet 值改变的是边界上的场值 u，不会把二维几何的 y 坐标整体平移。</p></section>
+
+<section id="image-import"><h2>08 · 从图片或坐标文件导入区域</h2>
+<h3>8.1 图片操作步骤</h3><ol><li>选择“导入多边形文件（识别图片）”，选择 PNG/JPG。</li><li>尽量使用裁剪干净的填充色块图：外背景与实体区域可区分，孔洞使用背景色；避免尺寸标注、文字、阴影或其他图形接触轮廓。</li><li>先使用自动前景、自动二值化、1024 px 识别分辨率。</li><li>填写用于像素映射的 x/y 物理坐标范围。它不是自动测得的工程尺寸，导入后必须核对宽高比例和实际边长。</li><li>点击“按当前设置重新识别”，查看外轮廓、孔洞数量以及提示。</li><li>若细孔或细边丢失，提高分辨率或降低拐角简化量；若像素阶梯产生很多点，适当提高简化量。</li><li>识别完成后编辑轮廓、设置边界并复制代码。</li></ol>
+<table><thead><tr><th>设置</th><th>如何使用</th></tr></thead><tbody>
+<tr><td>前景色</td><td>自动、深色区域、浅色区域；若识别到了背景而非实体，切换前景模式后重新处理</td></tr>
+<tr><td>手动阈值</td><td>1–254，默认输入 128；用于自动分色不适合的图片，不是固定“只识别黑色”的开关</td></tr>
+<tr><td>识别分辨率</td><td>384、768、1024、1536、2048 px 上限；越高更慢，无法恢复原图中已经丢失的信息</td></tr>
+<tr><td>拐角简化</td><td>0.25–5 px，默认 2；小值保留更多细节，大值减少碎点但可能抹去小差异</td></tr>
+<tr><td>曲线模式</td><td>自动、强制可编辑曲线、始终多边形、强制圆、强制圆角矩形；强制拟合并不证明原图严格满足该几何</td></tr>
+</tbody></table>
+<p>自动模式可处理灰色、彩色区域以及透明背景，并检查连续转向以选择曲线或拐角表示；带孔图片继续使用多边形表示。当前算法选择主要连通区域，不适合在一张图中导入多个彼此分离的计算域。识别结果必须人工核对，不能把“自动”理解为工程级无损重建。</p>
+<h3>8.2 坐标文件操作</h3><p>同一入口也支持 CSV、JSON 和 GeoJSON Polygon。一个文件描述一条外轮廓及可选孔洞；不支持 MultiPolygon。每个环至少三个不重复有效顶点；不得自相交，孔洞必须在外轮廓内，不得互相重叠或穿出边界。</p>
+<pre><code>ring,x,y
+outer,0,0
+outer,4,0
+outer,2,3</code></pre>
+<pre><code>{
+  "outer": [[0,0], [4,0], [4,4], [0,4]],
+  "holes": [[[1,1], [1,2], [2,2], [2,1]]]
+}</code></pre>
+<p>GeoJSON 使用 Polygon 的外环、内环结构；其标准闭环会重复首尾坐标。导入后会进行标准化。网页单文件限制 5 MB，每个边界环最多 5,000 个顶点；超大工程图应先提取真正的计算区域。</p>
+<div class="note">五角星有 5 个外尖角，但完整轮廓通常还有 5 个凹角，共 10 个关键顶点。不要为了只剩 5 个点而丢掉凹角；应去掉的是像素阶梯碎点。</div></section>
+
+<section id="dxf"><h2>09 · 导入 COMSOL / CAD 的 DXF 几何</h2>
+<h3>9.1 接受与不接受的文件</h3><p>选择“导入 DXF 图纸（COMSOL/CAD）”。这里要求<strong>二维 ASCII DXF</strong>。CAD 是软件/设计类别，不是必须使用的扩展名。<code>.dxf</code> 是交换格式，<code>.dwg</code> 与 COMSOL 的 <code>.mph</code> 原生工程文件不能直接读取，也不能只改后缀变成 DXF。</p>
+<table><thead><tr><th>图纸实体</th><th>当前处理方式</th></tr></thead><tbody>
+<tr><td>闭合 LWPOLYLINE / POLYLINE</td><td>读取轮廓及圆弧 bulge 信息</td></tr>
+<tr><td>CIRCLE、完整 ELLIPSE</td><td>转换成可预览、可训练的边界表示；DXF 路径仍可能离散</td></tr>
+<tr><td>LINE、ARC、开放多段线、椭圆弧</td><td>要求能无缺口、无分叉地拼成闭环</td></tr>
+<tr><td>SPLINE</td><td>需要完整控制点和节点数据；只有拟合点的形式不支持</td></tr>
+<tr><td>块引用、3D、多块不连通区域</td><td>不支持；先在原软件整理为所需的二维闭合计算区域</td></tr>
+</tbody></table>
+<h3>9.2 导入步骤</h3><ol><li>在来源软件中准备计算区域的二维几何交换文件，不要把解场截图当成 DXF。</li><li>选择文件并填写“图纸单位→模型单位”的换算系数。例如毫米转米填 <code>0.001</code>。</li><li>检查状态栏的坐标范围、实体/孔洞数量与 <code>$INSUNITS</code>。未声明单位不意味着一定是米。</li><li>核对外轮廓边长与孔洞位置。确认孔洞是真正空区域，不是多个叠加外轮廓。</li><li>选择外轮廓或某个孔洞，调整尺寸并设置边界条件。</li><li>复制生成代码；运行时几何坐标已嵌入脚本，一般不需要再次读取原 DXF。</li></ol>
+<p>如来源软件没有你所需的导出选项，请先核对版本和可导出格式；此导入器不提供 MPH→DXF 转换。COMSOL 参考场数值表的导入走第 14 章，和几何导入是两项独立操作。</p>
+<h3>9.3 测试文件</h3><p>项目提供 <code>examples/geometries/comsol_2d_export_example.dxf</code>（矩形与八边形孔洞）、<code>cad_l_shape_example.dxf</code>（L 形区域）和 <code>rectangle_with_hole.dxf</code>。这些是交换格式测试样例，不应当作完整原生 COMSOL/CAD 工程文件。</p></section>
+
+<section id="hole-editor"><h2>10 · 编辑顶点、边长、圆孔尺寸及编号</h2>
+<h3>10.1 先选对正在编辑的边界环</h3><p>在醒目的“选择要编辑的外轮廓 / 孔洞”下拉框中选择对象。图内的“孔洞 1”“孔洞 2”与这个下拉框、边界条件行保持一致。编号是导入后的顺序，不保证左边一定是孔洞 1；重新导入另一文件后必须按图核对。</p>
+<h3>10.2 普通多边形</h3><ol><li>选择外轮廓或某个非圆孔。</li><li>在图中拖动顶点，或者在表格中输入该顶点 x/y 坐标。</li><li>“到下一顶点的边长”对应 i→i+1，最后一点连回第一点；修改会移动相关顶点，也可能改变邻接边。</li><li>修改内角、插入或删除顶点后，重新核对编号和对应边界条件。它不是能同时锁定所有长度、角度的 CAD 约束求解器。</li><li>若提示自相交、孔洞越界或重叠，不要忽略；先把轮廓恢复到有效状态。</li></ol>
+<h3>10.3 已识别的 DXF 圆孔</h3><ol><li>选择“孔洞 N（圆形）”。</li><li>输入圆心 x、圆心 y、半径 r 或直径 D；<code>D=2r</code>。</li><li>完成输入并提交字段（回车或移出输入框）后核对预览。该编辑器的部分字段按 change 事件提交，不保证打字每个字符都立即生效。</li><li>图内显示孔洞编号和 D；当前圆孔以蓝色虚线突出。</li><li>检查生成代码中的 <code>HOLE_N_CENTER_X</code>、<code>HOLE_N_CENTER_Y</code>、<code>HOLE_N_RADIUS</code> 已更新。</li></ol>
+<div class="warn">圆孔识别不是把所有看起来像圆的对象无条件改成圆。对椭圆或粗糙轮廓不要强行使用圆的解释。只有四顶点轴对齐矩形＋全部圆孔走解析训练路径；其他情况保留多边形近似。提示中的圆孔弦高 <code>r*(1-cos(π/N))</code> 只衡量等角点列相对拟合圆的离散误差，不衡量拟合圆相对原图的识别误差。拖动外框变成非矩形后，请重新检查“训练几何”提示与生成代码。</div>
+<h3>10.4 整体变换与恢复</h3><p>可以填写旋转角、X/Y 缩放、X/Y 平移后点击“应用整体变换”。操作会影响整个导入区域，先确认所有孔洞都应一起移动。非等比例缩放会改变圆的形状，之后应重新检查是否仍被当作圆孔。点击“恢复刚导入的轮廓”前，先保存需要保留的生成代码；恢复会撤销本次几何调整。</p>
+<h3>10.5 修改后的核对顺序</h3><p>依次核对：图中形状 → 顶点/孔洞编号 → 边界条件对象 → 代码中的坐标与条件 → 5 步运行输出。对一份已经复制到编辑器里的脚本，后来修改网页不会自动回写；必须重新复制保存。</p></section>
+
+<nav class="manual-page-links" aria-label="说明书分页"><a href="user_guide.html">返回说明书总览</a><a href="user_guide_modeling.html">上一部分：自定义建模与代码生成</a><a href="user_guide_training.html">下一部分：训练设置与运行</a></nav></div></section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="页脚">
+        <a href="user_guide_modeling.html" class="btn btn-neutral float-left" title="自定义建模与代码生成" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="user_guide_training.html" class="btn btn-neutral float-right" title="训练设置与运行" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 。</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用的 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

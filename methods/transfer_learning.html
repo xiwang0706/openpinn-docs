@@ -1,0 +1,546 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>迁移学习与继续训练：新问题不再完全从零开始 &mdash; OpenPINN 文档</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../_static/method_catalog.css?v=9c037d8c" />
+      <link rel="stylesheet" type="text/css" href="../_static/method_configurator.css?v=7e8bb877" />
+      <link rel="stylesheet" type="text/css" href="../_static/physics_editor.css?v=274d97ba" />
+      <link rel="stylesheet" type="text/css" href="../_static/problem_designer.css?v=91cae30d" />
+      <link rel="stylesheet" type="text/css" href="../_static/vendor/katex/katex.min.css?v=d850987e" />
+      <link rel="stylesheet" type="text/css" href="../_static/visual_problem_designer.css?v=a458b408" />
+      <link rel="stylesheet" type="text/css" href="../_static/manuals.css?v=6f2ed0c6" />
+      <link rel="stylesheet" type="text/css" href="../_static/manual_diagrams.css?v=ae97075d" />
+      <link rel="stylesheet" type="text/css" href="../_static/documentation_search.css?v=01fd3019" />
+      <link rel="stylesheet" type="text/css" href="../_static/document_site.css?v=73270abc" />
+
+  
+    <link rel="shortcut icon" href="../_static/favicon.svg"/>
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=ad3000b3"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../_static/copybutton.js?v=f281be69"></script>
+      <script defer="defer" src="../_static/polygon_image_trace.js?v=ba20ab72"></script>
+      <script defer="defer" src="../_static/dxf_geometry_import.js?v=e4debea6"></script>
+      <script defer="defer" src="../_static/physics_editor.js?v=107262fa"></script>
+      <script defer="defer" src="../_static/method_configurator.js?v=7e29dcc9"></script>
+      <script defer="defer" src="../_static/configurator_navigation.js?v=624f0b8a"></script>
+      <script defer="defer" src="../_static/problem_designer.js?v=66bcf361"></script>
+      <script defer="defer" src="../_static/vendor/blockly/blockly_compressed.js?v=b2ec3820"></script>
+      <script defer="defer" src="../_static/vendor/blockly/zh-hans.js?v=a2eae252"></script>
+      <script defer="defer" src="../_static/vendor/katex/katex.min.js?v=4f2e6063"></script>
+      <script defer="defer" src="../_static/visual_problem_designer.js?v=16229ff5"></script>
+      <script defer="defer" src="../_static/manuals.js?v=9159a2c6"></script>
+      <script defer="defer" src="../_static/documentation_search.js?v=a6773392"></script>
+      <script src="../_static/translations.js?v=beaddf03"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="搜索" href="../search.html" />
+    <link rel="next" title="多网络与区域分解：左右各学一段，界面再接起来" href="domain_decomposition.html" />
+    <link rel="prev" title="顺序时间窗：先学早期，再打开后期" href="time_window.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            OpenPINN
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="搜索文档" aria-label="搜索文档" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
+              <p class="caption" role="heading"><span class="caption-text">软件说明书</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide.html">使用者说明书</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../user_guide_start.html">安装与快速上手</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../user_guide_modeling.html">自定义建模与代码生成</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../user_guide_geometry.html">几何创建、导入与编辑</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../user_guide_training.html">训练设置与运行</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../user_guide_results.html">结果验证与实验交接</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../user_guide_help.html">问题排查与运行核对</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../developer_guide.html">开发者说明书</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../developer_guide_start.html">开始贡献：从反馈到开发计划</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../developer_guide_runtime.html">新增算法与改进方法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../developer_guide_modeling.html">扩展方程、几何与边界</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../developer_guide_configurator.html">修复功能与改进网页</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../developer_guide_delivery.html">验证、提交 PR 与版本维护</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../developer_guide_reference.html">架构与源码参考</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">开始使用</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../install.html">安装与运行环境配置</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../install.html#id2">准备与定位项目文件夹</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../install.html#id4">推荐方式：从源码开始</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../install.html#conda-cuda">已有 Conda 或 CUDA 环境</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../install.html#id5">生成网页并确认文件存在</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../quickstart.html">5 分钟快速入门</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../quickstart.html#python">最短 Python 调用</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../quickstart.html#id2">网页配置生成器</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../quickstart.html#id3">可直接复制的方法简称</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../quickstart.html#id4">最短命令行调用</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../quickstart.html#yaml">最短 YAML 调用</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../quickstart.html#id5">每次运行保存什么</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../quickstart.html#id6">下一步</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../architecture.html">项目结构与调用流程</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../architecture.html#id2">最终流程</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../architecture.html#id3">源码文件各负责什么</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../architecture.html#id4">文件夹为什么分开</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../architecture.html#id5">新增方法的固定闭环</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../architecture.html#id6">方法大类与具体变体</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">问题与案例</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../poisson.html">Poisson：静态与非均质案例</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../poisson.html#id1">普通 Poisson</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../poisson.html#id2">正式基线结果</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../poisson.html#id3">分段系数 Poisson</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../poisson.html#id4">比较改进方法时</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../burgers.html">Burgers：动态案例</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../burgers.html#id1">可信参考解</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../burgers.html#id2">快速检查</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../burgers.html#id3">较长的默认训练</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../burgers.html#id4">查看结果</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../burgers.html#id5">正式基线结果</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../tunnel_model1.html">双隧道二维模型</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../tunnel_model1.html#id2">最短调用</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tunnel_model1.html#id3">数学模型</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tunnel_model1.html#id4">参数怎样改</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tunnel_model1.html#id5">怎样看双隧道结果</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tunnel_model1.html#id6">训练预算与当前验证边界</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../custom_equation.html">加入自己的控制方程</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../custom_equation.html#id2">从配置生成器取得完整模板</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../custom_equation.html#id3">边界与初值的实现边界</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../custom_equation.html#yaml">为什么不能只在 YAML 写一行公式</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../custom_equation.html#id4">一个完整但很短的例子</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../custom_equation.html#id5">用 YAML 选择用户方程</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../custom_equation.html#id6">用户方程文件至少负责</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../custom_equation.html#id7">兼容性不是强行保证</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../physics_library.html">物理参数库与安全单场公式</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../physics_library.html#id2">先试一个完整流程</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../physics_library.html#physics-equation-entry">水压力场与固结系数：输入二维孔压扩散方程</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../physics_library.html#id4">常用操作与高级信息分开</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../physics_library.html#id5">定义、数值与模板分别保存</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../physics_library.html#id6">从模板开始</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../physics_library.html#id7">公式支持范围</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../physics_library.html#id8">单位是计算规则</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../physics_library.html#id9">离线导入、导出与迁移</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../physics_library.html#python-api">Python API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../physics_library.html#id10">贡献与验收</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../problem_designer.html">新控制方程与适用方法检查</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../problem_designer.html#id2">复制代码后做什么</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../problem_designer.html#id3">结果的三种状态</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">方法选择与说明</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../method_catalog.html">方法简称总表</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../method_catalog.html#id2">以后怎样增加新方法</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../method_configurator.html">配置生成器</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../methods.html">十类改进方法详解</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../methods.html#id2">统一选择方式</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../methods.html#id3">增加同一家族的第二种方法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../methods.html#id4">阅读方法页时建议关注七项信息</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../methods.html#id5">比较方法的推荐流程</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../methods.html#id6">已接入的方法</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="baseline.html">普通 PINN（<code class="docutils literal notranslate"><span class="pre">plain_pinn</span></code>）</a></li>
+<li class="toctree-l3"><a class="reference internal" href="fourier_features.html">Fourier 特征：先把坐标展开再交给网络</a></li>
+<li class="toctree-l3"><a class="reference internal" href="modified_mlp.html">Modified MLP：用门控融合缓解梯度传递困难</a></li>
+<li class="toctree-l3"><a class="reference internal" href="adaptive_activation.html">自适应激活函数</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hard_boundary.html">硬边界约束：让网络天生满足 Dirichlet 边界</a></li>
+<li class="toctree-l3"><a class="reference internal" href="adaptive_weights.html">损失平衡与自适应权重</a></li>
+<li class="toctree-l3"><a class="reference internal" href="adaptive_sampling.html">自适应采样：训练点怎么随模型变化</a></li>
+<li class="toctree-l3"><a class="reference internal" href="adam_lbfgs.html">Adam + L-BFGS：先找方向，再做二阶收尾</a></li>
+<li class="toctree-l3"><a class="reference internal" href="time_window.html">顺序时间窗：先学早期，再打开后期</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">迁移学习与继续训练：新问题不再完全从零开始</a></li>
+<li class="toctree-l3"><a class="reference internal" href="domain_decomposition.html">多网络与区域分解：左右各学一段，界面再接起来</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../methods.html#id7">新增二级变体</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../methods.html#id8">十种方法的实际结果摘要</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">验证与复现</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../reproducibility.html">三随机种子复现</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../reproducibility.html#id2">目的</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reproducibility.html#id3">运行</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reproducibility.html#id4">统计口径</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reproducibility.html#id5">输出</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reproducibility.html#id6">三随机种子结果</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reproducibility.html#id7">解释边界</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../validation.html">质量验证</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../validation.html#wheel">wheel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../validation.html#id2">环境说明</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API 与交付检查</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../api.html">常用 Python 接口</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../api.html#id1">配置和运行</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../api.html#openpinn.solve"><code class="docutils literal notranslate"><span class="pre">solve()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api.html#openpinn.method"><code class="docutils literal notranslate"><span class="pre">method()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api.html#openpinn.MethodSelection"><code class="docutils literal notranslate"><span class="pre">MethodSelection</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api.html#openpinn.solve_config"><code class="docutils literal notranslate"><span class="pre">solve_config()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api.html#openpinn.build_config"><code class="docutils literal notranslate"><span class="pre">build_config()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api.html#openpinn.list_methods"><code class="docutils literal notranslate"><span class="pre">list_methods()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api.html#openpinn.list_method_variants"><code class="docutils literal notranslate"><span class="pre">list_method_variants()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api.html#openpinn.check_method_compatibility"><code class="docutils literal notranslate"><span class="pre">check_method_compatibility()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api.html#openpinn.ProblemCompatibilityReport"><code class="docutils literal notranslate"><span class="pre">ProblemCompatibilityReport</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api.html#openpinn.load_config"><code class="docutils literal notranslate"><span class="pre">load_config()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api.html#openpinn.Experiment"><code class="docutils literal notranslate"><span class="pre">Experiment</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api.html#openpinn.ExperimentResult"><code class="docutils literal notranslate"><span class="pre">ExperimentResult</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api.html#openpinn.evaluate_reference_csv"><code class="docutils literal notranslate"><span class="pre">evaluate_reference_csv()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../api.html#id2">方法注册</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../api.html#openpinn.MethodSpec"><code class="docutils literal notranslate"><span class="pre">MethodSpec</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api.html#openpinn.MethodCompatibility"><code class="docutils literal notranslate"><span class="pre">MethodCompatibility</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api.html#openpinn.MethodVariantSpec"><code class="docutils literal notranslate"><span class="pre">MethodVariantSpec</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api.html#openpinn.MethodRegistry"><code class="docutils literal notranslate"><span class="pre">MethodRegistry</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../api.html#id3">网络与特征</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../api.html#openpinn.MLP"><code class="docutils literal notranslate"><span class="pre">MLP</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api.html#openpinn.PINNModel"><code class="docutils literal notranslate"><span class="pre">PINNModel</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api.html#openpinn.freeze_all_but_last_linear_layers"><code class="docutils literal notranslate"><span class="pre">freeze_all_but_last_linear_layers()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api.html#openpinn.FourierFeatures"><code class="docutils literal notranslate"><span class="pre">FourierFeatures</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../api.html#id4">采样与训练</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../api.html#openpinn.UniformSampler"><code class="docutils literal notranslate"><span class="pre">UniformSampler</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api.html#openpinn.Trainer"><code class="docutils literal notranslate"><span class="pre">Trainer</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../api.html#id5">已有问题</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../api.html#openpinn.PDEProblem"><code class="docutils literal notranslate"><span class="pre">PDEProblem</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api.html#openpinn.Polygon"><code class="docutils literal notranslate"><span class="pre">Polygon</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api.html#openpinn.DirichletBC"><code class="docutils literal notranslate"><span class="pre">DirichletBC</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api.html#openpinn.NeumannBC"><code class="docutils literal notranslate"><span class="pre">NeumannBC</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api.html#openpinn.RobinBC"><code class="docutils literal notranslate"><span class="pre">RobinBC</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api.html#openpinn.make_poisson_problem"><code class="docutils literal notranslate"><span class="pre">make_poisson_problem()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api.html#openpinn.make_piecewise_poisson_problem"><code class="docutils literal notranslate"><span class="pre">make_piecewise_poisson_problem()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api.html#openpinn.make_burgers_problem"><code class="docutils literal notranslate"><span class="pre">make_burgers_problem()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api.html#openpinn.make_coupled_manufactured_problem"><code class="docutils literal notranslate"><span class="pre">make_coupled_manufactured_problem()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api.html#openpinn.make_tunnel_consolidation_model1_problem"><code class="docutils literal notranslate"><span class="pre">make_tunnel_consolidation_model1_problem()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api.html#openpinn.RectangleWithCircularHoles"><code class="docutils literal notranslate"><span class="pre">RectangleWithCircularHoles</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">常见错误</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../faq.html#python">找不到 python</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../faq.html#no-module-named-openpinn">提示 No module named openpinn</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../faq.html#pytorch-cuda">PyTorch 或 CUDA 安装冲突</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../faq.html#id2">结果目录不是空的</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../faq.html#nan">出现 NaN 或无穷大</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../faq.html#id3">短案例运行成功，但误差较大</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../faq.html#id4">网站文档构建失败</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../delivery_status.html">功能概览</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../delivery_status.html#id2">文档范围</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../delivery_status.html#id3">使用建议</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../workload.html">计算成本参考</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changelog.html">变更记录</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../changelog.html#comsol-cad-dxf">2026-10-03：COMSOL/CAD 二维 DXF 导入</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../changelog.html#id2">2026-09-30：可旋转椭圆几何</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../changelog.html#id3">2026-09-30：图片曲率识别与可编辑闭合样条</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../changelog.html#id4">2026-09-30：真圆与可调圆角几何</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../changelog.html#id5">2026-09-30：多边形拖动缩放与尺寸标注</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../changelog.html#id6">2026-09-30</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../changelog.html#id7">2026-09-21</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../changelog.html#id8">2026-09-19</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../changelog.html#id9">2026-09-18</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../changelog.html#id10">2026-09-11</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../changelog.html#id11">2026-09-05</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../changelog.html#id12">2026-08-30</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../changelog.html#id13">0.2.0 - 2026-08-29</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../changelog.html#id14">2026-08-28</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../changelog.html#id15">0.1.2 - 2026-08-26</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../changelog.html#id16">0.1.1</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="移动版导航菜单" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">OpenPINN</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="页面导航">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../methods.html">十类改进方法详解</a></li>
+      <li class="breadcrumb-item active">迁移学习与继续训练：新问题不再完全从零开始</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/methods/transfer_learning.rst.txt" rel="nofollow"> 查看页面源码</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="id1">
+<h1>迁移学习与继续训练：新问题不再完全从零开始<a class="headerlink" href="#id1" title="Link to this heading"></a></h1>
+<div class="method-summary-card docutils container">
+<p class="rubric">方法速览</p>
+<dl class="field-list simple">
+<dt class="field-odd">调用简称<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">method=&quot;transfer&quot;</span></code>，<code class="docutils literal notranslate"><span class="pre">variant=&quot;checkpoint_transfer&quot;</span></code></p>
+</dd>
+<dt class="field-even">简单介绍<span class="colon">:</span></dt>
+<dd class="field-even"><p>从结构兼容的已训练 checkpoint 初始化新任务，再选择全网络或最后若干层继续训练。</p>
+</dd>
+<dt class="field-odd">适用方向<span class="colon">:</span></dt>
+<dd class="field-odd"><p>方程、参数区间或时间域相近且网络输入输出结构兼容的一组相关任务。</p>
+</dd>
+<dt class="field-even">论文原文<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://doi.org/10.1007/978-3-032-04555-3_24">Improving physics-informed neural network extrapolation via transfer learning and adaptive activation functions</a></p>
+</dd>
+<dt class="field-odd">代码与许可<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://github.com/LiuzLab/PINN-extrapolation">参考代码</a>；未检测到明确 LICENSE；OpenPINN 独立实现通用检查点迁移入口。</p>
+</dd>
+</dl>
+<p class="rubric">超参数怎么改</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">op</span><span class="o">.</span><span class="n">method</span><span class="p">(</span>
+    <span class="s2">"transfer"</span><span class="p">,</span>
+    <span class="s2">"checkpoint_transfer"</span><span class="p">,</span>
+    <span class="n">checkpoint</span><span class="o">=</span><span class="s1">'runs/source/checkpoint.pt'</span><span class="p">,</span>
+    <span class="n">trainable_last_linear_layers</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<table class="method-parameter-table docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>参数</p></th>
+<th class="head"><p>默认值</p></th>
+<th class="head"><p>含义与修改影响</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>检查点路径 <code class="docutils literal notranslate"><span class="pre">checkpoint</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">'runs/source/checkpoint.pt'</span></code></p></td>
+<td><p>结构兼容的 OpenPINN checkpoint.pt 路径。 它决定初始化来源，不是大小型超参数；换路径会换源模型，结构不兼容会在训练前报错。</p></td>
+</tr>
+<tr class="row-odd"><td><p>继续训练的末端线性层数 <code class="docutils literal notranslate"><span class="pre">trainable_last_linear_layers</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">None</span></code></p></td>
+<td><p>留空表示继续训练全网络；填写后只训练最后若干线性层。 留空适应能力最大但训练参数多；设为较小整数更快且保留更多源知识，但可能限制新问题拟合能力。</p></td>
+</tr>
+</tbody>
+</table>
+<p>建议先保留默认值完成短跑，再一次只改一个参数并记录误差与时间。也可以在 配置生成器 中选择方法后直接编辑这些参数；调大或调小都不保证精度一定提高。</p>
+</div>
+<section id="id2">
+<h2>这是什么<a class="headerlink" href="#id2" title="Link to this heading"></a></h2>
+<p>先在较短的 Burgers 时间域 <code class="docutils literal notranslate"><span class="pre">t</span> <span class="pre">in</span> <span class="pre">[0,</span> <span class="pre">0.5]</span></code> 训练一个源模型，再把它的网络权重
+用作目标时间域 <code class="docutils literal notranslate"><span class="pre">t</span> <span class="pre">in</span> <span class="pre">[0,</span> <span class="pre">1]</span></code> 的初值。目标阶段仍使用新的 Adam 优化器，不把旧优化器动量带入新问题。</p>
+<p>示例同时比较两种迁移策略：</p>
+<ul class="simple">
+<li><p><strong>全网络迁移</strong>：载入源模型后，所有网络参数都可训练；</p></li>
+<li><p><strong>末层部分迁移</strong>：载入同一源模型后，只训练最后一个线性层。</p></li>
+</ul>
+</section>
+<section id="id3">
+<h2>放在哪里<a class="headerlink" href="#id3" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>部分迁移的冻结逻辑：<code class="docutils literal notranslate"><span class="pre">src/openpinn/models.py</span></code> 的 <code class="docutils literal notranslate"><span class="pre">freeze_all_but_last_linear_layers</span></code>；</p></li>
+<li><p>统一模型配置解析：<code class="docutils literal notranslate"><span class="pre">src/openpinn/experiment.py</span></code> 的 <code class="docutils literal notranslate"><span class="pre">model.trainable_last_linear_layers</span></code>；</p></li>
+<li><p>严格读入模型权重：<code class="docutils literal notranslate"><span class="pre">training.initial_checkpoint</span></code>；</p></li>
+<li><p>四组对照流程：<code class="docutils literal notranslate"><span class="pre">examples/burgers_transfer.py</span></code>；</p></li>
+<li><p>目标配置：<code class="docutils literal notranslate"><span class="pre">configs/reference_runs/burgers_transfer.yaml</span></code>；</p></li>
+<li><p>小测试：<code class="docutils literal notranslate"><span class="pre">tests/smoke/test_burgers_transfer_smoke.py</span></code>。</p></li>
+</ul>
+<p><code class="docutils literal notranslate"><span class="pre">trainable_last_linear_layers:</span> <span class="pre">null</span></code> 代表全网络训练；设为 <code class="docutils literal notranslate"><span class="pre">1</span></code> 则只保留最后一层可训练。
+权重载入与冻结都在构建优化器之前完成，因此 optimizer 不会持有已冻结参数；计算账本会分别记录总参数和可训练参数。</p>
+</section>
+<section id="id4">
+<h2>依据与许可<a class="headerlink" href="#id4" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>核心论文：Papastathopoulos-Katsaros, Stavrianidi and Liu, <em>Improving physics-informed neural network extrapolation via transfer learning and adaptive activation functions</em>, ICANN 2025，DOI <code class="docutils literal notranslate"><span class="pre">10.1007/978-3-032-04555-3_24</span></code>。</p></li>
+<li><p>参考仓库：<code class="docutils literal notranslate"><span class="pre">https://github.com/LiuzLab/PINN-extrapolation</span></code>。该仓库顶层未见明确 LICENSE，因此 OpenPINN 不复制、改写或翻译该仓库代码。</p></li>
+<li><p>本项目是独立实现：仅新增通用的“读模型权重 + 选择可训练线性层”入口。</p></li>
+</ul>
+</section>
+<section id="id5">
+<h2>与论文方法的边界<a class="headerlink" href="#id5" title="Link to this heading"></a></h2>
+<p>论文还结合了局部高残差点、末层重训练和自适应激活。本项目实现通用的模型权重继续训练，并比较全网络微调和末层微调；它不是该论文组合方法的完整复现。</p>
+</section>
+<section id="id6">
+<h2>最短调用<a class="headerlink" href="#id6" title="Link to this heading"></a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">openpinn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">op</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">op</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span>
+    <span class="s2">"burgers"</span><span class="p">,</span>
+    <span class="n">method</span><span class="o">=</span><span class="s2">"transfer"</span><span class="p">,</span>
+    <span class="n">variant</span><span class="o">=</span><span class="s2">"checkpoint_transfer"</span><span class="p">,</span>
+    <span class="n">method_options</span><span class="o">=</span><span class="p">{</span><span class="s2">"checkpoint"</span><span class="p">:</span> <span class="s2">"runs/source/checkpoint.pt"</span><span class="p">},</span>
+    <span class="n">steps</span><span class="o">=</span><span class="mi">5000</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="id7">
+<h2>怎么跑<a class="headerlink" href="#id7" title="Link to this heading"></a></h2>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nv">PYTHONPATH</span><span class="o">=</span>src<span class="w"> </span>python<span class="w"> </span>-m<span class="w"> </span>examples.burgers_transfer<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--output-dir<span class="w"> </span>runs/burgers_transfer_&lt;timestamp&gt;
+</pre></div>
+</div>
+</section>
+<section id="id8">
+<h2>公平对比<a class="headerlink" href="#id8" title="Link to this heading"></a></h2>
+<p>流程先用 750 步训练源时间域，然后在目标域各训练 750 步的从头组、全网络迁移组和末层迁移组。三个目标组的问题、采样、网络总参数、损失、新 Adam、步数和随机种都相同。
+全网络组和从头组有 12,737 个可训练参数；末层组只有 65 个可训练参数，这正是部分迁移的主动变更，而不是漏记。</p>
+<p>Burgers 的 Cole--Hopf 解只用于评估，从不输入训练损失。源预训练时间和目标阶段时间分开报告：只有一个源模型被多次复用时，才能合理地摊薄预训练成本。</p>
+</section>
+<section id="id9">
+<h2>参考实验结果<a class="headerlink" href="#id9" title="Link to this heading"></a></h2>
+<p>2026-08-26 在 CPU 上完成四组运行，预测均为有限值，checkpoint SHA-256、计算账本和四个时间切片均已保存。</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>阶段/方法</p></th>
+<th class="head"><p>相对 L2</p></th>
+<th class="head"><p>最大绝对误差</p></th>
+<th class="head"><p>PDE 残差 RMSE</p></th>
+<th class="head"><p>边界 RMSE</p></th>
+<th class="head"><p>初值 RMSE</p></th>
+<th class="head"><p>训练时间</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>源域预训练</p></td>
+<td><p>0.27909</p></td>
+<td><p>0.97688</p></td>
+<td><p>0.22963</p></td>
+<td><p>0.04504</p></td>
+<td><p>0.15928</p></td>
+<td><p>2.441 s</p></td>
+</tr>
+<tr class="row-odd"><td><p>目标域从头训练</p></td>
+<td><p>0.45208</p></td>
+<td><p>0.85093</p></td>
+<td><p>0.24172</p></td>
+<td><p>0.05626</p></td>
+<td><p>0.25376</p></td>
+<td><p>2.525 s</p></td>
+</tr>
+<tr class="row-even"><td><p>目标域全网络迁移</p></td>
+<td><p>0.38798</p></td>
+<td><p>0.86603</p></td>
+<td><p>0.23574</p></td>
+<td><p>0.02497</p></td>
+<td><p>0.21879</p></td>
+<td><p>2.587 s</p></td>
+</tr>
+<tr class="row-odd"><td><p>目标域末层迁移</p></td>
+<td><p>0.51088</p></td>
+<td><p>0.93908</p></td>
+<td><p>0.28842</p></td>
+<td><p>0.07835</p></td>
+<td><p>0.29233</p></td>
+<td><p>2.124 s</p></td>
+</tr>
+</tbody>
+</table>
+<p>全网络迁移的相对 L2、RMSE、PDE、边界和初值误差都低于从头训练，但最大绝对误差高 0.01510，而目标阶段用时长 0.062 秒；加上源域预训练后总耗时 5.029 秒，比从头训练更贵。末层迁移节省 0.401 秒目标时间，但三项解误差和三项残差/条件误差全部变差。因此这是清楚记录的**混合结果**：不宣称部分迁移更优，也不宣称单次全流程的总成本更低。</p>
+<a class="reference internal image-reference" href="../_images/transfer_learning.svg"><img alt="Burgers 从头训练与全网络迁移的四个时间切片对照" src="../_images/transfer_learning.svg" style="width: 100%;" />
+</a>
+<a class="reference internal image-reference" href="../_images/transfer_learning_partial.svg"><img alt="Burgers 从头训练与末层迁移的四个时间切片对照" src="../_images/transfer_learning_partial.svg" style="width: 100%;" />
+</a>
+<p>完整结果在 <code class="docutils literal notranslate"><span class="pre">results/methods/burgers_transfer_reference_20260826/</span></code>：<code class="docutils literal notranslate"><span class="pre">comparison.json</span></code>、<code class="docutils literal notranslate"><span class="pre">comparison.csv</span></code>、两张 SVG 图，以及每组的 <code class="docutils literal notranslate"><span class="pre">metrics.json</span></code>、<code class="docutils literal notranslate"><span class="pre">compute_ledger.json</span></code>、<code class="docutils literal notranslate"><span class="pre">history.csv</span></code>、<code class="docutils literal notranslate"><span class="pre">predictions.npz</span></code>、<code class="docutils literal notranslate"><span class="pre">checkpoint.pt</span></code> 和 <code class="docutils literal notranslate"><span class="pre">failure_notes.md</span></code>。</p>
+</section>
+<section id="id10">
+<h2>限制和失败记录<a class="headerlink" href="#id10" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>仅一个源/目标对和一个固定种子，不作统计优越性声明。</p></li>
+<li><p>载入时严格核对网络键和形状；架构不兼容直接报错，不做静默部分载入。</p></li>
+<li><p>源域或目标组失败时，各自目录会保存 <code class="docutils literal notranslate"><span class="pre">failure.json</span></code>；总结在 <code class="docutils literal notranslate"><span class="pre">failure_notes.md</span></code>。参考运行无训练失败。</p></li>
+</ul>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="页脚">
+        <a href="time_window.html" class="btn btn-neutral float-left" title="顺序时间窗：先学早期，再打开后期" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="domain_decomposition.html" class="btn btn-neutral float-right" title="多网络与区域分解：左右各学一段，界面再接起来" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 。</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用的 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

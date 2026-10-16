@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1320" height="650" viewBox="0 0 1320 650">
+<rect width="100%" height="100%" fill="#ffffff"/>
+<style>text{font-family:Arial,sans-serif;fill:#1f2937}.title{font-size:24px;font-weight:700}.sub{font-size:14px;fill:#4b5563}.tick{font-size:12px}.label{font-size:12px}.axis{stroke:#374151;stroke-width:1.3}.grid{stroke:#e5e7eb;stroke-width:1}</style>
+<text x="660.0" y="35" text-anchor="middle" class="title">Three-seed paired primary-metric ratios</text>
+<text x="660.0" y="59" text-anchor="middle" class="sub">log10(method / baseline); below zero means a smaller error or residual</text>
+<line x1="95.0" y1="505.00" x2="1285.0" y2="505.00" class="grid"/>
+<text x="85.0" y="509.00" text-anchor="end" class="tick">-3.35</text>
+<line x1="95.0" y1="422.00" x2="1285.0" y2="422.00" class="grid"/>
+<text x="85.0" y="426.00" text-anchor="end" class="tick">-2.42</text>
+<line x1="95.0" y1="339.00" x2="1285.0" y2="339.00" class="grid"/>
+<text x="85.0" y="343.00" text-anchor="end" class="tick">-1.48</text>
+<line x1="95.0" y1="256.00" x2="1285.0" y2="256.00" class="grid"/>
+<text x="85.0" y="260.00" text-anchor="end" class="tick">-0.55</text>
+<line x1="95.0" y1="173.00" x2="1285.0" y2="173.00" class="grid"/>
+<text x="85.0" y="177.00" text-anchor="end" class="tick">0.39</text>
+<line x1="95.0" y1="90.00" x2="1285.0" y2="90.00" class="grid"/>
+<text x="85.0" y="94.00" text-anchor="end" class="tick">1.32</text>
+<line x1="95.0" y1="207.39" x2="1285.0" y2="207.39" stroke="#111827" stroke-width="2"/>
+<line x1="154.50" y1="468.05" x2="154.50" y2="384.16" stroke="#15803d" stroke-width="2"/>
+<line x1="147.50" y1="468.05" x2="161.50" y2="468.05" stroke="#15803d" stroke-width="2"/>
+<line x1="147.50" y1="384.16" x2="161.50" y2="384.16" stroke="#15803d" stroke-width="2"/>
+<circle cx="154.50" cy="426.10" r="6" fill="#15803d"/>
+<text x="154.50" y="523.00" text-anchor="end" transform="rotate(-42 154.50 523.00)" class="label">Fourier features</text>
+<line x1="273.50" y1="258.33" x2="273.50" y2="221.95" stroke="#15803d" stroke-width="2"/>
+<line x1="266.50" y1="258.33" x2="280.50" y2="258.33" stroke="#15803d" stroke-width="2"/>
+<line x1="266.50" y1="221.95" x2="280.50" y2="221.95" stroke="#15803d" stroke-width="2"/>
+<circle cx="273.50" cy="240.14" r="6" fill="#15803d"/>
+<text x="273.50" y="523.00" text-anchor="end" transform="rotate(-42 273.50 523.00)" class="label">Modified MLP</text>
+<line x1="392.50" y1="209.98" x2="392.50" y2="208.35" stroke="#15803d" stroke-width="2"/>
+<line x1="385.50" y1="209.98" x2="399.50" y2="209.98" stroke="#15803d" stroke-width="2"/>
+<line x1="385.50" y1="208.35" x2="399.50" y2="208.35" stroke="#15803d" stroke-width="2"/>
+<circle cx="392.50" cy="209.16" r="6" fill="#15803d"/>
+<text x="392.50" y="523.00" text-anchor="end" transform="rotate(-42 392.50 523.00)" class="label">Adaptive activation</text>
+<line x1="511.50" y1="278.42" x2="511.50" y2="253.01" stroke="#15803d" stroke-width="2"/>
+<line x1="504.50" y1="278.42" x2="518.50" y2="278.42" stroke="#15803d" stroke-width="2"/>
+<line x1="504.50" y1="253.01" x2="518.50" y2="253.01" stroke="#15803d" stroke-width="2"/>
+<circle cx="511.50" cy="265.72" r="6" fill="#15803d"/>
+<text x="511.50" y="523.00" text-anchor="end" transform="rotate(-42 511.50 523.00)" class="label">Hard boundary</text>
+<line x1="630.50" y1="212.62" x2="630.50" y2="209.22" stroke="#15803d" stroke-width="2"/>
+<line x1="623.50" y1="212.62" x2="637.50" y2="212.62" stroke="#15803d" stroke-width="2"/>
+<line x1="623.50" y1="209.22" x2="637.50" y2="209.22" stroke="#15803d" stroke-width="2"/>
+<circle cx="630.50" cy="210.92" r="6" fill="#15803d"/>
+<text x="630.50" y="523.00" text-anchor="end" transform="rotate(-42 630.50 523.00)" class="label">Adaptive weights</text>
+<line x1="749.50" y1="216.91" x2="749.50" y2="199.09" stroke="#15803d" stroke-width="2"/>
+<line x1="742.50" y1="216.91" x2="756.50" y2="216.91" stroke="#15803d" stroke-width="2"/>
+<line x1="742.50" y1="199.09" x2="756.50" y2="199.09" stroke="#15803d" stroke-width="2"/>
+<circle cx="749.50" cy="208.00" r="6" fill="#15803d"/>
+<text x="749.50" y="523.00" text-anchor="end" transform="rotate(-42 749.50 523.00)" class="label">Adaptive sampling</text>
+<line x1="868.50" y1="311.78" x2="868.50" y2="269.67" stroke="#15803d" stroke-width="2"/>
+<line x1="861.50" y1="311.78" x2="875.50" y2="311.78" stroke="#15803d" stroke-width="2"/>
+<line x1="861.50" y1="269.67" x2="875.50" y2="269.67" stroke="#15803d" stroke-width="2"/>
+<circle cx="868.50" cy="290.72" r="6" fill="#15803d"/>
+<text x="868.50" y="523.00" text-anchor="end" transform="rotate(-42 868.50 523.00)" class="label">Adam + L-BFGS</text>
+<line x1="987.50" y1="201.85" x2="987.50" y2="197.57" stroke="#b91c1c" stroke-width="2"/>
+<line x1="980.50" y1="201.85" x2="994.50" y2="201.85" stroke="#b91c1c" stroke-width="2"/>
+<line x1="980.50" y1="197.57" x2="994.50" y2="197.57" stroke="#b91c1c" stroke-width="2"/>
+<circle cx="987.50" cy="199.71" r="6" fill="#b91c1c"/>
+<text x="987.50" y="523.00" text-anchor="end" transform="rotate(-42 987.50 523.00)" class="label">Time window</text>
+<line x1="1106.50" y1="212.09" x2="1106.50" y2="210.51" stroke="#15803d" stroke-width="2"/>
+<line x1="1099.50" y1="212.09" x2="1113.50" y2="212.09" stroke="#15803d" stroke-width="2"/>
+<line x1="1099.50" y1="210.51" x2="1113.50" y2="210.51" stroke="#15803d" stroke-width="2"/>
+<circle cx="1106.50" cy="211.30" r="6" fill="#15803d"/>
+<text x="1106.50" y="523.00" text-anchor="end" transform="rotate(-42 1106.50 523.00)" class="label">Transfer learning</text>
+<line x1="1225.50" y1="476.38" x2="1225.50" y2="443.75" stroke="#15803d" stroke-width="2"/>
+<line x1="1218.50" y1="476.38" x2="1232.50" y2="476.38" stroke="#15803d" stroke-width="2"/>
+<line x1="1218.50" y1="443.75" x2="1232.50" y2="443.75" stroke="#15803d" stroke-width="2"/>
+<circle cx="1225.50" cy="460.06" r="6" fill="#15803d"/>
+<text x="1225.50" y="523.00" text-anchor="end" transform="rotate(-42 1225.50 523.00)" class="label">Domain decomposition</text>
+<line x1="95.0" y1="90.0" x2="95.0" y2="505.0" class="axis"/>
+<line x1="95.0" y1="505.0" x2="1285.0" y2="505.0" class="axis"/>
+<text x="24" y="297.5" text-anchor="middle" transform="rotate(-90 24 297.5)" class="sub">log10(primary metric ratio), mean ± sample SD</text>
+<text x="95.0" y="632" class="sub">Primary metric: relative L2 for Poisson; PDE residual RMSE for Burgers.</text>
+</svg>

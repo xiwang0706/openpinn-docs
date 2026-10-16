@@ -1,0 +1,56 @@
+.manual-document .wy-nav-content { max-width: 1200px; }
+/* Include overview pages, which do not contain .openpinn-manual.
+   :visited must not encode reading history; only :active flashes purple.
+   Preserve the theme's grey Previous/Next buttons and sidebar current-page state. */
+.wy-nav-content:has([data-manual-routes]) a:not(.btn),
+.wy-nav-content:has([data-manual-routes]) a:not(.btn):visited,
+.wy-nav-content:has(.openpinn-manual) a:not(.btn),
+.wy-nav-content:has(.openpinn-manual) a:not(.btn):visited {
+  color: #2980b9;
+}
+.wy-nav-content:has([data-manual-routes]) a:active,
+.wy-nav-content:has(.openpinn-manual) a:active {
+  color: #9b59b6 !important;
+}
+.wy-nav-content:has([data-manual-routes]) a:focus-visible,
+.wy-nav-content:has(.openpinn-manual) a:focus-visible {
+  outline: 2px solid #2980b9;
+  outline-offset: 2px;
+}
+.openpinn-manual { color: #203044; line-height: 1.85; min-width: 0; }
+.openpinn-manual section { margin: 30px 0 44px; scroll-margin-top: 20px; }
+.openpinn-manual h2 { padding-bottom: 10px; border-bottom: 2px solid #d6e0e8; }
+.openpinn-manual h3 { margin-top: 26px; }
+.openpinn-manual h4, .openpinn-manual summary { overflow-wrap: anywhere; }
+.openpinn-manual p { margin: 10px 0 16px; }
+.openpinn-manual li { margin-bottom: 7px; }
+.openpinn-manual code { white-space: normal; overflow-wrap: anywhere; }
+.openpinn-manual pre { padding: 16px; background: #142b3b; color: #e3eef5; overflow: auto; border-radius: 6px; font-size: 13px; line-height: 1.7; }
+.openpinn-manual pre code { background: none; color: inherit; border: 0; white-space: pre; padding: 0; }
+.openpinn-manual pre.flow { white-space: pre-wrap; background: #edf4f8; color: #163d53; border-left: 4px solid #17688a; }
+.openpinn-manual table { display: block; overflow-x: auto; width: 100%; border-collapse: collapse; margin: 18px 0; font-size: 14px; }
+.openpinn-manual td, .openpinn-manual th { border: 1px solid #d6e0e8; padding: 10px; vertical-align: top; min-width: 95px; }
+.openpinn-manual th { background: #eaf1f6; text-align: left; }
+.openpinn-manual tr:nth-child(even) { background: #f8fafc; }
+.openpinn-manual .note, .openpinn-manual .warn, .openpinn-manual .check { padding: 14px 18px; margin: 18px 0; border-left: 4px solid #2e819e; background: #edf6fa; }
+.openpinn-manual .warn { background: #fff7e8; border-color: #b77516; }
+.openpinn-manual details { border: 1px solid #d6e0e8; border-radius: 6px; padding: 12px; margin: 14px 0; }
+.openpinn-manual summary { cursor: pointer; font-weight: 650; }
+.openpinn-manual .symbol { border-top: 1px solid #d6e0e8; margin-top: 16px; padding-top: 12px; }
+.openpinn-manual .small, .openpinn-manual .meta { font-size: 13px; color: #52657a; }
+.manual-tools { display: flex; align-items: end; gap: 12px; flex-wrap: wrap; padding: 16px; background: #eaf4fa; border-radius: 8px; }
+.manual-tools label { flex: 1 1 240px; }
+.manual-tools input, .openpinn-manual .index-search { padding: 10px; max-width: 100%; width: 100%; border: 1px solid #9fb3c2; border-radius: 5px; }
+.manual-tools button { padding: 10px 14px; border: 1px solid #9fb3c2; background: white; border-radius: 5px; cursor: pointer; }
+.manual-contents ul { margin: 12px 0 0 20px; list-style: none; }
+.manual-page-links { display: flex; flex-wrap: wrap; gap: 12px 24px; padding: 12px 0; border-bottom: 1px solid #d6e0e8; }
+.manual-page-links a, .manual-page-links a:visited { color: #2980b9; }
+.manual-contents li { break-inside: avoid; }
+.openpinn-manual .manual-contents a,
+.openpinn-manual .manual-contents a:visited { color: #2980b9; border-radius: 4px; padding: 2px 5px; }
+.openpinn-manual .manual-contents a[aria-current="location"],
+.openpinn-manual .manual-contents a[aria-current="location"]:visited { color: #124d73; background: #dceefb; box-shadow: inset 3px 0 #2980b9; font-weight: 700; }
+.openpinn-manual .manual-contents a:focus-visible { outline: 2px solid #2980b9; outline-offset: 2px; }
+.openpinn-manual [hidden] { display: none !important; }
+@media (max-width: 650px) { .manual-contents ol { columns: 1; } }
+@media print { .manual-tools, .manual-contents, .openpinn-manual .index-search { display: none; } .openpinn-manual pre { white-space: pre-wrap; overflow-wrap: anywhere; color: black; background: #f5f5f5; } .openpinn-manual pre code { white-space: pre-wrap; } }

@@ -1,0 +1,58 @@
+功能概览
+========
+
+OpenPINN 0.2.0 提供问题与方法分离的简短入口、两条正式基线、十种改进方法、
+三随机种子复现结果、Sphinx 文档与可安装 wheel。下表汇总可复核证据。
+
+.. list-table::
+   :header-rows: 1
+
+   * - 功能或验证项
+     - 状态
+     - 主要证据
+   * - Poisson 正式基线
+     - 完成
+     - ``results/baselines/poisson_baseline_reference_20260826/``，5,000 步
+   * - Burgers 正式基线
+     - 完成
+     - ``results/baselines/burgers_baseline_reference_20260826/``，10,000 步
+   * - 十种方法
+     - 完成
+     - :doc:`methods` 和 ``docs/methods/``
+   * - 简称选择与用户新方程
+     - 完成
+     - ``op.solve(problem, method=...)``、``op.solve(methods=[...])``、:doc:`custom_equation`
+   * - 网页方法参数配置生成器
+     - 完成
+     - :doc:`method_configurator`；18/18 个具体变体短跑通过，并集成新方程一维/二维图例、多边形文件导入、8 个模板和自由组合器
+   * - 新方程适用方法检查页
+     - 完成
+     - :doc:`problem_designer`；不注册、不训练，输出适用/有条件/不适用变体及原因
+   * - 三随机种子
+     - 完成
+     - 30/30 次比较完成，失败 0，详见 :doc:`reproducibility`
+   * - 误差、时间、图、checkpoint、失败说明
+     - 完成
+     - 各正式 ``results/`` 目录；双隧道额外生成孔压场与 ``diagnostics.svg``
+   * - 可安装 wheel
+     - 完成
+     - ``dist/openpinn-0.2.0-py3-none-any.whl``，已在一次性隔离环境从项目外导入验证
+   * - 质量验证
+     - 完成
+     - 195 项测试、家族/变体/组合选择、多边形静态/动态 smoke、图片轮廓测试与 Sphinx 严格构建，详见 :doc:`validation`
+   * - 自适应家族新增二级变体
+     - 完成
+     - 3 个新采样变体、4 个新损失平衡变体；7/7 普通 PINN 短对比完成
+
+文档范围
+--------
+
+当前网站提供安装说明、教程、配置生成器、十类方法及其二级变体、三随机种子复现、API 和质量验证页面。
+训练任务通过 Python API 或命令行启动，网页用于查询配置、命令、表格和图。
+
+使用建议
+--------
+
+* 在自己的 Python/Conda/CUDA 环境运行 README 中的检查命令；
+* 先运行短案例确认环境，再开始正式训练；
+* 阅读方法页中的适用范围和负结果，不把单个实验结果推广到所有问题。

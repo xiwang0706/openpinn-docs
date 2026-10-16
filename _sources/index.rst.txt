@@ -1,0 +1,85 @@
+OpenPINN 文档
+=============
+
+OpenPINN 是一个可安装、可扩展的 PyTorch PINN 工具箱。用户先定义或选择控制方程，
+再用一个方法简称训练；网络组装、求导、评价、计时、画图和保存由统一入口完成。
+
+.. code-block:: python
+
+   import openpinn as op
+
+   result = op.solve(
+       "poisson", method="fourier", variant="random_fourier", steps=5000
+   )
+   print(result.metrics)
+
+把 ``fourier`` 改为 ``adaptive_sampling``、``modified_mlp`` 等名称即可选择其他
+方法，不需要复制训练循环。对于新方程，只需写一个返回 ``PDEProblem`` 的小文件，
+仍然使用相同的 ``solve`` 入口。
+
+.. note::
+
+   5--20 步短训练只检查代码和输出是否正常，不是精度结论。正式比较应固定问题、
+   网络、训练点、步数和随机种子，每次只改变一个方法组件。
+
+文档目录
+--------
+
+完整操作与协作维护说明（2026-10-12 源码核对版）：
+
+* :doc:`user_guide`：安装、配置器、图片/DXF 导入、边界设置、训练与结果判读。
+* :doc:`developer_guide`：代码结构、模块契约、调用链、扩展与测试，以及逐函数索引。
+
+.. toctree::
+   :maxdepth: 2
+   :caption: 软件说明书
+
+   user_guide
+   developer_guide
+
+.. toctree::
+   :maxdepth: 2
+   :caption: 开始使用
+
+   install
+   quickstart
+   architecture
+
+.. toctree::
+   :maxdepth: 2
+   :caption: 问题与案例
+
+   poisson
+   burgers
+   tunnel_model1
+   custom_equation
+   physics_library
+   problem_designer
+
+.. toctree::
+   :maxdepth: 2
+   :caption: 方法选择与说明
+
+   method_catalog
+   method_configurator
+   methods
+
+.. toctree::
+   :maxdepth: 2
+   :caption: 验证与复现
+
+   reproducibility
+   validation
+
+.. toctree::
+   :maxdepth: 2
+   :caption: API 与交付检查
+
+   api
+   faq
+   delivery_status
+   workload
+   changelog
+
+本站由 Sphinx 和 ``sphinx_rtd_theme`` 生成，提供左侧目录、全文搜索、代码复制、
+API 索引以及每种方法的论文、许可、对比结果和已知限制。

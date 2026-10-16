@@ -1,0 +1,9 @@
+.openpinn-doc-search { display: flex; align-items: center; gap: .6rem; flex-wrap: wrap; margin: 1rem 0; }
+.openpinn-doc-search input { min-width: 12rem; flex: 1; }
+#search-results .search { list-style: none; margin-left: 0; }
+#search-results .search li { margin: 1.25rem 0; }
+#search-results .search p { margin: .4rem 0; overflow-wrap: anywhere; }
+#search-results .search-title { font-weight: 600; }
+#search-results .search-more { margin-bottom: 1rem; }
+#search-results .search-more[hidden] { display: none; }
+mark.openpinn-search-match { background: #fff0a8; color: inherit; }

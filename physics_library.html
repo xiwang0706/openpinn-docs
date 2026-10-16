@@ -1,0 +1,604 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>物理参数库与安全单场公式 &mdash; OpenPINN 文档</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="_static/method_catalog.css?v=9c037d8c" />
+      <link rel="stylesheet" type="text/css" href="_static/method_configurator.css?v=7e8bb877" />
+      <link rel="stylesheet" type="text/css" href="_static/physics_editor.css?v=274d97ba" />
+      <link rel="stylesheet" type="text/css" href="_static/problem_designer.css?v=91cae30d" />
+      <link rel="stylesheet" type="text/css" href="_static/vendor/katex/katex.min.css?v=d850987e" />
+      <link rel="stylesheet" type="text/css" href="_static/visual_problem_designer.css?v=a458b408" />
+      <link rel="stylesheet" type="text/css" href="_static/manuals.css?v=6f2ed0c6" />
+      <link rel="stylesheet" type="text/css" href="_static/manual_diagrams.css?v=ae97075d" />
+      <link rel="stylesheet" type="text/css" href="_static/documentation_search.css?v=01fd3019" />
+      <link rel="stylesheet" type="text/css" href="_static/document_site.css?v=73270abc" />
+
+  
+    <link rel="shortcut icon" href="_static/favicon.svg"/>
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=ad3000b3"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="_static/copybutton.js?v=f281be69"></script>
+      <script defer="defer" src="_static/polygon_image_trace.js?v=ba20ab72"></script>
+      <script defer="defer" src="_static/dxf_geometry_import.js?v=e4debea6"></script>
+      <script defer="defer" src="_static/physics_editor.js?v=107262fa"></script>
+      <script defer="defer" src="_static/method_configurator.js?v=7e29dcc9"></script>
+      <script defer="defer" src="_static/configurator_navigation.js?v=624f0b8a"></script>
+      <script defer="defer" src="_static/problem_designer.js?v=66bcf361"></script>
+      <script defer="defer" src="_static/vendor/blockly/blockly_compressed.js?v=b2ec3820"></script>
+      <script defer="defer" src="_static/vendor/blockly/zh-hans.js?v=a2eae252"></script>
+      <script defer="defer" src="_static/vendor/katex/katex.min.js?v=4f2e6063"></script>
+      <script defer="defer" src="_static/visual_problem_designer.js?v=16229ff5"></script>
+      <script defer="defer" src="_static/manuals.js?v=9159a2c6"></script>
+      <script defer="defer" src="_static/documentation_search.js?v=a6773392"></script>
+      <script src="_static/translations.js?v=beaddf03"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="genindex.html" />
+    <link rel="search" title="搜索" href="search.html" />
+    <link rel="next" title="新控制方程与适用方法检查" href="problem_designer.html" />
+    <link rel="prev" title="加入自己的控制方程" href="custom_equation.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            OpenPINN
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="搜索文档" aria-label="搜索文档" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
+              <p class="caption" role="heading"><span class="caption-text">软件说明书</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="user_guide.html">使用者说明书</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="user_guide_start.html">安装与快速上手</a></li>
+<li class="toctree-l2"><a class="reference internal" href="user_guide_modeling.html">自定义建模与代码生成</a></li>
+<li class="toctree-l2"><a class="reference internal" href="user_guide_geometry.html">几何创建、导入与编辑</a></li>
+<li class="toctree-l2"><a class="reference internal" href="user_guide_training.html">训练设置与运行</a></li>
+<li class="toctree-l2"><a class="reference internal" href="user_guide_results.html">结果验证与实验交接</a></li>
+<li class="toctree-l2"><a class="reference internal" href="user_guide_help.html">问题排查与运行核对</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="developer_guide.html">开发者说明书</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="developer_guide_start.html">开始贡献：从反馈到开发计划</a></li>
+<li class="toctree-l2"><a class="reference internal" href="developer_guide_runtime.html">新增算法与改进方法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="developer_guide_modeling.html">扩展方程、几何与边界</a></li>
+<li class="toctree-l2"><a class="reference internal" href="developer_guide_configurator.html">修复功能与改进网页</a></li>
+<li class="toctree-l2"><a class="reference internal" href="developer_guide_delivery.html">验证、提交 PR 与版本维护</a></li>
+<li class="toctree-l2"><a class="reference internal" href="developer_guide_reference.html">架构与源码参考</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">开始使用</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="install.html">安装与运行环境配置</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="install.html#id2">准备与定位项目文件夹</a></li>
+<li class="toctree-l2"><a class="reference internal" href="install.html#id4">推荐方式：从源码开始</a></li>
+<li class="toctree-l2"><a class="reference internal" href="install.html#conda-cuda">已有 Conda 或 CUDA 环境</a></li>
+<li class="toctree-l2"><a class="reference internal" href="install.html#id5">生成网页并确认文件存在</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">5 分钟快速入门</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#python">最短 Python 调用</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#id2">网页配置生成器</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#id3">可直接复制的方法简称</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#id4">最短命令行调用</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#yaml">最短 YAML 调用</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#id5">每次运行保存什么</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#id6">下一步</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="architecture.html">项目结构与调用流程</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="architecture.html#id2">最终流程</a></li>
+<li class="toctree-l2"><a class="reference internal" href="architecture.html#id3">源码文件各负责什么</a></li>
+<li class="toctree-l2"><a class="reference internal" href="architecture.html#id4">文件夹为什么分开</a></li>
+<li class="toctree-l2"><a class="reference internal" href="architecture.html#id5">新增方法的固定闭环</a></li>
+<li class="toctree-l2"><a class="reference internal" href="architecture.html#id6">方法大类与具体变体</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">问题与案例</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="poisson.html">Poisson：静态与非均质案例</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="poisson.html#id1">普通 Poisson</a></li>
+<li class="toctree-l2"><a class="reference internal" href="poisson.html#id2">正式基线结果</a></li>
+<li class="toctree-l2"><a class="reference internal" href="poisson.html#id3">分段系数 Poisson</a></li>
+<li class="toctree-l2"><a class="reference internal" href="poisson.html#id4">比较改进方法时</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="burgers.html">Burgers：动态案例</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="burgers.html#id1">可信参考解</a></li>
+<li class="toctree-l2"><a class="reference internal" href="burgers.html#id2">快速检查</a></li>
+<li class="toctree-l2"><a class="reference internal" href="burgers.html#id3">较长的默认训练</a></li>
+<li class="toctree-l2"><a class="reference internal" href="burgers.html#id4">查看结果</a></li>
+<li class="toctree-l2"><a class="reference internal" href="burgers.html#id5">正式基线结果</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="tunnel_model1.html">双隧道二维模型</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="tunnel_model1.html#id2">最短调用</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tunnel_model1.html#id3">数学模型</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tunnel_model1.html#id4">参数怎样改</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tunnel_model1.html#id5">怎样看双隧道结果</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tunnel_model1.html#id6">训练预算与当前验证边界</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="custom_equation.html">加入自己的控制方程</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="custom_equation.html#id2">从配置生成器取得完整模板</a></li>
+<li class="toctree-l2"><a class="reference internal" href="custom_equation.html#id3">边界与初值的实现边界</a></li>
+<li class="toctree-l2"><a class="reference internal" href="custom_equation.html#yaml">为什么不能只在 YAML 写一行公式</a></li>
+<li class="toctree-l2"><a class="reference internal" href="custom_equation.html#id4">一个完整但很短的例子</a></li>
+<li class="toctree-l2"><a class="reference internal" href="custom_equation.html#id5">用 YAML 选择用户方程</a></li>
+<li class="toctree-l2"><a class="reference internal" href="custom_equation.html#id6">用户方程文件至少负责</a></li>
+<li class="toctree-l2"><a class="reference internal" href="custom_equation.html#id7">兼容性不是强行保证</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">物理参数库与安全单场公式</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id2">先试一个完整流程</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#physics-equation-entry">水压力场与固结系数：输入二维孔压扩散方程</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id4">常用操作与高级信息分开</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id5">定义、数值与模板分别保存</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id6">从模板开始</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id7">公式支持范围</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id8">单位是计算规则</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id9">离线导入、导出与迁移</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#python-api">Python API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id10">贡献与验收</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="problem_designer.html">新控制方程与适用方法检查</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="problem_designer.html#id2">复制代码后做什么</a></li>
+<li class="toctree-l2"><a class="reference internal" href="problem_designer.html#id3">结果的三种状态</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">方法选择与说明</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="method_catalog.html">方法简称总表</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="method_catalog.html#id2">以后怎样增加新方法</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="method_configurator.html">配置生成器</a></li>
+<li class="toctree-l1"><a class="reference internal" href="methods.html">十类改进方法详解</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="methods.html#id2">统一选择方式</a></li>
+<li class="toctree-l2"><a class="reference internal" href="methods.html#id3">增加同一家族的第二种方法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="methods.html#id4">阅读方法页时建议关注七项信息</a></li>
+<li class="toctree-l2"><a class="reference internal" href="methods.html#id5">比较方法的推荐流程</a></li>
+<li class="toctree-l2"><a class="reference internal" href="methods.html#id6">已接入的方法</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="methods/baseline.html">普通 PINN（<code class="docutils literal notranslate"><span class="pre">plain_pinn</span></code>）</a></li>
+<li class="toctree-l3"><a class="reference internal" href="methods/fourier_features.html">Fourier 特征：先把坐标展开再交给网络</a></li>
+<li class="toctree-l3"><a class="reference internal" href="methods/modified_mlp.html">Modified MLP：用门控融合缓解梯度传递困难</a></li>
+<li class="toctree-l3"><a class="reference internal" href="methods/adaptive_activation.html">自适应激活函数</a></li>
+<li class="toctree-l3"><a class="reference internal" href="methods/hard_boundary.html">硬边界约束：让网络天生满足 Dirichlet 边界</a></li>
+<li class="toctree-l3"><a class="reference internal" href="methods/adaptive_weights.html">损失平衡与自适应权重</a></li>
+<li class="toctree-l3"><a class="reference internal" href="methods/adaptive_sampling.html">自适应采样：训练点怎么随模型变化</a></li>
+<li class="toctree-l3"><a class="reference internal" href="methods/adam_lbfgs.html">Adam + L-BFGS：先找方向，再做二阶收尾</a></li>
+<li class="toctree-l3"><a class="reference internal" href="methods/time_window.html">顺序时间窗：先学早期，再打开后期</a></li>
+<li class="toctree-l3"><a class="reference internal" href="methods/transfer_learning.html">迁移学习与继续训练：新问题不再完全从零开始</a></li>
+<li class="toctree-l3"><a class="reference internal" href="methods/domain_decomposition.html">多网络与区域分解：左右各学一段，界面再接起来</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="methods.html#id7">新增二级变体</a></li>
+<li class="toctree-l2"><a class="reference internal" href="methods.html#id8">十种方法的实际结果摘要</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">验证与复现</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="reproducibility.html">三随机种子复现</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="reproducibility.html#id2">目的</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reproducibility.html#id3">运行</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reproducibility.html#id4">统计口径</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reproducibility.html#id5">输出</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reproducibility.html#id6">三随机种子结果</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reproducibility.html#id7">解释边界</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="validation.html">质量验证</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="validation.html#wheel">wheel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="validation.html#id2">环境说明</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API 与交付检查</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="api.html">常用 Python 接口</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api.html#id1">配置和运行</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api.html#openpinn.solve"><code class="docutils literal notranslate"><span class="pre">solve()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api.html#openpinn.method"><code class="docutils literal notranslate"><span class="pre">method()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api.html#openpinn.MethodSelection"><code class="docutils literal notranslate"><span class="pre">MethodSelection</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api.html#openpinn.solve_config"><code class="docutils literal notranslate"><span class="pre">solve_config()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api.html#openpinn.build_config"><code class="docutils literal notranslate"><span class="pre">build_config()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api.html#openpinn.list_methods"><code class="docutils literal notranslate"><span class="pre">list_methods()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api.html#openpinn.list_method_variants"><code class="docutils literal notranslate"><span class="pre">list_method_variants()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api.html#openpinn.check_method_compatibility"><code class="docutils literal notranslate"><span class="pre">check_method_compatibility()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api.html#openpinn.ProblemCompatibilityReport"><code class="docutils literal notranslate"><span class="pre">ProblemCompatibilityReport</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api.html#openpinn.load_config"><code class="docutils literal notranslate"><span class="pre">load_config()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api.html#openpinn.Experiment"><code class="docutils literal notranslate"><span class="pre">Experiment</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api.html#openpinn.ExperimentResult"><code class="docutils literal notranslate"><span class="pre">ExperimentResult</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api.html#openpinn.evaluate_reference_csv"><code class="docutils literal notranslate"><span class="pre">evaluate_reference_csv()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#id2">方法注册</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api.html#openpinn.MethodSpec"><code class="docutils literal notranslate"><span class="pre">MethodSpec</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api.html#openpinn.MethodCompatibility"><code class="docutils literal notranslate"><span class="pre">MethodCompatibility</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api.html#openpinn.MethodVariantSpec"><code class="docutils literal notranslate"><span class="pre">MethodVariantSpec</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api.html#openpinn.MethodRegistry"><code class="docutils literal notranslate"><span class="pre">MethodRegistry</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#id3">网络与特征</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api.html#openpinn.MLP"><code class="docutils literal notranslate"><span class="pre">MLP</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api.html#openpinn.PINNModel"><code class="docutils literal notranslate"><span class="pre">PINNModel</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api.html#openpinn.freeze_all_but_last_linear_layers"><code class="docutils literal notranslate"><span class="pre">freeze_all_but_last_linear_layers()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api.html#openpinn.FourierFeatures"><code class="docutils literal notranslate"><span class="pre">FourierFeatures</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#id4">采样与训练</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api.html#openpinn.UniformSampler"><code class="docutils literal notranslate"><span class="pre">UniformSampler</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api.html#openpinn.Trainer"><code class="docutils literal notranslate"><span class="pre">Trainer</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#id5">已有问题</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api.html#openpinn.PDEProblem"><code class="docutils literal notranslate"><span class="pre">PDEProblem</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api.html#openpinn.Polygon"><code class="docutils literal notranslate"><span class="pre">Polygon</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api.html#openpinn.DirichletBC"><code class="docutils literal notranslate"><span class="pre">DirichletBC</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api.html#openpinn.NeumannBC"><code class="docutils literal notranslate"><span class="pre">NeumannBC</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api.html#openpinn.RobinBC"><code class="docutils literal notranslate"><span class="pre">RobinBC</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api.html#openpinn.make_poisson_problem"><code class="docutils literal notranslate"><span class="pre">make_poisson_problem()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api.html#openpinn.make_piecewise_poisson_problem"><code class="docutils literal notranslate"><span class="pre">make_piecewise_poisson_problem()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api.html#openpinn.make_burgers_problem"><code class="docutils literal notranslate"><span class="pre">make_burgers_problem()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api.html#openpinn.make_coupled_manufactured_problem"><code class="docutils literal notranslate"><span class="pre">make_coupled_manufactured_problem()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api.html#openpinn.make_tunnel_consolidation_model1_problem"><code class="docutils literal notranslate"><span class="pre">make_tunnel_consolidation_model1_problem()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api.html#openpinn.RectangleWithCircularHoles"><code class="docutils literal notranslate"><span class="pre">RectangleWithCircularHoles</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="faq.html">常见错误</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="faq.html#python">找不到 python</a></li>
+<li class="toctree-l2"><a class="reference internal" href="faq.html#no-module-named-openpinn">提示 No module named openpinn</a></li>
+<li class="toctree-l2"><a class="reference internal" href="faq.html#pytorch-cuda">PyTorch 或 CUDA 安装冲突</a></li>
+<li class="toctree-l2"><a class="reference internal" href="faq.html#id2">结果目录不是空的</a></li>
+<li class="toctree-l2"><a class="reference internal" href="faq.html#nan">出现 NaN 或无穷大</a></li>
+<li class="toctree-l2"><a class="reference internal" href="faq.html#id3">短案例运行成功，但误差较大</a></li>
+<li class="toctree-l2"><a class="reference internal" href="faq.html#id4">网站文档构建失败</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="delivery_status.html">功能概览</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="delivery_status.html#id2">文档范围</a></li>
+<li class="toctree-l2"><a class="reference internal" href="delivery_status.html#id3">使用建议</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="workload.html">计算成本参考</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changelog.html">变更记录</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#comsol-cad-dxf">2026-10-03：COMSOL/CAD 二维 DXF 导入</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id2">2026-09-30：可旋转椭圆几何</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id3">2026-09-30：图片曲率识别与可编辑闭合样条</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id4">2026-09-30：真圆与可调圆角几何</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id5">2026-09-30：多边形拖动缩放与尺寸标注</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id6">2026-09-30</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id7">2026-09-21</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id8">2026-09-19</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id9">2026-09-18</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id10">2026-09-11</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id11">2026-09-05</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id12">2026-08-30</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id13">0.2.0 - 2026-08-29</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id14">2026-08-28</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id15">0.1.2 - 2026-08-26</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id16">0.1.1</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="移动版导航菜单" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">OpenPINN</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="页面导航">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">物理参数库与安全单场公式</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/physics_library.rst.txt" rel="nofollow"> 查看页面源码</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="id1">
+<h1>物理参数库与安全单场公式<a class="headerlink" href="#id1" title="Link to this heading"></a></h1>
+<p>物理参数编辑器用于定义一个标量未知场的控制方程，把公式、参数数值和单位一起
+写入生成的 Python 代码。它与配置器中的几何、边界条件和训练方法配合使用；
+仅导入一个物理参数包或方程工程文件，并不能恢复完整的训练工程。</p>
+<section id="id2">
+<h2>先试一个完整流程<a class="headerlink" href="#id2" title="Link to this heading"></a></h2>
+<ol class="arabic simple">
+<li><p>打开 <a class="reference internal" href="method_configurator.html"><span class="doc">配置生成器</span></a>，选择“新控制方程”，设为“含时间方程”和“二维”。</p></li>
+<li><p>方程编辑模式选“公式与物理参数（推荐）”，在物理模板中选“二维各向异性固结（cx / cy）”，
+点击“替换当前物理设置”。模板不会自动修改问题的维度或静动态类型。</p></li>
+<li><p>在前面的公式区核对方程，在“当前参数”中修改 <code class="docutils literal notranslate"><span class="pre">cx</span></code>、<code class="docutils literal notranslate"><span class="pre">cy</span></code> 的数值与单位，
+再检查下方代码中的 <code class="docutils literal notranslate"><span class="pre">PHYSICS_SPEC</span></code>。已有模板参数不需要再从参数库添加一次。
+几何可继续使用矩形、解析圆孔或原有导入功能。</p></li>
+<li><p>按实际问题设置边界、时间范围和初值；统一初始孔压可选“常数初值”。
+核对初值与初始时刻边界是否相容。选定方法后下载 Python 文件，在本地运行。</p></li>
+</ol>
+<p>常见定义涵盖通用量、渗流、固结、热学和弹性参数；模板包括一维固结、
+二维各向同性固结、二维各向异性固结、稳态 Darcy 水头和热传导。
+可选项目以当前页面的下拉列表为准。参数定义存在，不代表对应的多场求解接口也已实现。</p>
+<p>只想选择压力等未知场时，使用“物理场预设”，选择所需场后点击“使用所选物理场”，
+再核对场符号、单位和公式。物理场不是固结系数等常数参数，不应从参数库中添加。
+使用预设不代替设置控制方程、几何、初值和边界；加载方程模板还会替换公式与参数，
+应在修改前区分这两个操作。</p>
+<p>测试别人提供的参数包，可展开“导入与导出”，导入
+<a class="reference download internal" download="" href="_downloads/f740d0b2b7583a1bfe4052fcbd481f8e/site_diffusion_parameter_pack.json"><code class="xref download docutils literal notranslate"><span class="pre">场地扩散参数演示包</span></code></a>：
+再展开添加参数区域，在“材料参数组”选择“演示场地参数”，点击“追加材料参数”，然后把公式改为
+<code class="docutils literal notranslate"><span class="pre">dt(p)-dx(cx_site*dx(p))-dy(cy_site*dy(p))</span></code>。
+包内 <code class="docutils literal notranslate"><span class="pre">0.2</span></code> 和 <code class="docutils literal notranslate"><span class="pre">0.1</span></code> 的单位是 <code class="docutils literal notranslate"><span class="pre">m^2/year</span></code>，仅为功能演示数值，不能用于工程结论。
+旧的 <code class="docutils literal notranslate"><span class="pre">cx/cy</span></code> 可移除；未引用的参数不会自动参与公式计算。</p>
+</section>
+<section id="physics-equation-entry">
+<span id="id3"></span><h2>水压力场与固结系数：输入二维孔压扩散方程<a class="headerlink" href="#physics-equation-entry" title="Link to this heading"></a></h2>
+<p>若你的方程是 <code class="docutils literal notranslate"><span class="pre">∂u/∂t</span> <span class="pre">=</span> <span class="pre">cx</span> <span class="pre">·</span> <span class="pre">∂²u/∂x²</span> <span class="pre">+</span> <span class="pre">cy</span> <span class="pre">·</span> <span class="pre">∂²u/∂y²</span></code>，
+不需要去参数库寻找“压力的二阶导数”。<code class="docutils literal notranslate"><span class="pre">u</span></code> 是未知场，<code class="docutils literal notranslate"><span class="pre">cx</span></code> 和 <code class="docutils literal notranslate"><span class="pre">cy</span></code> 是
+扩散系数；导数由公式中的求导运算表示。</p>
+<p>在“添加参数”的常用参数库中，选择“固结”分类，可找到
+“固结系数（各向同性 / 一维）”“x方向固结系数”和“y方向固结系数”。
+加载一维或二维各向同性模板会带入 <code class="docutils literal notranslate"><span class="pre">cv</span></code>；二维各向异性模板会带入
+<code class="docutils literal notranslate"><span class="pre">cx</span></code>、<code class="docutils literal notranslate"><span class="pre">cy</span></code>，不必重复添加。这些系数的单位为长度平方/时间，
+不是单位为长度/时间的导水率；示例值必须换成自己问题中的实际值。</p>
+<ol class="arabic">
+<li><p>先把问题设为“二维”和“含时间方程”，进入“公式与物理参数（推荐）”。</p></li>
+<li><p>加载“二维各向异性固结”模板以带入方程和两个系数；场变量符号改为 <code class="docutils literal notranslate"><span class="pre">u</span></code>，
+移出输入框后公式中的 <code class="docutils literal notranslate"><span class="pre">p</span></code> 会同步改名，显示如下式。场单位按实际压力单位设置。</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>dt(u) = cx * dx(dx(u)) + cy * dy(dy(u))
+</pre></div>
+</div>
+</li>
+<li><p>在“当前参数”中填写 <code class="docutils literal notranslate"><span class="pre">cx</span></code>、<code class="docutils literal notranslate"><span class="pre">cy</span></code> 的实际数值与扩散系数单位，
+如 <code class="docutils literal notranslate"><span class="pre">m^2/s</span></code> 或 <code class="docutils literal notranslate"><span class="pre">m^2/year</span></code>。不要把系数与导数相加成 <code class="docutils literal notranslate"><span class="pre">cx+cy</span></code>。</p></li>
+<li><p>检查公式预览、校验提示和生成代码，再单独设置计算区域、时间范围、初值与边界。</p></li>
+</ol>
+<p>也可在公式框中放好光标，点击 <code class="docutils literal notranslate"><span class="pre">∂u/∂t</span></code>、<code class="docutils literal notranslate"><span class="pre">∂²u/∂x²</span></code> 或 <code class="docutils literal notranslate"><span class="pre">∂²u/∂y²</span></code>
+按钮直接插入对应导数；按钮中的场符号跟随“未知场”设置变化。
+选中一段表达式后点击导数按钮，会对选中的整段表达式求导，
+例如选中 <code class="docutils literal notranslate"><span class="pre">cx*dx(u)</span></code> 后点击 x 一阶导数可得到 <code class="docutils literal notranslate"><span class="pre">dx(cx*dx(u))</span></code>。
+一维时 y 导数不可用，静态时 t 导数不可用；应调整问题结构，而非把导数当作新参数添加。</p>
+<p>模板默认用 <code class="docutils literal notranslate"><span class="pre">p</span></code> 表示孔压，并采用等号形式
+<code class="docutils literal notranslate"><span class="pre">dt(p)</span> <span class="pre">=</span> <span class="pre">cx</span> <span class="pre">*</span> <span class="pre">dx(dx(p))</span> <span class="pre">+</span> <span class="pre">cy</span> <span class="pre">*</span> <span class="pre">dy(dy(p))</span></code>。当 <code class="docutils literal notranslate"><span class="pre">cx</span></code>、<code class="docutils literal notranslate"><span class="pre">cy</span></code> 为常数时，
+它与散度形式 <code class="docutils literal notranslate"><span class="pre">dt(p)-dx(cx*dx(p))-dy(cy*dy(p))=0</span></code> 等价；空间变系数时，
+不能未经推导就把系数移到导数外。变量改名只替换完整变量符号，不会改写参数或函数名。</p>
+</section>
+<section id="id4">
+<h2>常用操作与高级信息分开<a class="headerlink" href="#id4" title="Link to this heading"></a></h2>
+<p>编辑顺序为“模板与场单位 → 导数按钮、公式与预览 → 当前参数”。
+当前参数默认只展示名称、公式符号、数值和单位；名称用于阅读，
+公式使用的是符号，不是名称或 <code class="docutils literal notranslate"><span class="pre">id</span></code>。</p>
+<p>每行的高级信息保存参数 <code class="docutils literal notranslate"><span class="pre">id</span></code>、说明和来源，默认折叠。
+<code class="docutils literal notranslate"><span class="pre">id</span></code> 用于参数包中的唯一引用，不参与求导，也不用写进公式。
+一般使用不必改动；需要维护或分享参数定义时再展开核对。</p>
+<p>需要补充系数时，展开添加参数区域，从常用参数库选择、创建自定义参数，
+或追加材料参数组。新增自定义参数可以不填写 <code class="docutils literal notranslate"><span class="pre">id</span></code>，编辑器会根据符号生成
+<code class="docutils literal notranslate"><span class="pre">custom.&lt;符号&gt;</span></code> 形式的标识，并避开已占用标识；同一方程中的符号仍须唯一。
+导入、导出集中在另一个默认折叠区域，日常编写公式不需要先操作文件。</p>
+</section>
+<section id="id5">
+<h2>定义、数值与模板分别保存<a class="headerlink" href="#id5" title="Link to this heading"></a></h2>
+<table class="docutils align-default" id="id11">
+<caption><span class="caption-text">三类物理数据</span><a class="headerlink" href="#id11" title="Link to this table"></a></caption>
+<colgroup>
+<col style="width: 22.0%" />
+<col style="width: 42.0%" />
+<col style="width: 36.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>层次</p></th>
+<th class="head"><p>保存什么</p></th>
+<th class="head"><p>使用时需要确认什么</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>参数定义</p></td>
+<td><p>参数的标识、名称、符号、分类、单位和含义。</p></td>
+<td><p>定义不代表某种材料的实测值；未填写的值不能用于生成可运行方程。</p></td>
+</tr>
+<tr class="row-odd"><td><p>材料数值</p></td>
+<td><p>某个具体材料或工况使用的参数值及其说明。</p></td>
+<td><p>材料名称、试验条件、适用范围和数据来源必须与实际问题一致。</p></td>
+</tr>
+<tr class="row-even"><td><p>方程模板</p></td>
+<td><p>一个公式、所需参数、未知场及坐标单位的示范组合。</p></td>
+<td><p>内置模板的示例值只用于演示；应用前必须核对物理假设。</p></td>
+</tr>
+</tbody>
+</table>
+<p>训练步数、学习率、网络宽度、采样点数以及方法变体的设置仍由原来的
+<code class="docutils literal notranslate"><span class="pre">method_options</span></code> 和训练配置管理。物理参数不会自动变成训练超参数，
+也不会因为选择了某种优化方法而自动改变材料值。</p>
+</section>
+<section id="id6">
+<h2>从模板开始<a class="headerlink" href="#id6" title="Link to this heading"></a></h2>
+<ol class="arabic simple">
+<li><p>在新控制方程的配置区域打开物理公式编辑器，选定一维/二维以及静态/动态结构。</p></li>
+<li><p>选择一维/二维固结、稳态 Darcy 或热扩散示范模板，或从已有参数定义中选择所需参数。</p></li>
+<li><p>核对未知场名称和单位、坐标单位、每个参数值及其单位，再编辑残差表达式。</p></li>
+<li><p>阅读语法、量纲和维度检查结果；通过后检查生成的 Python 代码。</p></li>
+<li><p>单独核对几何、边界、初值和训练配置，先完成短步数运行，再做参考解对照。</p></li>
+</ol>
+<p>应用模板会替换编辑器内的物理公式、未知场、参数和单位。
+模板中的初值/边界值是文字建议，不会改写现有几何、边界或初值。
+如果模板与原来的空间维度或静态/动态结构不同，应先调整问题结构，
+再核对原有区域和约束是否仍然适用。</p>
+</section>
+<section id="id7">
+<h2>公式支持范围<a class="headerlink" href="#id7" title="Link to this heading"></a></h2>
+<p>公式可写成 <code class="docutils literal notranslate"><span class="pre">左侧</span> <span class="pre">=</span> <span class="pre">右侧</span></code>，或只填写 <code class="docutils literal notranslate"><span class="pre">残差</span> <span class="pre">=</span> <span class="pre">0</span></code> 的左侧。
+当前入口面向一维或二维、静态或含时间的
+单个标量场；字段名称由编辑器中的未知场设置决定，不要求固定写成 <code class="docutils literal notranslate"><span class="pre">u</span></code>。</p>
+<p>可使用数值、已定义参数、当前问题的坐标、未知场、括号以及受支持的运算与函数。
+<code class="docutils literal notranslate"><span class="pre">dx(...)</span></code>、<code class="docutils literal notranslate"><span class="pre">dy(...)</span></code>、<code class="docutils literal notranslate"><span class="pre">dt(...)</span></code> 表示对相应物理坐标求导。
+例如 <code class="docutils literal notranslate"><span class="pre">dx(dx(p))</span></code> 是二阶空间导数，<code class="docutils literal notranslate"><span class="pre">dy(dx(p))</span></code> 是混合空间导数。
+一维问题不能使用 <code class="docutils literal notranslate"><span class="pre">y</span></code> 或 <code class="docutils literal notranslate"><span class="pre">dy</span></code>；静态问题不能使用 <code class="docutils literal notranslate"><span class="pre">t</span></code> 或 <code class="docutils literal notranslate"><span class="pre">dt</span></code>。
+求导嵌套总阶不超过二阶；<code class="docutils literal notranslate"><span class="pre">dt(dt(p))</span></code> 被拒绝，因此此入口不提供波动方程
+所需的二阶时间导数及初始速度配置。</p>
+<p>表达式经过限定语法树检查，不是任意 Python 或 JavaScript 程序。
+导入文件不能携带可执行函数、模块导入、文件访问或网络操作。
+标识符必须已定义，参与相加减的项必须具有相容量纲。
+通过语法和量纲检查仍不代表方程物理正确，也不代表一定能收敛。</p>
+<p>参数记录保存常数。需要连续空间变系数时，应把坐标依赖写进表达式，
+例如用已定义的常数构成 <code class="docutils literal notranslate"><span class="pre">k0</span> <span class="pre">*</span> <span class="pre">(1</span> <span class="pre">+</span> <span class="pre">x</span> <span class="pre">/</span> <span class="pre">L)</span></code>，其中 <code class="docutils literal notranslate"><span class="pre">L</span></code> 是长度参数。
+若写散度形式，应明确把系数放在导数内，如 <code class="docutils literal notranslate"><span class="pre">dx(k0</span> <span class="pre">*</span> <span class="pre">(1</span> <span class="pre">+</span> <span class="pre">x</span> <span class="pre">/</span> <span class="pre">L)</span> <span class="pre">*</span> <span class="pre">dx(p))</span></code>。
+该写法不能代替多区域材料界面条件，也没有提供材料分区表或任意分段函数。</p>
+<p>此入口不支持多未知场 Biot 耦合系统、任意向量/张量场和自动生成物理通量边界。
+已有配置器的 Neumann 条件约束外法向导数；若模型需要
+<code class="docutils literal notranslate"><span class="pre">-k</span> <span class="pre">*</span> <span class="pre">dp/dn</span></code> 这样的通量，应单独推导并实现相应边界，不能直接把导数值当成通量。
+这些限制仅说明当前安全公式入口的能力，不等于 Python 核心无法扩展其他模型。</p>
+</section>
+<section id="id8">
+<h2>单位是计算规则<a class="headerlink" href="#id8" title="Link to this heading"></a></h2>
+<p>单位目录中的每个单位有一个到 SI 的乘法系数 <code class="docutils literal notranslate"><span class="pre">factor</span></code>，以及按
+<code class="docutils literal notranslate"><span class="pre">[M,</span> <span class="pre">L,</span> <span class="pre">T,</span> <span class="pre">Theta]</span></code> 排列的质量、长度、时间、温度量纲指数。
+当前采用明确列出的单位，不把任意输入字符串当作可解析单位表达式。
+具有加性偏移的单位不能仅靠乘法系数表示；温度计算应使用支持的绝对温标。</p>
+<p>几何和网络输入保留配置器中填写的原始数值。残差内部按以下规则求值：</p>
+<ul class="simple">
+<li><p>坐标的物理值为 <code class="docutils literal notranslate"><span class="pre">原始坐标</span> <span class="pre">×</span> <span class="pre">坐标单位</span> <span class="pre">factor</span></code>；</p></li>
+<li><p>未知场的物理值为 <code class="docutils literal notranslate"><span class="pre">网络输出</span> <span class="pre">×</span> <span class="pre">场单位</span> <span class="pre">factor</span></code>；</p></li>
+<li><p>参数的物理值为 <code class="docutils literal notranslate"><span class="pre">参数值</span> <span class="pre">×</span> <span class="pre">参数单位</span> <span class="pre">factor</span></code>；</p></li>
+<li><p>每次对物理坐标求导，都再除以该坐标的 <code class="docutils literal notranslate"><span class="pre">factor</span></code>；</p></li>
+<li><p>返回的残差按 SI 单位表达。</p></li>
+</ul>
+<p>二维的 <code class="docutils literal notranslate"><span class="pre">x</span></code>、<code class="docutils literal notranslate"><span class="pre">y</span></code> 必须使用相同单位。改变单位选择不会自动缩放已填写的
+几何数值；例如把长度单位由 <code class="docutils literal notranslate"><span class="pre">m</span></code> 改为 <code class="docutils literal notranslate"><span class="pre">cm</span></code> 后，数值 <code class="docutils literal notranslate"><span class="pre">1</span></code> 表示的是
+<code class="docutils literal notranslate"><span class="pre">1</span> <span class="pre">cm</span></code>。这与把同一物理长度从 <code class="docutils literal notranslate"><span class="pre">1</span> <span class="pre">m</span></code> 改写成 <code class="docutils literal notranslate"><span class="pre">100</span> <span class="pre">cm</span></code> 是两种操作。</p>
+<p>以压力扩散残差为例：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>dt(p) - D * (dx(dx(p)) + dy(dy(p)))
+</pre></div>
+</div>
+<p>若坐标用 <code class="docutils literal notranslate"><span class="pre">cm</span></code>，时间用 <code class="docutils literal notranslate"><span class="pre">day</span></code>，压力用 <code class="docutils literal notranslate"><span class="pre">kPa</span></code>，扩散系数用
+<code class="docutils literal notranslate"><span class="pre">m^2/year``（界面也可能显示为</span> <span class="pre">m²/year），则</span> <span class="pre">``p</span></code> 先乘 <code class="docutils literal notranslate"><span class="pre">1000</span></code>，
+空间坐标先乘 <code class="docutils literal notranslate"><span class="pre">0.01</span></code>，时间先乘 <code class="docutils literal notranslate"><span class="pre">86400</span></code>。因此
+<code class="docutils literal notranslate"><span class="pre">dx(p)</span></code> 对应 <code class="docutils literal notranslate"><span class="pre">1000</span> <span class="pre">/</span> <span class="pre">0.01</span></code> 倍的原始网络导数，
+<code class="docutils literal notranslate"><span class="pre">dx(dx(p))</span></code> 对应 <code class="docutils literal notranslate"><span class="pre">1000</span> <span class="pre">/</span> <span class="pre">0.01^2</span></code> 倍，
+<code class="docutils literal notranslate"><span class="pre">dt(p)</span></code> 对应 <code class="docutils literal notranslate"><span class="pre">1000</span> <span class="pre">/</span> <span class="pre">86400</span></code> 倍。
+<code class="docutils literal notranslate"><span class="pre">D</span></code> 按单位目录中一年的秒数转换为 <code class="docutils literal notranslate"><span class="pre">m^2/s</span></code>，不能把数值直接当成 SI 系数。
+最终各项量纲相同，残差为 <code class="docutils literal notranslate"><span class="pre">Pa/s</span></code>。</p>
+<p>请按原始场单位填写和核对边界/初值。物理编辑器不替已有边界做新的单位换算，
+也不会为残差与边界损失自动选择无量纲化或权重。SI 残差与原始场单位的
+边界损失可能有不同数值尺度，应结合实际模型检查训练尺度。</p>
+</section>
+<section id="id9">
+<h2>离线导入、导出与迁移<a class="headerlink" href="#id9" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>参数包</dt><dd><p><code class="docutils literal notranslate"><span class="pre">schema_version:</span> <span class="pre">1</span></code> 的 JSON 数据包，包含 <code class="docutils literal notranslate"><span class="pre">parameters</span></code> 和
+<code class="docutils literal notranslate"><span class="pre">materials</span></code>。它用于共享参数定义及材料记录，不允许定义新单位、
+方程模板或可执行代码。导入时先检查整包；发生错误时保留导入前状态。
+定义使用 <code class="docutils literal notranslate"><span class="pre">value:</span> <span class="pre">null</span></code>；材料记录用参数 <code class="docutils literal notranslate"><span class="pre">id</span></code> 引用定义，并单独填写
+<code class="docutils literal notranslate"><span class="pre">value</span></code>、<code class="docutils literal notranslate"><span class="pre">unit</span></code> 与来源。重复导入完全相同的定义会复用，但冲突的定义或重复
+材料 id 会报错。不同定义可使用同一建议符号，加入同一个方程时必须改为唯一符号。</p>
+</dd>
+<dt>方程工程</dt><dd><p>保存当前公式的安全语法树、公式源文字、未知场、维度/类型、坐标单位及
+参数值。这个快照仅覆盖方程和物理参数，不包含几何、边界、初值、训练方法、
+checkpoint 或训练结果。导入错误时不应覆盖原有方程和参数。</p>
+</dd>
+<dt>生成代码</dt><dd><p>包含所需的完整物理 <code class="docutils literal notranslate"><span class="pre">spec</span></code>。把生成的 Python 文件移到安装了兼容版本
+OpenPINN 的另一台电脑后，无须再携带当初导入的参数包 JSON。
+外部参考场、用户另写的代码和其他自行添加的文件仍需按各自路径管理。</p>
+</dd>
+</dl>
+<p>导入和导出均在本地完成。选择文件不等于向社区上传；本项目没有通过此功能
+接收参数包的远端服务。需要保存编辑进度时，请显式导出文件，不要把浏览器页面
+视为完整项目备份。</p>
+</section>
+<section id="python-api">
+<h2>Python API<a class="headerlink" href="#python-api" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">load_physics_catalog(path=None)</span></code></dt><dd><p>读取默认内置目录，或读取指定路径的目录数据。</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">validate_physics_catalog(data)</span></code></dt><dd><p>检查目录结构、单位、参数和模板等数据。
+这里校验的是完整目录（含 categories/templates），不是浏览器的三字段参数包。</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">validate_physics_spec(spec)</span></code></dt><dd><p>检查单个方程规格，包括字段、参数、维度、表达式和单位。</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">make_physics_residual(spec)</span></code></dt><dd><p>根据已验证的规格建立可交给 <code class="docutils literal notranslate"><span class="pre">PDEProblem</span></code> 使用的残差函数。
+调用它本身不创建几何或边界，也不开始训练。</p>
+</dd>
+</dl>
+<p><code class="docutils literal notranslate"><span class="pre">spec</span></code> 使用 <code class="docutils literal notranslate"><span class="pre">schema_version:</span> <span class="pre">1</span></code>，包含 <code class="docutils literal notranslate"><span class="pre">dimension</span></code>、<code class="docutils literal notranslate"><span class="pre">kind</span></code>、
+<code class="docutils literal notranslate"><span class="pre">field</span></code>、<code class="docutils literal notranslate"><span class="pre">field_unit</span></code>、<code class="docutils literal notranslate"><span class="pre">coordinate_units</span></code>、<code class="docutils literal notranslate"><span class="pre">expression</span></code> 和
+<code class="docutils literal notranslate"><span class="pre">parameters</span></code>。<code class="docutils literal notranslate"><span class="pre">kind</span></code> 为 <code class="docutils literal notranslate"><span class="pre">static</span></code> 或 <code class="docutils literal notranslate"><span class="pre">dynamic</span></code>；
+<code class="docutils literal notranslate"><span class="pre">expression</span></code> 是安全语法树，<code class="docutils literal notranslate"><span class="pre">expression_source</span></code> 可保存可读公式文字。
+请从编辑器导出规格或复制模板，不要把普通公式字符串直接填入
+<code class="docutils literal notranslate"><span class="pre">expression</span></code> 来替代语法树。</p>
+</section>
+<section id="id10">
+<h2>贡献与验收<a class="headerlink" href="#id10" title="Link to this heading"></a></h2>
+<p>社区贡献应以数据文件的 Pull Request 提交，由维护者审查定义、单位、来源和
+适用范围，再执行目录/规格校验、自动化测试和文档构建。
+参数数据更新不能附带任意执行代码，也不会由离线页面自动进入公共目录。
+贡献约定见仓库 <code class="docutils literal notranslate"><span class="pre">catalog/README.md</span></code>，独立验收项目见
+<code class="docutils literal notranslate"><span class="pre">catalog/ACCEPTANCE.md</span></code>。验收计划列出应达到的标准；实际通过情况以对应
+测试输出和人工检查记录为准。</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="页脚">
+        <a href="custom_equation.html" class="btn btn-neutral float-left" title="加入自己的控制方程" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="problem_designer.html" class="btn btn-neutral float-right" title="新控制方程与适用方法检查" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 。</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用的 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

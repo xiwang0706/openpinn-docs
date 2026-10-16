@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "parameters": [
+    {"id": "site.diffusivity_x", "category": "custom", "label": "场地 x 向扩散系数", "symbol": "cx_site", "unit": "m^2/year", "value": null, "minimum": 0, "description": "仅用于演示可扩展参数；须用实际模型数据替换。"},
+    {"id": "site.diffusivity_y", "category": "custom", "label": "场地 y 向扩散系数", "symbol": "cy_site", "unit": "m^2/year", "value": null, "minimum": 0, "description": "仅用于演示可扩展参数；须用实际模型数据替换。"}
+  ],
+  "materials": [
+    {
+      "id": "site.demo_only",
+      "label": "演示场地参数（非实测值）",
+      "source": "OpenPINN 功能演示，不对应真实土层",
+      "conditions": "仅测试离线导入和公式绑定，不用于工程结论",
+      "parameters": [
+        {"id": "site.diffusivity_x", "unit": "m^2/year", "value": 0.2},
+        {"id": "site.diffusivity_y", "unit": "m^2/year", "value": 0.1}
+      ]
+    }
+  ]
+}

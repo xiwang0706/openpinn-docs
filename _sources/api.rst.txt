@@ -1,0 +1,107 @@
+常用 Python 接口
+==============================
+
+以下页面由代码中的说明自动生成。普通用户从 ``solve`` 或 ``solve_config``
+开始；需要精确控制组件或新增方法时，再查看 ``Experiment``、网络、采样和训练类。
+
+配置和运行
+----------
+
+.. autofunction:: openpinn.solve
+
+.. autofunction:: openpinn.method
+
+.. autoclass:: openpinn.MethodSelection
+   :members:
+
+.. autofunction:: openpinn.solve_config
+
+.. autofunction:: openpinn.build_config
+
+.. autofunction:: openpinn.list_methods
+
+.. autofunction:: openpinn.list_method_variants
+
+.. autofunction:: openpinn.check_method_compatibility
+
+.. autoclass:: openpinn.ProblemCompatibilityReport
+   :members: applicable, conditional, incompatible, to_text
+
+.. autofunction:: openpinn.load_config
+
+.. autoclass:: openpinn.Experiment
+   :members: from_config, run
+
+.. autoclass:: openpinn.ExperimentResult
+   :members:
+
+.. autofunction:: openpinn.evaluate_reference_csv
+
+方法注册
+--------
+
+.. autoclass:: openpinn.MethodSpec
+   :members:
+
+.. autoclass:: openpinn.MethodCompatibility
+   :members:
+
+.. autoclass:: openpinn.MethodVariantSpec
+   :members:
+
+.. autoclass:: openpinn.MethodRegistry
+   :members:
+
+网络与特征
+----------
+
+.. autoclass:: openpinn.MLP
+   :members:
+
+.. autoclass:: openpinn.PINNModel
+   :members:
+
+.. autofunction:: openpinn.freeze_all_but_last_linear_layers
+
+.. autoclass:: openpinn.FourierFeatures
+   :members:
+
+采样与训练
+----------
+
+.. autoclass:: openpinn.UniformSampler
+   :members:
+
+.. autoclass:: openpinn.Trainer
+   :members: fit, predict, save, load
+
+已有问题
+--------
+
+.. autoclass:: openpinn.PDEProblem
+   :members: evaluate_residual, exact
+
+.. autoclass:: openpinn.Polygon
+   :members: from_file, sample, boundary, contains, on_boundary, boundary_normal
+
+.. autoclass:: openpinn.DirichletBC
+   :members:
+
+.. autoclass:: openpinn.NeumannBC
+   :members:
+
+.. autoclass:: openpinn.RobinBC
+   :members:
+
+.. autofunction:: openpinn.make_poisson_problem
+
+.. autofunction:: openpinn.make_piecewise_poisson_problem
+
+.. autofunction:: openpinn.make_burgers_problem
+
+.. autofunction:: openpinn.make_coupled_manufactured_problem
+
+.. autofunction:: openpinn.make_tunnel_consolidation_model1_problem
+
+.. autoclass:: openpinn.RectangleWithCircularHoles
+   :members:

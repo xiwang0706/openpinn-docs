@@ -1,0 +1,66 @@
+/* Shared by Sphinx and embedded offline manuals. Native links remain usable
+   without scripts; numbered badges are part of the whole clickable card. */
+.wy-nav-content:has(.manual-framework) { max-width: 1200px; }
+.manual-framework { margin: 20px 0 28px; padding: 18px; background: #f8fbfd; border: 1px solid #c2d8e5; border-radius: 12px; }
+.manual-framework figcaption { color: #173e59; font-size: 21px; font-weight: 750; }
+.manual-framework > p { font-size: 13px; color: #52657a; line-height: 1.7; margin: 8px 0; }
+.manual-framework-scroll { overflow-x: auto; }
+.manual-framework svg { display: block; width: 100%; min-width: 680px; height: auto; }
+.manual-framework .framework-group { fill: #eaf3f8; stroke: #b6ccd9; stroke-dasharray: 5 4; }
+.manual-framework .framework-group-label { font: 16px system-ui, sans-serif; fill: #476378; }
+.manual-framework .framework-edge > path { fill: none; stroke: #54768b; stroke-width: 2; }
+.manual-framework .framework-edge-label { font: 15px system-ui, sans-serif; fill: #476378; paint-order: stroke; stroke: #f8fbfd; stroke-width: 4px; }
+.manual-framework .framework-node > rect, .manual-framework .framework-node > path { fill: white; stroke: #4784a5; stroke-width: 1.8; }
+.manual-framework .framework-terminal > rect { fill: #e1f2ed; stroke: #498472; }
+.manual-framework .framework-decision > path { fill: #fff4d9; stroke: #b59042; }
+.manual-framework .framework-title { font: 600 18px system-ui, sans-serif; fill: #205571; }
+.manual-framework .framework-note { font: 14px system-ui, sans-serif; fill: #4f6878; }
+.manual-framework .framework-node:hover > rect, .manual-framework .framework-node:hover > path,
+.manual-framework .framework-node:focus-visible > rect, .manual-framework .framework-node:focus-visible > path { stroke: #176aa0; stroke-width: 3.5; }
+.manual-framework .framework-node:active .framework-title { fill: #9b59b6; }
+.manual-framework .framework-node:visited .framework-title { fill: #205571; }
+.manual-framework .framework-node:visited:active .framework-title { fill: #9b59b6; }
+.manual-framework-standalone { max-width: 1200px; margin: 24px auto; padding: 0 20px; }
+.manual-overview-links { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; margin: 12px 0; }
+.manual-overview-directory summary { cursor: pointer; }
+@media print { .manual-framework { break-inside: avoid; } .manual-framework svg { min-width: 0; } }
+.manual-map { margin: 24px 0; padding: 22px; border: 1px solid #b9d5e4; border-radius: 14px; background: #f3f8fc; min-width: 0; }
+.manual-map figcaption { font-size: 19px; font-weight: 750; color: #173e59; line-height: 1.5; margin-bottom: 8px; }
+.manual-map .manual-map-hint { font-size: 13px; color: #52657a; line-height: 1.65; margin: 0 0 18px; }
+.manual-map .manual-map-body { min-width: 0; }
+.manual-map ul, .manual-map ol { list-style: none !important; margin: 0 !important; padding: 0 !important; }
+.manual-map li { position: relative; list-style: none !important; margin: 0 !important; padding: 0; min-width: 0; }
+.manual-map a.manual-map-node, .manual-map a.manual-map-node:visited { display: flex; align-items: flex-start; gap: 12px; padding: 13px 15px; min-height: 64px; border: 1px solid #b8d3e2; border-radius: 9px; background: #fff; color: #2980b9; text-decoration: none; line-height: 1.55; overflow-wrap: anywhere; box-shadow: 0 2px 3px #163d5308; }
+.manual-map a.manual-map-node:hover { background: #eaf4fc; border-color: #2980b9; text-decoration: none; }
+.manual-map a.manual-map-node:active { color: #9b59b6 !important; background: #f4ecfa; }
+.manual-map a.manual-map-node:focus-visible { outline: 3px solid #2980b9; outline-offset: 3px; }
+.manual-map-node > span:last-child { min-width: 0; }
+.manual-map-node strong { display: block; font-size: 15px; color: inherit; }
+.manual-map-node small { display: block; font-size: 13px; color: #405a6d; margin-top: 4px; }
+.manual-map-icon { flex: 0 0 auto; min-width: 30px; padding: 3px 5px; border-radius: 8px; text-align: center; background: #e5f1f9; color: inherit; font-size: 13px; font-weight: 750; }
+.manual-map-tree .manual-map-body { display: grid; grid-template-columns: minmax(120px, .65fr) minmax(0, 2fr); align-items: center; }
+.manual-map-root { padding: 18px 14px; border: 2px solid #267597; border-radius: 12px; background: #e2f0f7; color: #194763; font-size: 17px; font-weight: 750; text-align: center; overflow-wrap: anywhere; }
+.manual-map-tree .manual-map-branches { position: relative; padding-left: 24px !important; }
+.manual-map-tree .manual-map-branches::before { content: ''; position: absolute; left: 0; top: 50%; width: 24px; border-top: 2px solid #8ab3c9; }
+.manual-map-tree li { border-left: 2px solid #8ab3c9; padding: 7px 0 7px 18px; }
+.manual-map-tree li::before { content: ''; position: absolute; left: 0; top: 38px; width: 18px; border-top: 2px solid #8ab3c9; }
+.manual-map-tree li > ul { margin: 6px 0 0 16px !important; }
+.manual-map-flow .manual-map-branches { display: flex; flex-direction: column; gap: 28px; }
+.manual-map-flow li + li::before { content: '↓'; position: absolute; top: -27px; left: 26px; color: #4c809c; font: 23px/26px system-ui, sans-serif; }
+.manual-map-flow .manual-map-node { border-left: 4px solid #4797b9; }
+@media (max-width: 650px) {
+  .manual-map { padding: 14px; }
+  .manual-map-tree .manual-map-body { grid-template-columns: minmax(0, 1fr); gap: 12px; }
+  .manual-map-tree .manual-map-branches { padding-left: 10px !important; }
+  .manual-map-tree .manual-map-branches::before { display: none; }
+  .manual-map-tree li { padding-left: 12px; }
+  .manual-map-tree li::before { width: 12px; }
+  .manual-map a.manual-map-node { padding: 11px; gap: 8px; }
+}
+@media print {
+  .manual-map { background: white; padding: 12px; }
+  .manual-map li { break-inside: avoid; }
+  .manual-map figcaption { break-after: avoid; }
+  .manual-map .manual-map-node { box-shadow: none; }
+  .manual-map a::after { content: none !important; }
+}

@@ -1,0 +1,388 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>开发者说明书 &mdash; OpenPINN 文档</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="_static/method_catalog.css?v=9c037d8c" />
+      <link rel="stylesheet" type="text/css" href="_static/method_configurator.css?v=7e8bb877" />
+      <link rel="stylesheet" type="text/css" href="_static/physics_editor.css?v=274d97ba" />
+      <link rel="stylesheet" type="text/css" href="_static/problem_designer.css?v=91cae30d" />
+      <link rel="stylesheet" type="text/css" href="_static/vendor/katex/katex.min.css?v=d850987e" />
+      <link rel="stylesheet" type="text/css" href="_static/visual_problem_designer.css?v=a458b408" />
+      <link rel="stylesheet" type="text/css" href="_static/manuals.css?v=6f2ed0c6" />
+      <link rel="stylesheet" type="text/css" href="_static/manual_diagrams.css?v=ae97075d" />
+      <link rel="stylesheet" type="text/css" href="_static/documentation_search.css?v=01fd3019" />
+      <link rel="stylesheet" type="text/css" href="_static/document_site.css?v=73270abc" />
+
+  
+    <link rel="shortcut icon" href="_static/favicon.svg"/>
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=ad3000b3"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="_static/copybutton.js?v=f281be69"></script>
+      <script defer="defer" src="_static/polygon_image_trace.js?v=ba20ab72"></script>
+      <script defer="defer" src="_static/dxf_geometry_import.js?v=e4debea6"></script>
+      <script defer="defer" src="_static/physics_editor.js?v=107262fa"></script>
+      <script defer="defer" src="_static/method_configurator.js?v=7e29dcc9"></script>
+      <script defer="defer" src="_static/configurator_navigation.js?v=624f0b8a"></script>
+      <script defer="defer" src="_static/problem_designer.js?v=66bcf361"></script>
+      <script defer="defer" src="_static/vendor/blockly/blockly_compressed.js?v=b2ec3820"></script>
+      <script defer="defer" src="_static/vendor/blockly/zh-hans.js?v=a2eae252"></script>
+      <script defer="defer" src="_static/vendor/katex/katex.min.js?v=4f2e6063"></script>
+      <script defer="defer" src="_static/visual_problem_designer.js?v=16229ff5"></script>
+      <script defer="defer" src="_static/manuals.js?v=9159a2c6"></script>
+      <script defer="defer" src="_static/documentation_search.js?v=a6773392"></script>
+      <script src="_static/translations.js?v=beaddf03"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="genindex.html" />
+    <link rel="search" title="搜索" href="search.html" />
+    <link rel="next" title="开始贡献：从反馈到开发计划" href="developer_guide_start.html" />
+    <link rel="prev" title="问题排查与运行核对" href="user_guide_help.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            OpenPINN
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="搜索文档" aria-label="搜索文档" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
+              <p class="caption" role="heading"><span class="caption-text">软件说明书</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="user_guide.html">使用者说明书</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="user_guide_start.html">安装与快速上手</a></li>
+<li class="toctree-l2"><a class="reference internal" href="user_guide_modeling.html">自定义建模与代码生成</a></li>
+<li class="toctree-l2"><a class="reference internal" href="user_guide_geometry.html">几何创建、导入与编辑</a></li>
+<li class="toctree-l2"><a class="reference internal" href="user_guide_training.html">训练设置与运行</a></li>
+<li class="toctree-l2"><a class="reference internal" href="user_guide_results.html">结果验证与实验交接</a></li>
+<li class="toctree-l2"><a class="reference internal" href="user_guide_help.html">问题排查与运行核对</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">开发者说明书</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="developer_guide_start.html">开始贡献：从反馈到开发计划</a></li>
+<li class="toctree-l2"><a class="reference internal" href="developer_guide_runtime.html">新增算法与改进方法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="developer_guide_modeling.html">扩展方程、几何与边界</a></li>
+<li class="toctree-l2"><a class="reference internal" href="developer_guide_configurator.html">修复功能与改进网页</a></li>
+<li class="toctree-l2"><a class="reference internal" href="developer_guide_delivery.html">验证、提交 PR 与版本维护</a></li>
+<li class="toctree-l2"><a class="reference internal" href="developer_guide_reference.html">架构与源码参考</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">开始使用</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="install.html">安装与运行环境配置</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="install.html#id2">准备与定位项目文件夹</a></li>
+<li class="toctree-l2"><a class="reference internal" href="install.html#id4">推荐方式：从源码开始</a></li>
+<li class="toctree-l2"><a class="reference internal" href="install.html#conda-cuda">已有 Conda 或 CUDA 环境</a></li>
+<li class="toctree-l2"><a class="reference internal" href="install.html#id5">生成网页并确认文件存在</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">5 分钟快速入门</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#python">最短 Python 调用</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#id2">网页配置生成器</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#id3">可直接复制的方法简称</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#id4">最短命令行调用</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#yaml">最短 YAML 调用</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#id5">每次运行保存什么</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#id6">下一步</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="architecture.html">项目结构与调用流程</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="architecture.html#id2">最终流程</a></li>
+<li class="toctree-l2"><a class="reference internal" href="architecture.html#id3">源码文件各负责什么</a></li>
+<li class="toctree-l2"><a class="reference internal" href="architecture.html#id4">文件夹为什么分开</a></li>
+<li class="toctree-l2"><a class="reference internal" href="architecture.html#id5">新增方法的固定闭环</a></li>
+<li class="toctree-l2"><a class="reference internal" href="architecture.html#id6">方法大类与具体变体</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">问题与案例</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="poisson.html">Poisson：静态与非均质案例</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="poisson.html#id1">普通 Poisson</a></li>
+<li class="toctree-l2"><a class="reference internal" href="poisson.html#id2">正式基线结果</a></li>
+<li class="toctree-l2"><a class="reference internal" href="poisson.html#id3">分段系数 Poisson</a></li>
+<li class="toctree-l2"><a class="reference internal" href="poisson.html#id4">比较改进方法时</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="burgers.html">Burgers：动态案例</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="burgers.html#id1">可信参考解</a></li>
+<li class="toctree-l2"><a class="reference internal" href="burgers.html#id2">快速检查</a></li>
+<li class="toctree-l2"><a class="reference internal" href="burgers.html#id3">较长的默认训练</a></li>
+<li class="toctree-l2"><a class="reference internal" href="burgers.html#id4">查看结果</a></li>
+<li class="toctree-l2"><a class="reference internal" href="burgers.html#id5">正式基线结果</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="tunnel_model1.html">双隧道二维模型</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="tunnel_model1.html#id2">最短调用</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tunnel_model1.html#id3">数学模型</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tunnel_model1.html#id4">参数怎样改</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tunnel_model1.html#id5">怎样看双隧道结果</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tunnel_model1.html#id6">训练预算与当前验证边界</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="custom_equation.html">加入自己的控制方程</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="custom_equation.html#id2">从配置生成器取得完整模板</a></li>
+<li class="toctree-l2"><a class="reference internal" href="custom_equation.html#id3">边界与初值的实现边界</a></li>
+<li class="toctree-l2"><a class="reference internal" href="custom_equation.html#yaml">为什么不能只在 YAML 写一行公式</a></li>
+<li class="toctree-l2"><a class="reference internal" href="custom_equation.html#id4">一个完整但很短的例子</a></li>
+<li class="toctree-l2"><a class="reference internal" href="custom_equation.html#id5">用 YAML 选择用户方程</a></li>
+<li class="toctree-l2"><a class="reference internal" href="custom_equation.html#id6">用户方程文件至少负责</a></li>
+<li class="toctree-l2"><a class="reference internal" href="custom_equation.html#id7">兼容性不是强行保证</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="physics_library.html">物理参数库与安全单场公式</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="physics_library.html#id2">先试一个完整流程</a></li>
+<li class="toctree-l2"><a class="reference internal" href="physics_library.html#physics-equation-entry">水压力场与固结系数：输入二维孔压扩散方程</a></li>
+<li class="toctree-l2"><a class="reference internal" href="physics_library.html#id4">常用操作与高级信息分开</a></li>
+<li class="toctree-l2"><a class="reference internal" href="physics_library.html#id5">定义、数值与模板分别保存</a></li>
+<li class="toctree-l2"><a class="reference internal" href="physics_library.html#id6">从模板开始</a></li>
+<li class="toctree-l2"><a class="reference internal" href="physics_library.html#id7">公式支持范围</a></li>
+<li class="toctree-l2"><a class="reference internal" href="physics_library.html#id8">单位是计算规则</a></li>
+<li class="toctree-l2"><a class="reference internal" href="physics_library.html#id9">离线导入、导出与迁移</a></li>
+<li class="toctree-l2"><a class="reference internal" href="physics_library.html#python-api">Python API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="physics_library.html#id10">贡献与验收</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="problem_designer.html">新控制方程与适用方法检查</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="problem_designer.html#id2">复制代码后做什么</a></li>
+<li class="toctree-l2"><a class="reference internal" href="problem_designer.html#id3">结果的三种状态</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">方法选择与说明</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="method_catalog.html">方法简称总表</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="method_catalog.html#id2">以后怎样增加新方法</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="method_configurator.html">配置生成器</a></li>
+<li class="toctree-l1"><a class="reference internal" href="methods.html">十类改进方法详解</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="methods.html#id2">统一选择方式</a></li>
+<li class="toctree-l2"><a class="reference internal" href="methods.html#id3">增加同一家族的第二种方法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="methods.html#id4">阅读方法页时建议关注七项信息</a></li>
+<li class="toctree-l2"><a class="reference internal" href="methods.html#id5">比较方法的推荐流程</a></li>
+<li class="toctree-l2"><a class="reference internal" href="methods.html#id6">已接入的方法</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="methods/baseline.html">普通 PINN（<code class="docutils literal notranslate"><span class="pre">plain_pinn</span></code>）</a></li>
+<li class="toctree-l3"><a class="reference internal" href="methods/fourier_features.html">Fourier 特征：先把坐标展开再交给网络</a></li>
+<li class="toctree-l3"><a class="reference internal" href="methods/modified_mlp.html">Modified MLP：用门控融合缓解梯度传递困难</a></li>
+<li class="toctree-l3"><a class="reference internal" href="methods/adaptive_activation.html">自适应激活函数</a></li>
+<li class="toctree-l3"><a class="reference internal" href="methods/hard_boundary.html">硬边界约束：让网络天生满足 Dirichlet 边界</a></li>
+<li class="toctree-l3"><a class="reference internal" href="methods/adaptive_weights.html">损失平衡与自适应权重</a></li>
+<li class="toctree-l3"><a class="reference internal" href="methods/adaptive_sampling.html">自适应采样：训练点怎么随模型变化</a></li>
+<li class="toctree-l3"><a class="reference internal" href="methods/adam_lbfgs.html">Adam + L-BFGS：先找方向，再做二阶收尾</a></li>
+<li class="toctree-l3"><a class="reference internal" href="methods/time_window.html">顺序时间窗：先学早期，再打开后期</a></li>
+<li class="toctree-l3"><a class="reference internal" href="methods/transfer_learning.html">迁移学习与继续训练：新问题不再完全从零开始</a></li>
+<li class="toctree-l3"><a class="reference internal" href="methods/domain_decomposition.html">多网络与区域分解：左右各学一段，界面再接起来</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="methods.html#id7">新增二级变体</a></li>
+<li class="toctree-l2"><a class="reference internal" href="methods.html#id8">十种方法的实际结果摘要</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">验证与复现</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="reproducibility.html">三随机种子复现</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="reproducibility.html#id2">目的</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reproducibility.html#id3">运行</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reproducibility.html#id4">统计口径</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reproducibility.html#id5">输出</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reproducibility.html#id6">三随机种子结果</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reproducibility.html#id7">解释边界</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="validation.html">质量验证</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="validation.html#wheel">wheel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="validation.html#id2">环境说明</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API 与交付检查</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="api.html">常用 Python 接口</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api.html#id1">配置和运行</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api.html#openpinn.solve"><code class="docutils literal notranslate"><span class="pre">solve()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api.html#openpinn.method"><code class="docutils literal notranslate"><span class="pre">method()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api.html#openpinn.MethodSelection"><code class="docutils literal notranslate"><span class="pre">MethodSelection</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api.html#openpinn.solve_config"><code class="docutils literal notranslate"><span class="pre">solve_config()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api.html#openpinn.build_config"><code class="docutils literal notranslate"><span class="pre">build_config()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api.html#openpinn.list_methods"><code class="docutils literal notranslate"><span class="pre">list_methods()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api.html#openpinn.list_method_variants"><code class="docutils literal notranslate"><span class="pre">list_method_variants()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api.html#openpinn.check_method_compatibility"><code class="docutils literal notranslate"><span class="pre">check_method_compatibility()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api.html#openpinn.ProblemCompatibilityReport"><code class="docutils literal notranslate"><span class="pre">ProblemCompatibilityReport</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api.html#openpinn.load_config"><code class="docutils literal notranslate"><span class="pre">load_config()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api.html#openpinn.Experiment"><code class="docutils literal notranslate"><span class="pre">Experiment</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api.html#openpinn.ExperimentResult"><code class="docutils literal notranslate"><span class="pre">ExperimentResult</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api.html#openpinn.evaluate_reference_csv"><code class="docutils literal notranslate"><span class="pre">evaluate_reference_csv()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#id2">方法注册</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api.html#openpinn.MethodSpec"><code class="docutils literal notranslate"><span class="pre">MethodSpec</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api.html#openpinn.MethodCompatibility"><code class="docutils literal notranslate"><span class="pre">MethodCompatibility</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api.html#openpinn.MethodVariantSpec"><code class="docutils literal notranslate"><span class="pre">MethodVariantSpec</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api.html#openpinn.MethodRegistry"><code class="docutils literal notranslate"><span class="pre">MethodRegistry</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#id3">网络与特征</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api.html#openpinn.MLP"><code class="docutils literal notranslate"><span class="pre">MLP</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api.html#openpinn.PINNModel"><code class="docutils literal notranslate"><span class="pre">PINNModel</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api.html#openpinn.freeze_all_but_last_linear_layers"><code class="docutils literal notranslate"><span class="pre">freeze_all_but_last_linear_layers()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api.html#openpinn.FourierFeatures"><code class="docutils literal notranslate"><span class="pre">FourierFeatures</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#id4">采样与训练</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api.html#openpinn.UniformSampler"><code class="docutils literal notranslate"><span class="pre">UniformSampler</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api.html#openpinn.Trainer"><code class="docutils literal notranslate"><span class="pre">Trainer</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#id5">已有问题</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api.html#openpinn.PDEProblem"><code class="docutils literal notranslate"><span class="pre">PDEProblem</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api.html#openpinn.Polygon"><code class="docutils literal notranslate"><span class="pre">Polygon</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api.html#openpinn.DirichletBC"><code class="docutils literal notranslate"><span class="pre">DirichletBC</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api.html#openpinn.NeumannBC"><code class="docutils literal notranslate"><span class="pre">NeumannBC</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api.html#openpinn.RobinBC"><code class="docutils literal notranslate"><span class="pre">RobinBC</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api.html#openpinn.make_poisson_problem"><code class="docutils literal notranslate"><span class="pre">make_poisson_problem()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api.html#openpinn.make_piecewise_poisson_problem"><code class="docutils literal notranslate"><span class="pre">make_piecewise_poisson_problem()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api.html#openpinn.make_burgers_problem"><code class="docutils literal notranslate"><span class="pre">make_burgers_problem()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api.html#openpinn.make_coupled_manufactured_problem"><code class="docutils literal notranslate"><span class="pre">make_coupled_manufactured_problem()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api.html#openpinn.make_tunnel_consolidation_model1_problem"><code class="docutils literal notranslate"><span class="pre">make_tunnel_consolidation_model1_problem()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api.html#openpinn.RectangleWithCircularHoles"><code class="docutils literal notranslate"><span class="pre">RectangleWithCircularHoles</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="faq.html">常见错误</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="faq.html#python">找不到 python</a></li>
+<li class="toctree-l2"><a class="reference internal" href="faq.html#no-module-named-openpinn">提示 No module named openpinn</a></li>
+<li class="toctree-l2"><a class="reference internal" href="faq.html#pytorch-cuda">PyTorch 或 CUDA 安装冲突</a></li>
+<li class="toctree-l2"><a class="reference internal" href="faq.html#id2">结果目录不是空的</a></li>
+<li class="toctree-l2"><a class="reference internal" href="faq.html#nan">出现 NaN 或无穷大</a></li>
+<li class="toctree-l2"><a class="reference internal" href="faq.html#id3">短案例运行成功，但误差较大</a></li>
+<li class="toctree-l2"><a class="reference internal" href="faq.html#id4">网站文档构建失败</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="delivery_status.html">功能概览</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="delivery_status.html#id2">文档范围</a></li>
+<li class="toctree-l2"><a class="reference internal" href="delivery_status.html#id3">使用建议</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="workload.html">计算成本参考</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changelog.html">变更记录</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#comsol-cad-dxf">2026-10-03：COMSOL/CAD 二维 DXF 导入</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id2">2026-09-30：可旋转椭圆几何</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id3">2026-09-30：图片曲率识别与可编辑闭合样条</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id4">2026-09-30：真圆与可调圆角几何</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id5">2026-09-30：多边形拖动缩放与尺寸标注</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id6">2026-09-30</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id7">2026-09-21</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id8">2026-09-19</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id9">2026-09-18</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id10">2026-09-11</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id11">2026-09-05</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id12">2026-08-30</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id13">0.2.0 - 2026-08-29</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id14">2026-08-28</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id15">0.1.2 - 2026-08-26</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id16">0.1.1</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="移动版导航菜单" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">OpenPINN</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="页面导航">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">开发者说明书</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/developer_guide.rst.txt" rel="nofollow"> 查看页面源码</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="id1">
+<h1>开发者说明书<a class="headerlink" href="#id1" title="Link to this heading"></a></h1>
+<p>这份说明书面向想继续建设 OpenPINN 的贡献者：你可能刚用它发现一个问题，
+也可能准备加入新算法、新方程，或改善一个操作细节。
+先沿下图确定自己的任务，再进入对应开发指南；不需要先读完所有源码。</p>
+<figure class="manual-framework"><figcaption>贡献流程：发现需求 → 实现改动 → 验证 → 审阅与维护</figcaption><p>顺着箭头看完整链路；点击图中方框可进入对应说明。窄屏可横向滚动。</p><div class="manual-framework-scroll" tabindex="0" role="region" aria-label="可滚动的整体流程图"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 1100" role="group" aria-labelledby="framework-developer-title framework-developer-desc"><title id="framework-developer-title">贡献流程：发现需求 → 实现改动 → 验证 → 审阅与维护</title><desc id="framework-developer-desc">贡献者先复现问题或提出方法，再明确范围并建立开发基线；按算法、数学问题或维护任务选择扩展点，完成最小改动、测试和文档后提交 PR，响应审阅，由维护者决定合并与发布。</desc><defs><marker id="framework-developer-arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#54768b"/></marker></defs><rect class="framework-group" x="24" y="335" width="912" height="94" rx="12"/><g class="framework-edge" data-from="feedback" data-to="plan"><path d="M480,82 V125" marker-end="url(#framework-developer-arrow)"/></g><g class="framework-edge" data-from="plan" data-to="baseline"><path d="M480,187 V230" marker-end="url(#framework-developer-arrow)"/></g><g class="framework-edge" data-from="baseline" data-to="algorithm"><path d="M480,292 V320 H175 V350" marker-end="url(#framework-developer-arrow)"/></g><g class="framework-edge" data-from="baseline" data-to="math"><path d="M480,292 V350" marker-end="url(#framework-developer-arrow)"/></g><g class="framework-edge" data-from="baseline" data-to="fix"><path d="M480,292 V320 H785 V350" marker-end="url(#framework-developer-arrow)"/></g><g class="framework-edge" data-from="algorithm" data-to="implement"><path d="M175,412 V450 H480 V480" marker-end="url(#framework-developer-arrow)"/></g><g class="framework-edge" data-from="math" data-to="implement"><path d="M480,412 V480" marker-end="url(#framework-developer-arrow)"/></g><g class="framework-edge" data-from="fix" data-to="implement"><path d="M785,412 V450 H480 V480" marker-end="url(#framework-developer-arrow)"/></g><g class="framework-edge" data-from="implement" data-to="tests"><path d="M480,542 V590" marker-end="url(#framework-developer-arrow)"/></g><g class="framework-edge" data-from="tests" data-to="implement"><path d="M330,621 H265 V511 H330" marker-end="url(#framework-developer-arrow)" stroke-dasharray="6 5"/><text x="70" y="565" class="framework-edge-label">未通过，返回修正</text></g><g class="framework-edge" data-from="tests" data-to="pr"><path d="M480,652 V700" marker-end="url(#framework-developer-arrow)"/><text x="500" y="682" class="framework-edge-label">通过</text></g><g class="framework-edge" data-from="pr" data-to="review"><path d="M480,762 V805" marker-end="url(#framework-developer-arrow)"/></g><g class="framework-edge" data-from="review" data-to="revise"><path d="M605,859 H680" marker-end="url(#framework-developer-arrow)"/><text x="615" y="839" class="framework-edge-label">需修改</text></g><g class="framework-edge" data-from="revise" data-to="implement"><path d="M800,825 V511 H630" marker-end="url(#framework-developer-arrow)" stroke-dasharray="6 5"/><text x="665" y="690" class="framework-edge-label">再验证后更新 PR</text></g><g class="framework-edge" data-from="review" data-to="done"><path d="M480,913 V985" marker-end="url(#framework-developer-arrow)"/><text x="500" y="956" class="framework-edge-label">通过</text></g><a class="framework-node framework-terminal" data-node="feedback" href="developer_guide_start.html#contribution-plan" tabindex="0" aria-label="从使用中发现不足或提出想法：缺陷 / 新算法 / 新能力 / 细节改进"><rect x="330" y="20" width="300" height="62" rx="28"/><text x="480.0" y="46.0" text-anchor="middle" class="framework-title">从使用中发现不足或提出想法</text><text x="480.0" y="69.0" text-anchor="middle" class="framework-note">缺陷 / 新算法 / 新能力 / 细节改进</text></a><a class="framework-node framework-process" data-node="plan" href="developer_guide_start.html#contribution-plan" tabindex="0" aria-label="复现或提案：定义要解决的问题：最小输入、范围、验收标准；大改动先讨论"><rect x="330" y="125" width="300" height="62" rx="8"/><text x="480.0" y="151.0" text-anchor="middle" class="framework-title">复现或提案：定义要解决的问题</text><text x="480.0" y="174.0" text-anchor="middle" class="framework-note">最小输入、范围、验收标准；大改动先讨论</text></a><a class="framework-node framework-process" data-node="baseline" href="developer_guide_start.html#dev-scope" tabindex="0" aria-label="准备环境，建立未修改的基线：确认源码来源；保留可复现记录"><rect x="330" y="230" width="300" height="62" rx="8"/><text x="480.0" y="256.0" text-anchor="middle" class="framework-title">准备环境，建立未修改的基线</text><text x="480.0" y="279.0" text-anchor="middle" class="framework-note">确认源码来源；保留可复现记录</text></a><a class="framework-node framework-process" data-node="algorithm" href="developer_guide_runtime.html#method-recipe" tabindex="0" aria-label="新增算法 / 改进方法：组件实现 → 配置接入 → 方法测试"><rect x="45" y="350" width="260" height="62" rx="8"/><text x="175.0" y="376.0" text-anchor="middle" class="framework-title">新增算法 / 改进方法</text><text x="175.0" y="399.0" text-anchor="middle" class="framework-note">组件实现 → 配置接入 → 方法测试</text></a><a class="framework-node framework-process" data-node="math" href="developer_guide_modeling.html#extension-problem" tabindex="0" aria-label="扩展方程 / 几何 / 边界：数学契约 → 最小问题 → 按需接入"><rect x="350" y="350" width="260" height="62" rx="8"/><text x="480.0" y="376.0" text-anchor="middle" class="framework-title">扩展方程 / 几何 / 边界</text><text x="480.0" y="399.0" text-anchor="middle" class="framework-note">数学契约 → 最小问题 → 按需接入</text></a><a class="framework-node framework-process" data-node="fix" href="developer_guide_configurator.html#maintenance-recipe" tabindex="0" aria-label="修复缺陷 / 优化网页与文档：失败案例 → 定位源文件 → 回归"><rect x="655" y="350" width="260" height="62" rx="8"/><text x="785.0" y="376.0" text-anchor="middle" class="framework-title">修复缺陷 / 优化网页与文档</text><text x="785.0" y="399.0" text-anchor="middle" class="framework-note">失败案例 → 定位源文件 → 回归</text></a><a class="framework-node framework-process" data-node="implement" href="developer_guide_delivery.html#collaboration" tabindex="0" aria-label="在对应扩展点做最小改动：保留旧接口；同步必要示例与说明"><rect x="330" y="480" width="300" height="62" rx="8"/><text x="480.0" y="506.0" text-anchor="middle" class="framework-title">在对应扩展点做最小改动</text><text x="480.0" y="529.0" text-anchor="middle" class="framework-note">保留旧接口；同步必要示例与说明</text></a><a class="framework-node framework-process" data-node="tests" href="developer_guide_delivery.html#testing" tabindex="0" aria-label="验证行为与兼容性：针对性测试 + 必要回归；数值主张另取证"><rect x="330" y="590" width="300" height="62" rx="8"/><text x="480.0" y="616.0" text-anchor="middle" class="framework-title">验证行为与兼容性</text><text x="480.0" y="639.0" text-anchor="middle" class="framework-note">针对性测试 + 必要回归；数值主张另取证</text></a><a class="framework-node framework-process" data-node="pr" href="developer_guide_delivery.html#contribution-pr" tabindex="0" aria-label="提交可复核的 PR：变更理由、测试结果、迁移和未测项"><rect x="330" y="700" width="300" height="62" rx="8"/><text x="480.0" y="726.0" text-anchor="middle" class="framework-title">提交可复核的 PR</text><text x="480.0" y="749.0" text-anchor="middle" class="framework-note">变更理由、测试结果、迁移和未测项</text></a><a class="framework-node framework-decision" data-node="review" href="developer_guide_delivery.html#contribution-pr" tabindex="0" aria-label="维护者审阅通过？：目标 / 契约 / 兼容 / 证据"><path d="M480.0,805 L605,859.0 L480.0,913 L355,859.0 Z"/><text x="480.0" y="854.0" text-anchor="middle" class="framework-title">维护者审阅通过？</text><text x="480.0" y="877.0" text-anchor="middle" class="framework-note">目标 / 契约 / 兼容 / 证据</text></a><a class="framework-node framework-process" data-node="revise" href="developer_guide_delivery.html#contribution-pr" tabindex="0" aria-label="回应意见并补充修改：补测试、文档或缩小改动范围"><rect x="680" y="825" width="240" height="62" rx="8"/><text x="800.0" y="851.0" text-anchor="middle" class="framework-title">回应意见并补充修改</text><text x="800.0" y="874.0" text-anchor="middle" class="framework-note">补测试、文档或缩小改动范围</text></a><a class="framework-node framework-terminal" data-node="done" href="developer_guide_delivery.html#contribution-pr" tabindex="0" aria-label="合并、记录变更与后续维护：维护者另行决定版本发布；跟进回归"><rect x="330" y="985" width="300" height="62" rx="28"/><text x="480.0" y="1011.0" text-anchor="middle" class="framework-title">合并、记录变更与后续维护</text><text x="480.0" y="1034.0" text-anchor="middle" class="framework-note">维护者另行决定版本发布；跟进回归</text></a></svg></div><p class="framework-footnote">三条开发路线按任务选用，不要求全部实施。Issue / PR 是 GitHub 发布后的建议流程；当前未宣称已启用 CI 或自动合并。运行架构移至“架构与源码参考”。</p></figure><details class="manual-overview-directory"><summary>按章节查阅（6 个部分）</summary><nav class="manual-overview-links" aria-label="说明书章节"><a href="developer_guide_start.html">开始贡献：从反馈到开发计划</a><a href="developer_guide_runtime.html">新增算法与改进方法</a><a href="developer_guide_modeling.html">扩展方程、几何与边界</a><a href="developer_guide_configurator.html">修复功能与改进网页</a><a href="developer_guide_delivery.html">验证、提交 PR 与版本维护</a><a href="developer_guide_reference.html">架构与源码参考</a></nav></details><script type="application/json" data-manual-routes>{"contribution-plan": "developer_guide_start.html", "issue-proposal": "developer_guide_start.html", "dev-scope": "developer_guide_start.html", "developer-onboarding": "developer_guide_start.html", "first-development-check": "developer_guide_start.html", "tree": "developer_guide_start.html", "method-recipe": "developer_guide_runtime.html", "algorithm-extension-point": "developer_guide_runtime.html", "method-done": "developer_guide_runtime.html", "registries": "developer_guide_runtime.html", "registries-details": "developer_guide_runtime.html", "api-flow": "developer_guide_runtime.html", "models": "developer_guide_runtime.html", "samplers": "developer_guide_runtime.html", "losses": "developer_guide_runtime.html", "training": "developer_guide_runtime.html", "experiment": "developer_guide_runtime.html", "evaluation": "developer_guide_runtime.html", "resume": "developer_guide_runtime.html", "extension-problem": "developer_guide_modeling.html", "problem-contract": "developer_guide_modeling.html", "geometry-contract": "developer_guide_modeling.html", "conditions": "developer_guide_modeling.html", "maintenance-recipe": "developer_guide_configurator.html", "frontend": "developer_guide_configurator.html", "frontend-details": "developer_guide_configurator.html", "frontend-function-contracts": "developer_guide_configurator.html", "custom-data-contract": "developer_guide_configurator.html", "custom-regression": "developer_guide_configurator.html", "import-pipelines": "developer_guide_configurator.html", "extension-method": "developer_guide_configurator.html", "analytic-hole-walkthrough": "developer_guide_configurator.html", "geometry-design-decisions": "developer_guide_configurator.html", "testing": "developer_guide_delivery.html", "testing-details": "developer_guide_delivery.html", "contribution-pr": "developer_guide_delivery.html", "pr-template": "developer_guide_delivery.html", "github-readiness": "developer_guide_delivery.html", "collaboration": "developer_guide_delivery.html", "change-acceptance": "developer_guide_delivery.html", "handoff-record": "developer_guide_delivery.html", "security": "developer_guide_delivery.html", "manual-maintenance": "developer_guide_delivery.html", "canonical-doc-build": "developer_guide_delivery.html", "offline-documentation-search": "developer_guide_delivery.html", "architecture": "developer_guide_reference.html", "architecture-details": "developer_guide_reference.html", "navigation-functions": "developer_guide_reference.html", "functions": "developer_guide_reference.html", "python-index": "developer_guide_reference.html", "py-1": "developer_guide_reference.html", "py-2": "developer_guide_reference.html", "py-3": "developer_guide_reference.html", "py-4": "developer_guide_reference.html", "py-5": "developer_guide_reference.html", "py-6": "developer_guide_reference.html", "py-7": "developer_guide_reference.html", "py-8": "developer_guide_reference.html", "py-9": "developer_guide_reference.html", "py-10": "developer_guide_reference.html", "py-11": "developer_guide_reference.html", "py-12": "developer_guide_reference.html", "py-13": "developer_guide_reference.html", "py-14": "developer_guide_reference.html", "py-15": "developer_guide_reference.html", "py-16": "developer_guide_reference.html", "py-17": "developer_guide_reference.html", "py-18": "developer_guide_reference.html", "py-19": "developer_guide_reference.html", "py-20": "developer_guide_reference.html", "py-21": "developer_guide_reference.html", "py-22": "developer_guide_reference.html", "py-23": "developer_guide_reference.html", "py-24": "developer_guide_reference.html", "py-25": "developer_guide_reference.html", "py-26": "developer_guide_reference.html", "py-27": "developer_guide_reference.html", "py-28": "developer_guide_reference.html", "py-29": "developer_guide_reference.html", "py-30": "developer_guide_reference.html", "py-31": "developer_guide_reference.html", "py-32": "developer_guide_reference.html", "py-33": "developer_guide_reference.html", "py-34": "developer_guide_reference.html", "py-35": "developer_guide_reference.html", "py-36": "developer_guide_reference.html", "py-37": "developer_guide_reference.html", "py-38": "developer_guide_reference.html", "py-39": "developer_guide_reference.html", "py-40": "developer_guide_reference.html", "py-41": "developer_guide_reference.html", "py-42": "developer_guide_reference.html", "py-43": "developer_guide_reference.html", "py-44": "developer_guide_reference.html", "py-45": "developer_guide_reference.html", "py-46": "developer_guide_reference.html", "py-47": "developer_guide_reference.html", "py-48": "developer_guide_reference.html", "py-49": "developer_guide_reference.html", "py-50": "developer_guide_reference.html", "py-51": "developer_guide_reference.html", "py-52": "developer_guide_reference.html", "py-53": "developer_guide_reference.html", "py-54": "developer_guide_reference.html", "py-55": "developer_guide_reference.html", "py-56": "developer_guide_reference.html", "py-57": "developer_guide_reference.html", "py-58": "developer_guide_reference.html", "py-59": "developer_guide_reference.html", "py-60": "developer_guide_reference.html", "py-61": "developer_guide_reference.html", "py-62": "developer_guide_reference.html", "py-63": "developer_guide_reference.html", "py-64": "developer_guide_reference.html", "py-65": "developer_guide_reference.html", "py-66": "developer_guide_reference.html", "py-67": "developer_guide_reference.html", "py-68": "developer_guide_reference.html", "py-69": "developer_guide_reference.html", "py-70": "developer_guide_reference.html", "py-71": "developer_guide_reference.html", "py-72": "developer_guide_reference.html", "py-73": "developer_guide_reference.html", "py-74": "developer_guide_reference.html", "py-75": "developer_guide_reference.html", "py-76": "developer_guide_reference.html", "py-77": "developer_guide_reference.html", "py-78": "developer_guide_reference.html", "py-79": "developer_guide_reference.html", "py-80": "developer_guide_reference.html", "py-81": "developer_guide_reference.html", "py-82": "developer_guide_reference.html", "py-83": "developer_guide_reference.html", "py-84": "developer_guide_reference.html", "py-85": "developer_guide_reference.html", "py-86": "developer_guide_reference.html", "py-87": "developer_guide_reference.html", "py-88": "developer_guide_reference.html", "py-89": "developer_guide_reference.html", "py-90": "developer_guide_reference.html", "py-91": "developer_guide_reference.html", "py-92": "developer_guide_reference.html", "py-93": "developer_guide_reference.html", "py-94": "developer_guide_reference.html", "py-95": "developer_guide_reference.html", "py-96": "developer_guide_reference.html", "py-97": "developer_guide_reference.html", "py-98": "developer_guide_reference.html", "py-99": "developer_guide_reference.html", "py-100": "developer_guide_reference.html", "py-101": "developer_guide_reference.html", "py-102": "developer_guide_reference.html", "py-103": "developer_guide_reference.html", "py-104": "developer_guide_reference.html", "py-105": "developer_guide_reference.html", "py-106": "developer_guide_reference.html", "py-107": "developer_guide_reference.html", "py-108": "developer_guide_reference.html", "py-109": "developer_guide_reference.html", "py-110": "developer_guide_reference.html", "py-111": "developer_guide_reference.html", "py-112": "developer_guide_reference.html", "py-113": "developer_guide_reference.html", "py-114": "developer_guide_reference.html", "py-115": "developer_guide_reference.html", "py-116": "developer_guide_reference.html", "py-117": "developer_guide_reference.html", "py-118": "developer_guide_reference.html", "py-119": "developer_guide_reference.html", "py-120": "developer_guide_reference.html", "py-121": "developer_guide_reference.html", "py-122": "developer_guide_reference.html", "py-123": "developer_guide_reference.html", "py-124": "developer_guide_reference.html", "py-125": "developer_guide_reference.html", "py-126": "developer_guide_reference.html", "py-127": "developer_guide_reference.html", "py-128": "developer_guide_reference.html", "py-129": "developer_guide_reference.html", "py-130": "developer_guide_reference.html", "py-131": "developer_guide_reference.html", "py-132": "developer_guide_reference.html", "py-133": "developer_guide_reference.html", "py-134": "developer_guide_reference.html", "py-135": "developer_guide_reference.html", "py-136": "developer_guide_reference.html", "py-137": "developer_guide_reference.html", "py-138": "developer_guide_reference.html", "py-139": "developer_guide_reference.html", "py-140": "developer_guide_reference.html", "py-141": "developer_guide_reference.html", "py-142": "developer_guide_reference.html", "py-143": "developer_guide_reference.html", "py-144": "developer_guide_reference.html", "py-145": "developer_guide_reference.html", "py-146": "developer_guide_reference.html", "py-147": "developer_guide_reference.html", "py-148": "developer_guide_reference.html", "py-149": "developer_guide_reference.html", "py-150": "developer_guide_reference.html", "py-151": "developer_guide_reference.html", "py-152": "developer_guide_reference.html", "py-153": "developer_guide_reference.html", "py-154": "developer_guide_reference.html", "py-155": "developer_guide_reference.html", "py-156": "developer_guide_reference.html", "py-157": "developer_guide_reference.html", "py-158": "developer_guide_reference.html", "py-159": "developer_guide_reference.html", "py-160": "developer_guide_reference.html", "py-161": "developer_guide_reference.html", "py-162": "developer_guide_reference.html", "py-163": "developer_guide_reference.html", "py-164": "developer_guide_reference.html", "py-165": "developer_guide_reference.html", "py-166": "developer_guide_reference.html", "py-167": "developer_guide_reference.html", "py-168": "developer_guide_reference.html", "py-169": "developer_guide_reference.html", "py-170": "developer_guide_reference.html", "py-171": "developer_guide_reference.html", "py-172": "developer_guide_reference.html", "py-173": "developer_guide_reference.html", "py-174": "developer_guide_reference.html", "py-175": "developer_guide_reference.html", "py-176": "developer_guide_reference.html", "py-177": "developer_guide_reference.html", "py-178": "developer_guide_reference.html", "py-179": "developer_guide_reference.html", "py-180": "developer_guide_reference.html", "py-181": "developer_guide_reference.html", "py-182": "developer_guide_reference.html", "py-183": "developer_guide_reference.html", "py-184": "developer_guide_reference.html", "py-185": "developer_guide_reference.html", "py-186": "developer_guide_reference.html", "py-187": "developer_guide_reference.html", "py-188": "developer_guide_reference.html", "py-189": "developer_guide_reference.html", "py-190": "developer_guide_reference.html", "py-191": "developer_guide_reference.html", "py-192": "developer_guide_reference.html", "py-193": "developer_guide_reference.html", "py-194": "developer_guide_reference.html", "py-195": "developer_guide_reference.html", "py-196": "developer_guide_reference.html", "py-197": "developer_guide_reference.html", "py-198": "developer_guide_reference.html", "py-199": "developer_guide_reference.html", "py-200": "developer_guide_reference.html", "py-201": "developer_guide_reference.html", "py-202": "developer_guide_reference.html", "py-203": "developer_guide_reference.html", "py-204": "developer_guide_reference.html", "py-205": "developer_guide_reference.html", "py-206": "developer_guide_reference.html", "py-207": "developer_guide_reference.html", "py-208": "developer_guide_reference.html", "py-209": "developer_guide_reference.html", "py-210": "developer_guide_reference.html", "py-211": "developer_guide_reference.html", "py-212": "developer_guide_reference.html", "py-213": "developer_guide_reference.html", "py-214": "developer_guide_reference.html", "py-215": "developer_guide_reference.html", "py-216": "developer_guide_reference.html", "py-217": "developer_guide_reference.html", "py-218": "developer_guide_reference.html", "py-219": "developer_guide_reference.html", "py-220": "developer_guide_reference.html", "py-221": "developer_guide_reference.html", "py-222": "developer_guide_reference.html", "py-223": "developer_guide_reference.html", "py-224": "developer_guide_reference.html", "py-225": "developer_guide_reference.html", "py-226": "developer_guide_reference.html", "py-227": "developer_guide_reference.html", "py-228": "developer_guide_reference.html", "py-229": "developer_guide_reference.html", "py-230": "developer_guide_reference.html", "py-231": "developer_guide_reference.html", "py-232": "developer_guide_reference.html", "py-233": "developer_guide_reference.html", "py-234": "developer_guide_reference.html", "py-235": "developer_guide_reference.html", "py-236": "developer_guide_reference.html", "py-237": "developer_guide_reference.html", "py-238": "developer_guide_reference.html", "py-239": "developer_guide_reference.html", "py-240": "developer_guide_reference.html", "py-241": "developer_guide_reference.html", "py-242": "developer_guide_reference.html", "py-243": "developer_guide_reference.html", "py-244": "developer_guide_reference.html", "py-245": "developer_guide_reference.html", "py-246": "developer_guide_reference.html", "py-247": "developer_guide_reference.html", "py-248": "developer_guide_reference.html", "py-249": "developer_guide_reference.html", "py-250": "developer_guide_reference.html", "py-251": "developer_guide_reference.html", "py-252": "developer_guide_reference.html", "py-253": "developer_guide_reference.html", "py-254": "developer_guide_reference.html", "py-255": "developer_guide_reference.html", "py-256": "developer_guide_reference.html", "py-257": "developer_guide_reference.html", "py-258": "developer_guide_reference.html", "py-259": "developer_guide_reference.html", "py-260": "developer_guide_reference.html", "py-261": "developer_guide_reference.html", "py-262": "developer_guide_reference.html", "py-263": "developer_guide_reference.html", "py-264": "developer_guide_reference.html", "py-265": "developer_guide_reference.html", "py-266": "developer_guide_reference.html", "py-267": "developer_guide_reference.html", "py-268": "developer_guide_reference.html", "py-269": "developer_guide_reference.html", "py-270": "developer_guide_reference.html", "py-271": "developer_guide_reference.html", "py-272": "developer_guide_reference.html", "py-273": "developer_guide_reference.html", "py-274": "developer_guide_reference.html", "py-275": "developer_guide_reference.html", "py-276": "developer_guide_reference.html", "py-277": "developer_guide_reference.html", "py-278": "developer_guide_reference.html", "py-279": "developer_guide_reference.html", "py-280": "developer_guide_reference.html", "py-281": "developer_guide_reference.html", "py-282": "developer_guide_reference.html", "py-283": "developer_guide_reference.html", "py-284": "developer_guide_reference.html", "py-285": "developer_guide_reference.html", "py-286": "developer_guide_reference.html", "py-287": "developer_guide_reference.html", "py-288": "developer_guide_reference.html", "py-289": "developer_guide_reference.html", "py-290": "developer_guide_reference.html", "py-291": "developer_guide_reference.html", "py-292": "developer_guide_reference.html", "py-293": "developer_guide_reference.html", "py-294": "developer_guide_reference.html", "py-295": "developer_guide_reference.html", "py-296": "developer_guide_reference.html", "py-297": "developer_guide_reference.html", "py-298": "developer_guide_reference.html", "py-299": "developer_guide_reference.html", "py-300": "developer_guide_reference.html", "py-301": "developer_guide_reference.html", "py-302": "developer_guide_reference.html", "py-303": "developer_guide_reference.html", "py-304": "developer_guide_reference.html", "py-305": "developer_guide_reference.html", "py-306": "developer_guide_reference.html", "py-307": "developer_guide_reference.html", "py-308": "developer_guide_reference.html", "py-309": "developer_guide_reference.html", "py-310": "developer_guide_reference.html", "py-311": "developer_guide_reference.html", "py-312": "developer_guide_reference.html", "py-313": "developer_guide_reference.html", "py-314": "developer_guide_reference.html", "py-315": "developer_guide_reference.html", "py-316": "developer_guide_reference.html", "py-317": "developer_guide_reference.html", "py-318": "developer_guide_reference.html", "py-319": "developer_guide_reference.html", "py-320": "developer_guide_reference.html", "py-321": "developer_guide_reference.html", "py-322": "developer_guide_reference.html", "py-323": "developer_guide_reference.html", "py-324": "developer_guide_reference.html", "py-325": "developer_guide_reference.html", "py-326": "developer_guide_reference.html", "py-327": "developer_guide_reference.html", "py-328": "developer_guide_reference.html", "py-329": "developer_guide_reference.html", "py-330": "developer_guide_reference.html", "py-331": "developer_guide_reference.html", "py-332": "developer_guide_reference.html", "py-333": "developer_guide_reference.html", "py-334": "developer_guide_reference.html", "py-335": "developer_guide_reference.html", "py-336": "developer_guide_reference.html", "py-337": "developer_guide_reference.html", "py-338": "developer_guide_reference.html", "py-339": "developer_guide_reference.html", "py-340": "developer_guide_reference.html", "py-341": "developer_guide_reference.html", "py-342": "developer_guide_reference.html", "py-343": "developer_guide_reference.html", "py-344": "developer_guide_reference.html", "py-345": "developer_guide_reference.html", "py-346": "developer_guide_reference.html", "py-347": "developer_guide_reference.html", "py-348": "developer_guide_reference.html", "py-349": "developer_guide_reference.html", "py-350": "developer_guide_reference.html", "py-351": "developer_guide_reference.html", "py-352": "developer_guide_reference.html", "py-353": "developer_guide_reference.html", "py-354": "developer_guide_reference.html", "py-355": "developer_guide_reference.html", "py-356": "developer_guide_reference.html", "py-357": "developer_guide_reference.html", "py-358": "developer_guide_reference.html", "py-359": "developer_guide_reference.html", "py-360": "developer_guide_reference.html", "py-361": "developer_guide_reference.html", "py-362": "developer_guide_reference.html", "py-363": "developer_guide_reference.html", "py-364": "developer_guide_reference.html", "py-365": "developer_guide_reference.html", "py-366": "developer_guide_reference.html", "py-367": "developer_guide_reference.html", "py-368": "developer_guide_reference.html", "py-369": "developer_guide_reference.html", "py-370": "developer_guide_reference.html", "py-371": "developer_guide_reference.html", "py-372": "developer_guide_reference.html", "py-373": "developer_guide_reference.html", "py-374": "developer_guide_reference.html", "py-375": "developer_guide_reference.html", "py-376": "developer_guide_reference.html", "py-377": "developer_guide_reference.html", "py-378": "developer_guide_reference.html", "py-379": "developer_guide_reference.html", "py-380": "developer_guide_reference.html", "py-381": "developer_guide_reference.html", "py-382": "developer_guide_reference.html", "py-383": "developer_guide_reference.html", "py-384": "developer_guide_reference.html", "py-385": "developer_guide_reference.html", "py-386": "developer_guide_reference.html", "py-387": "developer_guide_reference.html", "py-388": "developer_guide_reference.html", "py-389": "developer_guide_reference.html", "py-390": "developer_guide_reference.html", "py-391": "developer_guide_reference.html", "py-392": "developer_guide_reference.html", "py-393": "developer_guide_reference.html", "py-394": "developer_guide_reference.html", "py-395": "developer_guide_reference.html", "py-396": "developer_guide_reference.html", "py-397": "developer_guide_reference.html", "py-398": "developer_guide_reference.html", "py-399": "developer_guide_reference.html", "py-400": "developer_guide_reference.html", "py-401": "developer_guide_reference.html", "py-402": "developer_guide_reference.html", "py-403": "developer_guide_reference.html", "py-404": "developer_guide_reference.html", "py-405": "developer_guide_reference.html", "py-406": "developer_guide_reference.html", "py-407": "developer_guide_reference.html", "py-408": "developer_guide_reference.html", "py-409": "developer_guide_reference.html", "py-410": "developer_guide_reference.html", "py-411": "developer_guide_reference.html", "py-412": "developer_guide_reference.html", "py-413": "developer_guide_reference.html", "py-414": "developer_guide_reference.html", "py-415": "developer_guide_reference.html", "py-416": "developer_guide_reference.html", "py-417": "developer_guide_reference.html", "py-418": "developer_guide_reference.html", "py-419": "developer_guide_reference.html", "py-420": "developer_guide_reference.html", "py-421": "developer_guide_reference.html", "py-422": "developer_guide_reference.html", "py-423": "developer_guide_reference.html", "py-424": "developer_guide_reference.html", "py-425": "developer_guide_reference.html", "py-426": "developer_guide_reference.html", "py-427": "developer_guide_reference.html", "py-428": "developer_guide_reference.html", "py-429": "developer_guide_reference.html", "py-430": "developer_guide_reference.html", "py-431": "developer_guide_reference.html", "py-432": "developer_guide_reference.html", "py-433": "developer_guide_reference.html", "py-434": "developer_guide_reference.html", "py-435": "developer_guide_reference.html", "py-436": "developer_guide_reference.html", "py-437": "developer_guide_reference.html", "py-438": "developer_guide_reference.html", "py-439": "developer_guide_reference.html", "py-440": "developer_guide_reference.html", "py-441": "developer_guide_reference.html", "py-442": "developer_guide_reference.html", "py-443": "developer_guide_reference.html", "py-444": "developer_guide_reference.html", "py-445": "developer_guide_reference.html", "py-446": "developer_guide_reference.html", "py-447": "developer_guide_reference.html", "py-448": "developer_guide_reference.html", "py-449": "developer_guide_reference.html", "py-450": "developer_guide_reference.html", "py-451": "developer_guide_reference.html", "py-452": "developer_guide_reference.html", "py-453": "developer_guide_reference.html", "py-454": "developer_guide_reference.html", "py-455": "developer_guide_reference.html", "py-456": "developer_guide_reference.html", "py-457": "developer_guide_reference.html", "py-458": "developer_guide_reference.html", "py-459": "developer_guide_reference.html", "py-460": "developer_guide_reference.html", "py-461": "developer_guide_reference.html", "py-462": "developer_guide_reference.html", "py-463": "developer_guide_reference.html", "py-464": "developer_guide_reference.html", "py-465": "developer_guide_reference.html", "py-466": "developer_guide_reference.html", "py-467": "developer_guide_reference.html", "py-468": "developer_guide_reference.html", "py-469": "developer_guide_reference.html", "py-470": "developer_guide_reference.html", "py-471": "developer_guide_reference.html", "py-472": "developer_guide_reference.html", "py-473": "developer_guide_reference.html", "py-474": "developer_guide_reference.html", "py-475": "developer_guide_reference.html", "py-476": "developer_guide_reference.html", "py-477": "developer_guide_reference.html", "py-478": "developer_guide_reference.html", "py-479": "developer_guide_reference.html", "py-480": "developer_guide_reference.html", "py-481": "developer_guide_reference.html", "py-482": "developer_guide_reference.html", "py-483": "developer_guide_reference.html", "py-484": "developer_guide_reference.html", "py-485": "developer_guide_reference.html", "py-486": "developer_guide_reference.html", "py-487": "developer_guide_reference.html", "py-488": "developer_guide_reference.html", "py-489": "developer_guide_reference.html", "py-490": "developer_guide_reference.html", "py-491": "developer_guide_reference.html", "py-492": "developer_guide_reference.html", "py-493": "developer_guide_reference.html", "py-494": "developer_guide_reference.html", "py-495": "developer_guide_reference.html", "py-496": "developer_guide_reference.html", "py-497": "developer_guide_reference.html", "py-498": "developer_guide_reference.html", "py-499": "developer_guide_reference.html", "py-500": "developer_guide_reference.html", "py-501": "developer_guide_reference.html", "py-502": "developer_guide_reference.html", "py-503": "developer_guide_reference.html", "py-504": "developer_guide_reference.html", "py-505": "developer_guide_reference.html", "py-506": "developer_guide_reference.html", "py-507": "developer_guide_reference.html", "py-508": "developer_guide_reference.html", "py-509": "developer_guide_reference.html", "py-510": "developer_guide_reference.html", "py-511": "developer_guide_reference.html", "py-512": "developer_guide_reference.html", "py-513": "developer_guide_reference.html", "py-514": "developer_guide_reference.html", "py-515": "developer_guide_reference.html", "py-516": "developer_guide_reference.html", "py-517": "developer_guide_reference.html", "py-518": "developer_guide_reference.html", "py-519": "developer_guide_reference.html", "py-520": "developer_guide_reference.html", "py-521": "developer_guide_reference.html", "py-522": "developer_guide_reference.html", "py-523": "developer_guide_reference.html", "py-524": "developer_guide_reference.html", "py-525": "developer_guide_reference.html", "py-526": "developer_guide_reference.html", "py-527": "developer_guide_reference.html", "py-528": "developer_guide_reference.html", "py-529": "developer_guide_reference.html", "py-530": "developer_guide_reference.html", "py-531": "developer_guide_reference.html", "py-532": "developer_guide_reference.html", "py-533": "developer_guide_reference.html", "py-534": "developer_guide_reference.html", "py-535": "developer_guide_reference.html", "py-536": "developer_guide_reference.html", "py-537": "developer_guide_reference.html", "py-538": "developer_guide_reference.html", "py-539": "developer_guide_reference.html", "py-540": "developer_guide_reference.html", "py-541": "developer_guide_reference.html", "py-542": "developer_guide_reference.html", "py-543": "developer_guide_reference.html", "py-544": "developer_guide_reference.html", "py-545": "developer_guide_reference.html", "py-546": "developer_guide_reference.html", "py-547": "developer_guide_reference.html", "py-548": "developer_guide_reference.html", "py-549": "developer_guide_reference.html", "py-550": "developer_guide_reference.html", "py-551": "developer_guide_reference.html", "py-552": "developer_guide_reference.html", "py-553": "developer_guide_reference.html", "py-554": "developer_guide_reference.html", "py-555": "developer_guide_reference.html", "py-556": "developer_guide_reference.html", "py-557": "developer_guide_reference.html", "py-558": "developer_guide_reference.html", "py-559": "developer_guide_reference.html", "py-560": "developer_guide_reference.html", "py-561": "developer_guide_reference.html", "py-562": "developer_guide_reference.html", "py-563": "developer_guide_reference.html", "py-564": "developer_guide_reference.html", "py-565": "developer_guide_reference.html", "py-566": "developer_guide_reference.html", "py-567": "developer_guide_reference.html", "py-568": "developer_guide_reference.html", "py-569": "developer_guide_reference.html", "py-570": "developer_guide_reference.html", "py-571": "developer_guide_reference.html", "py-572": "developer_guide_reference.html", "py-573": "developer_guide_reference.html", "py-574": "developer_guide_reference.html", "py-575": "developer_guide_reference.html", "py-576": "developer_guide_reference.html", "py-577": "developer_guide_reference.html", "py-578": "developer_guide_reference.html", "py-579": "developer_guide_reference.html", "py-580": "developer_guide_reference.html", "py-581": "developer_guide_reference.html", "py-582": "developer_guide_reference.html", "py-583": "developer_guide_reference.html", "py-584": "developer_guide_reference.html", "py-585": "developer_guide_reference.html", "py-586": "developer_guide_reference.html", "py-587": "developer_guide_reference.html", "py-588": "developer_guide_reference.html", "py-589": "developer_guide_reference.html", "py-590": "developer_guide_reference.html", "py-591": "developer_guide_reference.html", "py-592": "developer_guide_reference.html", "py-593": "developer_guide_reference.html", "py-594": "developer_guide_reference.html", "py-595": "developer_guide_reference.html", "py-596": "developer_guide_reference.html", "py-597": "developer_guide_reference.html", "py-598": "developer_guide_reference.html", "py-599": "developer_guide_reference.html", "py-600": "developer_guide_reference.html", "py-601": "developer_guide_reference.html", "py-602": "developer_guide_reference.html", "py-603": "developer_guide_reference.html", "py-604": "developer_guide_reference.html", "py-605": "developer_guide_reference.html", "py-606": "developer_guide_reference.html", "py-607": "developer_guide_reference.html", "py-608": "developer_guide_reference.html", "py-609": "developer_guide_reference.html", "py-610": "developer_guide_reference.html", "py-611": "developer_guide_reference.html", "py-612": "developer_guide_reference.html", "py-613": "developer_guide_reference.html", "py-614": "developer_guide_reference.html", "py-615": "developer_guide_reference.html", "py-616": "developer_guide_reference.html", "py-617": "developer_guide_reference.html", "py-618": "developer_guide_reference.html", "py-619": "developer_guide_reference.html", "py-620": "developer_guide_reference.html", "py-621": "developer_guide_reference.html", "py-622": "developer_guide_reference.html", "py-623": "developer_guide_reference.html", "py-624": "developer_guide_reference.html", "py-625": "developer_guide_reference.html", "py-626": "developer_guide_reference.html", "py-627": "developer_guide_reference.html", "py-628": "developer_guide_reference.html", "py-629": "developer_guide_reference.html", "py-630": "developer_guide_reference.html", "py-631": "developer_guide_reference.html", "py-632": "developer_guide_reference.html", "py-633": "developer_guide_reference.html", "py-634": "developer_guide_reference.html", "py-635": "developer_guide_reference.html", "py-636": "developer_guide_reference.html", "py-637": "developer_guide_reference.html", "py-638": "developer_guide_reference.html", "py-639": "developer_guide_reference.html", "py-640": "developer_guide_reference.html", "py-641": "developer_guide_reference.html", "py-642": "developer_guide_reference.html", "py-643": "developer_guide_reference.html", "py-644": "developer_guide_reference.html", "py-645": "developer_guide_reference.html", "py-646": "developer_guide_reference.html", "py-647": "developer_guide_reference.html", "py-648": "developer_guide_reference.html", "py-649": "developer_guide_reference.html", "py-650": "developer_guide_reference.html", "py-651": "developer_guide_reference.html", "py-652": "developer_guide_reference.html", "py-653": "developer_guide_reference.html", "py-654": "developer_guide_reference.html", "py-655": "developer_guide_reference.html", "py-656": "developer_guide_reference.html", "py-657": "developer_guide_reference.html", "py-658": "developer_guide_reference.html", "py-659": "developer_guide_reference.html", "py-660": "developer_guide_reference.html", "py-661": "developer_guide_reference.html", "py-662": "developer_guide_reference.html", "py-663": "developer_guide_reference.html", "py-664": "developer_guide_reference.html", "py-665": "developer_guide_reference.html", "py-666": "developer_guide_reference.html", "py-667": "developer_guide_reference.html", "py-668": "developer_guide_reference.html", "py-669": "developer_guide_reference.html", "py-670": "developer_guide_reference.html", "py-671": "developer_guide_reference.html", "py-672": "developer_guide_reference.html", "py-673": "developer_guide_reference.html", "py-674": "developer_guide_reference.html", "py-675": "developer_guide_reference.html", "py-676": "developer_guide_reference.html", "py-677": "developer_guide_reference.html", "py-678": "developer_guide_reference.html", "py-679": "developer_guide_reference.html", "py-680": "developer_guide_reference.html", "py-681": "developer_guide_reference.html", "py-682": "developer_guide_reference.html", "py-683": "developer_guide_reference.html", "py-684": "developer_guide_reference.html", "py-685": "developer_guide_reference.html", "py-686": "developer_guide_reference.html", "py-687": "developer_guide_reference.html", "py-688": "developer_guide_reference.html", "py-689": "developer_guide_reference.html", "py-690": "developer_guide_reference.html", "py-691": "developer_guide_reference.html", "py-692": "developer_guide_reference.html", "py-693": "developer_guide_reference.html", "py-694": "developer_guide_reference.html", "py-695": "developer_guide_reference.html", "py-696": "developer_guide_reference.html", "py-697": "developer_guide_reference.html", "py-698": "developer_guide_reference.html", "py-699": "developer_guide_reference.html", "py-700": "developer_guide_reference.html", "py-701": "developer_guide_reference.html", "py-702": "developer_guide_reference.html", "py-703": "developer_guide_reference.html", "py-704": "developer_guide_reference.html", "py-705": "developer_guide_reference.html", "py-706": "developer_guide_reference.html", "py-707": "developer_guide_reference.html", "py-708": "developer_guide_reference.html", "py-709": "developer_guide_reference.html", "py-710": "developer_guide_reference.html", "py-711": "developer_guide_reference.html", "py-712": "developer_guide_reference.html", "py-713": "developer_guide_reference.html", "py-714": "developer_guide_reference.html", "py-715": "developer_guide_reference.html", "py-716": "developer_guide_reference.html", "javascript-index": "developer_guide_reference.html", "snapshot": "developer_guide_reference.html"}</script><div class="admonition note">
+<p class="admonition-title">备注</p>
+<p><strong>先能复现 → 找对扩展点 → 做最小改动 → 给出验证证据 → 提交并响应审阅。</strong>
+第一次贡献从 <a class="reference internal" href="developer_guide_start.html"><span class="doc">开始贡献：从反馈到开发计划</span></a> 开始；算法开发看 <a class="reference internal" href="developer_guide_runtime.html"><span class="doc">新增算法与改进方法</span></a>；
+小修复也可直接从 <a class="reference internal" href="developer_guide_configurator.html"><span class="doc">修复功能与改进网页</span></a> 起步。
+程序怎样运行、各函数在哪里，放在 <a class="reference internal" href="developer_guide_reference.html"><span class="doc">架构与源码参考</span></a> 按需查询。</p>
+<p>GitHub 的 Issue / 分支 / PR 流程是发布后的协作建议，不代表当前本地已配置远程仓库、CI 或自动合并。
+发布前由项目负责人确认许可证、仓库地址和维护规则，详见 <a class="reference internal" href="developer_guide_delivery.html"><span class="doc">验证、提交 PR 与版本维护</span></a>。</p>
+</div>
+<div class="toctree-wrapper compound">
+</div>
+<p>离线保存或打印时可使用 <a class="reference external" href="developer_manual.html">完整单文件版</a>。
+软件操作说明见 <a class="reference internal" href="user_guide.html"><span class="doc">使用者说明书</span></a>。</p>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="页脚">
+        <a href="user_guide_help.html" class="btn btn-neutral float-left" title="问题排查与运行核对" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="developer_guide_start.html" class="btn btn-neutral float-right" title="开始贡献：从反馈到开发计划" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 。</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用的 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

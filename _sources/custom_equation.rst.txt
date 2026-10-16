@@ -1,0 +1,151 @@
+加入自己的控制方程
+==================
+
+如果你当前只想写方程并查看哪些方法结构上可用，先打开
+:doc:`problem_designer`。该页不会把临时方程加入配置器，也不会直接训练。
+
+从配置生成器取得完整模板
+------------------------
+
+初学者可以先打开 :doc:`method_configurator`，在“控制方程”中选择“新控制方程
+（可视化一维/二维）”。同页配套窗口可选静态或含时间问题，并实时显示
+控制方程公式、区域边界和示例场图例。图例只是建模预览，不是训练结果。页面会同时生成：
+
+* ``DOMAIN``：计算区域；
+* ``equation(x, u)``：控制方程残差；
+* ``DirichletBC``、``NeumannBC`` 或 ``RobinBC``：逐侧边界条件；
+* 可选 ``exact_solution``：只用于训练后计算误差；
+* ``PROBLEM = op.PDEProblem(...)``：把以上内容组装成 OpenPINN 问题；
+* 所选方法、方法超参数、训练步数、输出间隔和结果目录。
+
+点击“复制代码”，粘贴为 ``examples/my_new_equation.py``，再修改代码中标有
+①②③④的区域。默认提供可运行的 Poisson、Helmholtz、非线性 Poisson、
+热方程、三次反应--扩散、Allen--Cahn、对流--扩散和一维 Burgers 模板，
+因此可以先短跑，再逐项替换成自己的方程。
+
+二维区域可以使用矩形，也可以在同一页面导入 CSV、JSON、GeoJSON Polygon，
+或从 PNG/JPG 高对比填充色块自动提取轮廓。
+外轮廓允许凹多边形，文件也可以包含多个互不接触的孔洞。生成器会把识别后的
+``POLYGON_VERTICES`` 和 ``POLYGON_HOLES`` 写进代码，并用 ``op.Polygon`` 完成
+内部点、边界点和外法线计算；复制代码后无需继续携带原始几何文件。
+纯圆、椭圆和圆角矩形可分别选择 ``op.Disk``、``op.Ellipse`` 和
+``op.RoundedRectangle``；配置器会实时显示圆心、半轴 ``a/b``、旋转角、半径或
+圆角半径对轮廓的影响，并生成解析几何代码。
+二维 ASCII DXF 还可导入闭合多段线、圆、椭圆，以及可无分叉闭合的 LINE、ARC、
+椭圆弧、带完整控制数据的 SPLINE 和开放多段线；拼合后仍须核对单位、孔洞、
+边界和实际尺寸。
+从 PNG/JPG 导入时，配置器会检查简化轮廓上的连续曲率。检测到平滑段后使用
+``op.ClosedSpline``：每两个控制点之间是三次曲线，用户可拖动控制点并用 ``tension``
+调整弯曲程度；边界采样和外法线来自曲线及其导数。只有直线和明显尖角时才使用
+``op.Polygon``。也可手动强制纯圆、圆角矩形、样条或多边形；带孔图形仍使用多边形。
+
+方程不在模板列表时，优先切换到“公式与物理参数（推荐）”：定义未知量、
+命名参数、数值与单位后，用 ``dx(p)``、``dx(dx(p))``、``dt(p)`` 等安全语法
+写残差公式。参数库可本地扩展与导入导出，详见 :doc:`physics_library`。
+网页仍限于单场；完整位移—孔压耦合需走 Python 扩展。
+
+原“自由组合”保留为“按项组合（兼容旧版）”。每行设置一个带符号系数和一个
+方程项，例如 ``1 × u_t``、``-0.1 × u_xx``、``1 × u³``，网页会组装为
+``u_t - 0.1u_xx + u³ = 0`` 并产生完整的 ``equation(x, u)``。一维不允许
+``u_y/u_yy``，静态问题不允许 ``u_t/u_tt``，可以在生成代码前发现维度错误。
+
+边界与初值的实现边界
+------------------------
+
+配置器可以为一维左右端点或二维矩形的左、右、下、上四条外边界分别选择
+``DirichletBC``、``NeumannBC`` 或 ``RobinBC``。Neumann/Robin 使用外法向导数；
+Robin 的形式为 ``alpha*u + beta*du/dn = c``。动态问题可选正弦、带正弦包络的
+高斯场、零初值或自定常数初值。常数初值按未知量的所选单位填写，并应核对初始时刻的边界相容性。任意多边形的外轮廓与孔洞均按顶点顺序生成逐边边界条件，法向量会
+按每条边自动计算。周期边界需要成对约束，波方程初始速度、多区域材料和多变量
+耦合也需要额外核心结构，因此尚未放入“可直接运行”列表。
+圆形、椭圆、圆角矩形与闭合样条对整条连续曲线设置一组边界条件，Neumann/Robin 使用实时计算的外法线。
+
+为什么不能只在 YAML 写一行公式
+------------------------------
+
+YAML 中的 ``equation`` 文字只能作为实验记录。真正用于训练的控制方程需要调用
+PyTorch 自动微分。新的公式编辑器会生成经过校验的结构化 ``PHYSICS_SPEC``，
+用 ``op.make_physics_residual(PHYSICS_SPEC)`` 创建可微残差；它不是任意 YAML
+字符串执行器。超出该语法/单场范围时，应在短 Python 文件中写残差函数。写好一次后，用户仍然
+只用方法简称切换十种改进组件。
+
+一个完整但很短的例子
+--------------------
+
+.. code-block:: python
+
+   import math
+   import openpinn as op
+   import torch
+
+   domain = op.Interval(-1.0, 1.0)
+
+   def equation(x, u):
+       # -u_xx = pi^2 sin(pi*x)
+       return -op.hessian(u, x, i=0, j=0) - math.pi**2 * torch.sin(math.pi*x[:, :1])
+
+   problem = op.PDEProblem(
+       domain,
+       equation,
+       [op.DirichletBC(0.0, name="boundary")],
+       name="my_equation",
+       metadata={"residual_names": ("pde",)},
+   )
+
+   result = op.solve(
+       problem,
+       method="adaptive_sampling",
+       variant="residual_adaptive",
+       steps=5000,
+   )
+
+此时把最后一行的 ``adaptive_sampling`` 改成 ``fourier``、``modified_mlp`` 或
+其他兼容简称即可。可复用模板位于 ``user_projects/custom_equation/problem.py``；
+网页配置生成器提供的是相同思路的一文件版本。
+
+``residual_names`` 是方程残差各项的名字。上面的方程只返回一个张量，所以写
+``("pde",)``；若方程返回 ``{"momentum": ..., "continuity": ...}`` 这样的字典，
+这里就应写 ``("momentum", "continuity")``。普通 PINN 不依赖这个字段，但
+ReLoBRaLo、SA-PINN 等自适应权重方法需要靠这些名字建立一一对应的初始权重。
+未填写时，单残差用户方程会自动采用 ``("pde",)``。
+
+若有独立仿真或测量结果，可在配置器顶部启用“训练后对比独立参考场”。
+参考表每行提供按模型输入顺序排列的坐标及一个场值；带列名 CSV 或 COMSOL
+风格的无列名空格表都可以。若只有一个时间切片，填写固定时间即可，不必手工增加
+时间列。分别设置坐标、参考值和
+模型预测值的单位换算后，
+生成代码会在训练结束后调用 ``op.evaluate_reference_csv``，在这些独立坐标点
+计算 L2、RMSE、MAE、R² 并保存对比图。参考数据不进入训练。
+
+用 YAML 选择用户方程
+----------------------
+
+.. code-block:: yaml
+
+   problem:
+     factory: ../../user_projects/custom_equation/problem.py:build_problem
+
+   method:
+     name: adaptive_sampling
+     variant: residual_adaptive
+
+   training:
+     steps: 5000
+
+运行 ``python -m openpinn run --config configs/experiments/custom_equation.yaml``。
+
+用户方程文件至少负责
+--------------------
+
+* 区域 ``domain``；
+* 控制方程残差 ``equation(x, u)``；
+* 边界条件，以及动态问题需要的初值；
+* 可选的解析解或参考解，只用于训练后评价；
+* 清楚的名称，以及多残差方程对应的 ``metadata["residual_names"]``。
+
+兼容性不是强行保证
+------------------
+
+时间窗只适合含时间维度的问题；区域分解当前只支持一维两材料 Poisson；迁移需要
+结构兼容的 checkpoint；当前自动硬边界只覆盖已验证的 Poisson/Burgers 构造。
+不兼容组合会在训练前给出明确错误，并保存失败说明，而不会悄悄退回普通 PINN。

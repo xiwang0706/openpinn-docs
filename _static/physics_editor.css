@@ -1,0 +1,49 @@
+.physics-editor {
+  border: 1px solid #cbdce6;
+  border-radius: 10px;
+  background: #f7fafc;
+  padding: 1rem;
+  margin: 1rem 0;
+  min-width: 0;
+}
+.physics-editor h3 { margin: 0 0 .65rem; font-size: 1.15rem; }
+.physics-editor h4 { margin: 1.1rem 0 .4rem; font-size: 1rem; }
+.physics-editor-note { font-size: .88rem; color: #526477; line-height: 1.65; margin: .55rem 0 .85rem; }
+.physics-editor-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: .7rem; align-items: end; margin: .8rem 0; }
+.physics-editor-toolbar { display: flex; flex-wrap: wrap; align-items: end; gap: .65rem; margin: .8rem 0; }
+.physics-editor-field { display: flex; flex-direction: column; gap: .3rem; min-width: 0; font-size: .85rem; }
+.physics-editor-field > span { color: #334e63; }
+.physics-editor input, .physics-editor select, .physics-editor textarea { box-sizing: border-box; border: 1px solid #b4c8d6; border-radius: 5px; background: white; color: #1a3347; padding: .45rem .55rem; width: 100%; min-width: 0; font: inherit; }
+.physics-editor textarea { resize: vertical; font-family: ui-monospace, SFMono-Regular, Consolas, monospace; line-height: 1.6; white-space: pre; }
+.physics-editor button { border: 1px solid #7ea5bd; border-radius: 5px; background: #eaf3f8; color: #164f73; padding: .45rem .65rem; cursor: pointer; font: inherit; font-size: .85rem; }
+.physics-editor button:hover { background: #dcecf6; }
+.physics-editor button:disabled { opacity: .5; cursor: not-allowed; }
+.physics-editor :focus-visible { outline: 2px solid #297fab; outline-offset: 2px; }
+.physics-editor-custom { margin: .8rem 0; }
+.physics-editor-custom > summary { cursor: pointer; color: #1f648e; padding: .6rem 0; font-weight: 600; }
+.physics-editor-formula-section { padding: .8rem; border: 1px solid #cbdce6; border-radius: 8px; background: #fff; }
+.physics-editor-formula-section > .physics-editor-field > span { font-weight: 600; }
+.physics-editor-derivatives { align-items: center; margin-top: 0; }
+.physics-editor-derivatives button { font-size: 1rem; padding: .6rem .8rem; }
+.physics-editor-parameter { padding: .7rem 0; border-bottom: 1px solid #dce6ec; }
+.physics-editor-parameter-main { display: grid; grid-template-columns: minmax(140px, 1.5fr) repeat(3, minmax(80px, 1fr)) auto; align-items: end; gap: .6rem; }
+.physics-editor-advanced { margin-top: .5rem; font-size: .85rem; }
+.physics-editor-advanced > summary { cursor: pointer; color: #526477; padding: .3rem 0; }
+.physics-editor-advanced > .physics-editor-field { margin: .55rem 0; }
+.physics-editor-demo { color: #8b5e13; font-size: .8rem; grid-column: 1 / -1; }
+.physics-editor-preview { overflow-x: auto; padding: .8rem; margin: .7rem 0; min-height: 2rem; background: white; border: 1px solid #dbe5ec; border-radius: 5px; font-family: ui-monospace, monospace; font-size: .9rem; }
+.physics-editor-status { color: #236145; font-size: .88rem; overflow-wrap: anywhere; }
+.physics-editor-status.physics-editor-error { color: #a52d28; }
+@media (max-width: 760px) {
+  .physics-editor { padding: .75rem; }
+  .physics-editor-parameter-main { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .physics-editor-toolbar > .physics-editor-field { flex: 1 1 180px; }
+}
+@media (max-width: 400px) {
+  .physics-editor-parameter-main { grid-template-columns: minmax(0, 1fr); }
+  .physics-editor-formula-section { padding: .55rem; }
+}
+@media print {
+  .physics-editor { break-inside: avoid; background: white; }
+  .physics-editor-toolbar, .physics-editor-custom { display: none; }
+}

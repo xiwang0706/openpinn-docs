@@ -1,0 +1,56 @@
+Poisson：静态与非均质案例
+========================================
+
+普通 Poisson
+------------
+
+Poisson 案例是最简单的静态方程入口，适合检查网络、自动微分、边界条件、优化器和结果保存。
+
+快速检查：
+
+.. code-block:: powershell
+
+   $run = Get-Date -Format "yyyyMMdd_HHmmss"
+   .\.venv\Scripts\python -m examples.poisson --smoke --output-dir "runs/poisson_smoke_$run"
+
+较长的默认训练：
+
+.. code-block:: powershell
+
+   $run = Get-Date -Format "yyyyMMdd_HHmmss"
+   .\.venv\Scripts\python -m examples.poisson --output-dir "runs/poisson_baseline_$run"
+
+相应设置位于 ``configs/reference_runs/poisson_smoke.yaml`` 和 ``configs/reference_runs/poisson_baseline.yaml``。
+短案例训练 3 步，只验证全流程；默认基线训练 5,000 步。
+
+正式基线结果
+----------------
+
+2026-08-26 在 CPU 上使用默认基线配置完成 5,000 步固定种子运行。相对 L2 为 ``0.019488``，
+最大绝对误差为 ``0.020900``，PDE 残差 RMSE 为 ``0.034064``，边界 RMSE 为 ``0.015870``，
+训练用时 ``10.001 s``。完整产物位于 ``results/baselines/poisson_baseline_reference_20260826/``，包含配置、
+误差、时间、历史、预测、checkpoint、解析解对照图和失败/限制说明。
+
+.. image:: /_static/methods/poisson_baseline.svg
+   :alt: Poisson 5,000 步普通 PINN 基线与解析解对照
+   :width: 100%
+
+分段系数 Poisson
+----------------
+
+这个案例用两个区域中的不同材料系数表示简单非均质问题，并检查交界面附近的解和通量。
+
+.. code-block:: powershell
+
+   $run = Get-Date -Format "yyyyMMdd_HHmmss"
+   .\.venv\Scripts\python -m examples.heterogeneous_poisson --smoke --output-dir "runs/heterogeneous_poisson_smoke_$run"
+
+相应设置位于 ``configs/reference_runs/heterogeneous_poisson_smoke.yaml`` 和 ``configs/reference_runs/heterogeneous_poisson_baseline.yaml``。
+
+比较改进方法时
+--------------
+
+* 普通方法和改进方法使用相同的训练步数、采样点数量和随机种子；
+* 至少比较解误差、方程残差、运行时间和显存/内存情况；
+* 非均质案例还要单独查看界面误差；
+* 短案例只检查能否运行，正式结论需要更长训练和重复实验。

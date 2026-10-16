@@ -1,0 +1,73 @@
+{
+  "basis_date": "2026-10-12",
+  "status": "passed",
+  "workspace": "/var/folders/_n/sydwv_113sv62k3j45d_xdmr0000gn/T/openpinn-manual-validation-dyv802a0",
+  "html": [
+    {
+      "file": "user_manual.html",
+      "bytes": 113351,
+      "sections": 21,
+      "ids": 36,
+      "python_examples_syntax_checked": 5,
+      "no_remote_runtime_assets": true
+    },
+    {
+      "file": "developer_manual.html",
+      "bytes": 637608,
+      "sections": 31,
+      "ids": 775,
+      "python_examples_syntax_checked": 3,
+      "no_remote_runtime_assets": true
+    }
+  ],
+  "smoke_examples": [
+    {
+      "name": "first-run",
+      "returncode": 0,
+      "seconds": 2.615,
+      "stdout_tail": "step=1 total=4.923182e+01\nstep=2 total=5.871391e+01\nstep=3 total=7.163551e+01\nstep=4 total=7.227178e+01\nstep=5 total=4.641038e+01\n结果目录： /private/var/folders/_n/sydwv_113sv62k3j45d_xdmr0000gn/T/openpinn-manual-validation-dyv802a0/runs/manual_first_run/poisson_baseline-plain_pinn_20261016_104147_641771\n指标： {'problem': 'poisson_1d', 'method': 'baseline', 'variant': 'plain_pinn', 'steps': 5, 'final_total_loss': 46.41038131713867, 'pde_residual_rmse': 7.420353412628174, 'reference_solution_available': True, 'residual_pde_rmse': 7.420353412628174, 'residual_rmse': 7.420353412628174, 'train_final_pde_loss': 46.1159782409668, 'train_final_boundary_loss': 0.2944020628929138, 'train_final_boundary_rmse': 0.5425882996277324, 'relative_l2_error': 1.4279168844223022, 'max_absolute_error': 1.35336172580719, 'rmse': 1.0077234506607056, 'mae': 0.9405244588851929, 'r2_score': -1.0389466285705566, 'relative_l2': 1.4279168844223022, 'max_abs_error': 1.35336172580719, 'relative_l2_u': 1.4279168844223022, 'max_absolute_error_u': 1.35336172580719, 'rmse_u': 1.0077234506607056, 'mae_u': 0.9405244588851929, 'r2_score_u': -1.0389466285705566, 'boundary_rmse': 0.5276013612747192, 'boundary_u_rmse': 0.5276013612747192}\n",
+      "stderr": ""
+    },
+    {
+      "name": "composition",
+      "returncode": 0,
+      "seconds": 1.126,
+      "stdout_tail": "step=1 total=4.437294e+02\nstep=2 total=6.399561e+02\nstep=3 total=4.797268e+02\nstep=4 total=8.879022e+02\nstep=5 total=5.969924e+02\n/private/var/folders/_n/sydwv_113sv62k3j45d_xdmr0000gn/T/openpinn-manual-validation-dyv802a0/runs/manual_composition/poisson_fourier-random_fourier__adaptive_weights-relobralo_20261016_104150_248895\n",
+      "stderr": ""
+    },
+    {
+      "name": "tunnel",
+      "returncode": 0,
+      "seconds": 1.259,
+      "stdout_tail": "step=1 total=7.903181e-01\nstep=2 total=7.601426e-01\nstep=3 total=6.997785e-01\nstep=4 total=7.226386e-01\nstep=5 total=7.028481e-01\n/private/var/folders/_n/sydwv_113sv62k3j45d_xdmr0000gn/T/openpinn-manual-validation-dyv802a0/runs/manual_tunnel/tunnel_model1_baseline-plain_pinn_20261016_104151_381885\n",
+      "stderr": ""
+    },
+    {
+      "name": "resume",
+      "returncode": 0,
+      "seconds": 1.127,
+      "stdout_tail": "完整训练状态已恢复并继续\n",
+      "stderr": ""
+    },
+    {
+      "name": "new-problem",
+      "returncode": 0,
+      "seconds": 1.116,
+      "stdout_tail": "e/plain_pinn（普通 PINN）：问题结构与该实现的注册条件相符\n  - fourier/random_fourier（固定随机 Fourier 特征）：问题结构与该实现的注册条件相符\n  - modified_mlp/gated_mlp（门控 Modified MLP）：问题结构与该实现的注册条件相符\n\n满足附加条件后可尝试：\n  - transfer/checkpoint_transfer（兼容检查点迁移）：需要与当前网络输入、输出及结构匹配的 checkpoint.pt\n\n当前不适用：\n  - domain_decomposition/two_subdomain（两子域多网络分解）：实现仅声明支持：heterogeneous_poisson\n  - hard_boundary/exact_output_transform（解析输出变换）：实现仅声明支持：poisson、burgers\n  - time_window/causal_window（顺序因果时间窗）：实现仅声明支持：dynamic\nstep=1 total=6.796290e+01\nstep=2 total=5.268014e+01\nstep=3 total=4.432783e+01\nstep=4 total=5.708115e+01\nstep=5 total=5.181814e+01\n{'problem': 'manual_poisson', 'method': 'baseline', 'variant': 'plain_pinn', 'steps': 5, 'final_total_loss': 51.818138122558594, 'pde_residual_rmse': 7.410303115844727, 'reference_solution_available': True, 'residual_pde_rmse': 7.410303115844727, 'residual_rmse': 7.410303115844727, 'train_final_pde_loss': 51.68431854248047, 'train_final_boundary_loss': 0.13381849229335785, 'train_final_boundary_rmse': 0.36581209970879563, 'relative_l2_error': 1.375614881515503, 'max_absolute_error': 1.30238938331604, 'rmse': 0.9708049893379211, 'mae': 0.9003187417984009, 'r2_score': -8.824230194091797, 'relative_l2': 1.375614881515503, 'max_abs_error': 1.30238938331604, 'relative_l2_u': 1.375614881515503, 'max_absolute_error_u': 1.30238938331604, 'rmse_u': 0.9708049893379211, 'mae_u': 0.9003187417984009, 'r2_score_u': -8.824230194091797, 'boundary_rmse': 0.3511575162410736, 'boundary_u_rmse': 0.3511575162410736}\n",
+      "stderr": ""
+    },
+    {
+      "name": "analytic-hole-contract",
+      "returncode": 0,
+      "seconds": 0.885,
+      "stdout_tail": "解析圆孔法向与 Robin 符号核对通过\n",
+      "stderr": ""
+    }
+  ],
+  "not_checked": [
+    "真实浏览器视觉排版与缩放/拖拽",
+    "正式收敛精度或多种子优越性",
+    "手册中所有长预算命令"
+  ],
+  "elapsed_seconds": 8.315
+}

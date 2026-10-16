@@ -1,0 +1,47 @@
+.method-summary-card {
+  margin: 1rem 0 1.5rem;
+  padding: 0.9rem 1.1rem;
+  border-left: 4px solid #2980b9;
+  border-radius: 4px;
+  background: #f4f8fb;
+}
+
+.method-summary-card .rubric {
+  margin-top: 0;
+  color: #1f4e73;
+}
+
+.method-summary-card .field-list {
+  margin-bottom: 0;
+}
+
+.method-summary-card .method-parameter-table {
+  margin: 0.75rem 0 1rem;
+  background: #fff;
+}
+
+.method-summary-card .method-parameter-table td,
+.method-summary-card .method-parameter-table th {
+  vertical-align: top;
+}
+
+.method-summary-card .method-parameter-table code {
+  overflow-wrap: anywhere;
+}
+
+.method-catalog-table td[rowspan] {
+  vertical-align: middle;
+  background: #f7f9fb;
+}
+
+.method-catalog-table td,
+.method-catalog-table th {
+  vertical-align: top;
+}
+
+.method-catalog-table .method-family-cell a,
+.method-catalog-table .method-variant-cell a {
+  font-family: SFMono-Regular, Consolas, "Liberation Mono", monospace;
+  color: #d64535;
+  overflow-wrap: anywhere;
+}

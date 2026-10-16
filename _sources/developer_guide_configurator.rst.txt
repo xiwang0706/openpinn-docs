@@ -1,0 +1,15 @@
+修复功能与改进网页
+================================================================
+
+从一个可复现的小问题开始，定位源文件，写回归，再修复并验证。
+纯文案与布局调整无需牵动数值算法；改变参数含义时必须验证生成代码和后端行为。
+
+先按 :doc:`developer_guide_start` 准备环境；数学接口见 :doc:`developer_guide_modeling`，
+方法组装见 :doc:`developer_guide_runtime`。完成改动后按 :doc:`developer_guide_delivery` 验收，
+函数位置可在 :doc:`developer_guide_reference` 查询。
+
+物理参数库的数据契约与维护入口见 :doc:`physics_library` 及仓库
+``catalog/README.md``。它独立于训练方法参数注册，不要混用两个配置层。
+
+.. openpinn-manual:: developer configurator
+
